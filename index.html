@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Browse European Legal Gateway Office website mockups by section.">
+    <title>Website mockups · EULGO</title>
+    <link rel="stylesheet" href="assets/index.css">
+    <script src="assets/pages.js" defer></script>
+    <script src="assets/index.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header"><div class="container"><span class="brand">EULGO</span><span class="header-label">Website mockups</span></div></header>
+    <main class="container">
+      <p class="eyebrow">Page directory</p>
+      <h1>Explore the website</h1>
+      <p class="intro">Browse the mockups by section. Select a page to open its preview.</p>
+      <div class="toolbar" id="search-tools" hidden>
+        <label for="search">Find a page</label>
+        <input id="search" type="search" placeholder="Search by page or section…" autocomplete="off" aria-controls="directory">
+      </div>
+      <p id="page-count" class="page-count" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="directory"></div>
+      <p id="empty-message" class="empty-message" hidden>No pages match your search. Try another page or section name.</p>
+      <noscript>
+        <section class="section" aria-labelledby="about-heading">
+          <h2 id="about-heading">About</h2>
+          <ul class="pages">
+            <li><a class="page-link" href="about/about.html">About the European Legal Gateway Office in India</a></li>
+            <li><a class="page-link" href="about/faq.html">Frequently asked questions</a></li>
+          </ul>
+        </section>
+      </noscript>
+    </main>
+    <footer class="container">EULGO · HTML mockup directory</footer>
+  </body>
+</html>
