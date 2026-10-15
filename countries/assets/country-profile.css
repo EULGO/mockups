@@ -1,0 +1,241 @@
+/* Country profile pages (static design review): the 2026-09-29 mockups'
+   design primitives — display headings with a yellow marker, numbered step
+   chips, a white key-figure strip, pastel cards, gold step numbers, "Next"
+   pills, the EU–India route map — over ECL components (soft-eu theme).
+   Mobile first: one column, then wider grids from 768px and 1100px. */
+
+:root {
+  --cp-s1: .25rem; --cp-s2: .5rem; --cp-s3: .75rem; --cp-s4: 1rem; --cp-s5: 1.5rem; --cp-s6: 2rem; --cp-s7: 3rem; --cp-s8: 4.5rem;
+  --cp-tile: calc(var(--elgo-radius-card) * 1.35);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--elgo-body); color: var(--elgo-ink); background: var(--elgo-ground); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; }
+a { color: var(--elgo-brand); }
+
+/* Header and footer */
+.cp-site-header { border-bottom: 1px solid var(--elgo-line); background: var(--elgo-surface); }
+.cp-site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--cp-s4); padding-block: var(--cp-s3); }
+.cp-logo img { display: block; width: 150px; height: auto; }
+.cp-switch { display: flex; align-items: center; gap: var(--cp-s2); font-size: .875rem; font-weight: 600; color: var(--elgo-muted); }
+.cp-switch select { min-height: 2.5rem; padding: 0 2rem 0 .75rem; border: 1px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-control); background: var(--elgo-surface); font: inherit; color: var(--elgo-brand-deep); }
+.cp-footer { margin-top: var(--cp-s8); padding-block: var(--cp-s6); background: var(--elgo-brand-deep); color: rgba(255,255,255,.85); font-size: .875rem; }
+.cp-footer p { margin: 0 0 var(--cp-s3); max-width: 60rem; }
+.cp-footer b { color: #fff; }
+.cp-footer__lockup { display: flex; align-items: center; gap: var(--cp-s3); }
+
+/* Page head: flag, eyebrow, the country in display type with the marker */
+.cp-head { padding-block: var(--cp-s6) var(--cp-s5); background: linear-gradient(180deg, var(--elgo-tint) 0%, var(--elgo-ground) 100%); }
+.cp-crumbs { margin-bottom: var(--cp-s4); font-size: .875rem; color: var(--elgo-muted); }
+.cp-crumbs a { color: var(--elgo-brand-deep); font-weight: 600; }
+.cp-title { display: flex; align-items: center; gap: var(--cp-s5); }
+.cp-flag { flex: none; width: 64px; border-radius: 8px; box-shadow: 0 0 0 1px var(--elgo-line); }
+.cp-eyebrow { margin: 0 0 var(--cp-s2); font: 700 .75rem/1 var(--elgo-body); letter-spacing: .1em; text-transform: uppercase; color: var(--elgo-muted); }
+.cp-head h1 { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); font-size: clamp(2.25rem, 5vw, 3.75rem); line-height: 1; color: var(--elgo-brand-deep); }
+.cp-mark { position: relative; z-index: 0; white-space: nowrap; }
+.cp-mark::after { content: ""; position: absolute; z-index: -1; left: -.06em; right: -.06em; bottom: .06em; height: .32em; border-radius: .2em; background: var(--elgo-accent); transform: rotate(-1.2deg); }
+.cp-sub { margin: var(--cp-s3) 0 0; font-size: clamp(1rem, 1.6vw, 1.25rem); color: var(--elgo-muted); max-width: 46rem; }
+@media (max-width: 640px) { .cp-title { align-items: flex-start; gap: var(--cp-s4); } .cp-flag { width: 48px; margin-top: .4rem; } }
+
+/* Tabs: the design's numbered step bar, sticky, scrolls sideways on phones */
+.cp-tabs-bar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--elgo-line); box-shadow: 0 6px 18px -16px rgba(15,27,92,.4); }
+.cp-tabs { display: flex; gap: var(--cp-s2); margin: 0; padding: var(--cp-s3) 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.cp-tabs::-webkit-scrollbar { display: none; }
+.cp-tabs li { flex: none; }
+.cp-tab { display: flex; align-items: center; gap: var(--cp-s3); padding: .55rem .9rem .55rem .55rem; border-radius: var(--elgo-radius-chip); color: var(--elgo-brand-deep); text-decoration: none; font-weight: 700; font-size: .9375rem; line-height: 1.15; }
+.cp-tab b { flex: none; width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--elgo-line-strong); font: 800 .875rem/1 var(--elgo-display); background: var(--elgo-surface); }
+.cp-tab small { display: block; margin-top: 2px; font-weight: 500; font-size: .75rem; color: var(--elgo-muted); }
+.cp-tab:hover { background: var(--elgo-tint); }
+.cp-tab[aria-selected="true"] { background: var(--elgo-tint); }
+.cp-tab[aria-selected="true"] b { background: var(--elgo-accent); border-color: var(--elgo-accent); color: var(--elgo-on-accent); }
+.cp-tab:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+@media (max-width: 1399px) { .cp-tab small { display: none; } }
+
+/* Panels and sections */
+.cp-body { padding-top: var(--cp-s6); }
+.cp-section { margin: 0 0 var(--cp-s8); }
+/* Section marker: a short yellow bar and the section number (not a circle,
+   so it does not read as a step of the numbered steps below). */
+.cp-kicker { display: flex; align-items: center; gap: var(--cp-s3); margin: 0 0 var(--cp-s3); font-size: .875rem; font-weight: 700; color: var(--elgo-muted); }
+.cp-kicker::before { content: ""; flex: none; width: 1.75rem; height: 4px; border-radius: 2px; background: var(--elgo-accent); }
+.cp-kicker b { flex: none; font: 800 .8125rem/1 var(--elgo-body); letter-spacing: .12em; color: var(--elgo-tool-strong); }
+.cp-h2 { margin: 0 0 var(--cp-s5); font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.05; color: var(--elgo-brand-deep); text-wrap: balance; }
+.cp-h3 { margin: var(--cp-s5) 0 var(--cp-s3); font: var(--elgo-display-weight) 1.375rem/1.15 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.cp-section > p, .cp-lead { max-width: none; margin: 0 0 var(--cp-s4); font-size: 1.0625rem; line-height: 1.6; }
+.cp-lead { font-size: 1.1875rem; color: var(--elgo-muted); }
+.cp-note { max-width: none; margin: var(--cp-s3) 0 0; font-size: .8125rem; line-height: 1.5; color: var(--elgo-muted); }
+.cp-list { margin: 0; padding-left: 1.2rem; }
+.cp-list li { margin: 0 0 var(--cp-s2); line-height: 1.5; }
+.cp-list--lead { display: grid; gap: var(--cp-s3); max-width: none; margin: 0 0 var(--cp-s4); padding: 0; list-style: none; }
+.cp-list--lead li { position: relative; margin: 0; padding: var(--cp-s4) var(--cp-s5) var(--cp-s4) 3rem; border-radius: var(--elgo-radius-card); background: var(--elgo-tint); line-height: 1.55; }
+.cp-list--lead li::before { content: "→"; position: absolute; left: 1.1rem; top: var(--cp-s4); font-weight: 800; color: var(--elgo-brand); }
+.cp-list--lead strong { color: var(--elgo-brand-deep); }
+
+/* At a glance: summary + route map */
+.cp-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s5); align-items: center; margin-bottom: var(--cp-s5); }
+@media (min-width: 900px) { .cp-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--cp-s7); } }
+.cp-summary { margin: 0 0 var(--cp-s5); font-size: clamp(1.25rem, 2.2vw, 1.875rem); line-height: 1.4; color: var(--elgo-ink); }
+.cp-hero .cp-eyebrow { font-size: .875rem; }
+.cp-hero__meta .ecl-label { font-size: .9375rem; }
+.cp-hero__meta { display: flex; flex-wrap: wrap; gap: var(--cp-s2); margin: 0; }
+.cp-map { margin: 0; }
+.cp-map__svg { display: block; width: 100%; height: auto; border-radius: var(--cp-tile); background: #0f1d5c; }
+.cp-map figcaption { margin-top: var(--cp-s2); font-size: .8125rem; color: var(--elgo-muted); }
+.cp-map__route { fill: none; stroke: #ffd617; stroke-linecap: round; }
+.cp-map__from { fill: #fff; stroke: #ffd617; stroke-width: 2; }
+.cp-map__pin { fill: #ffd617; stroke: #0f1b5c; stroke-width: 2; }
+.cp-map__hub { fill: #b9c4ff; stroke: #0f1b5c; stroke-width: 1; }
+.cp-map__label { fill: #fff; font-family: var(--elgo-body); font-weight: 800; letter-spacing: .08em; paint-order: stroke; stroke: #0f1b5c; stroke-width: 3px; }
+.cp-map__hub-label { fill: #e8eeff; font-family: var(--elgo-body); font-weight: 600; paint-order: stroke; stroke: #0f1b5c; stroke-width: 3px; }
+.cp-map--hubs { max-width: 44rem; margin: 0 0 var(--cp-s5); }
+
+/* Key figures: a white strip of cards (the design's facts strip) */
+.cp-stats { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; margin: 0 0 var(--cp-s5); border: 1px solid var(--elgo-line); border-radius: var(--cp-tile); overflow: hidden; background: var(--elgo-line); box-shadow: var(--elgo-shadow); }
+@media (min-width: 640px) { .cp-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .cp-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.cp-stats--strip { margin-bottom: var(--cp-s8); }
+.cp-stat { display: grid; gap: 4px; align-content: start; padding: var(--cp-s5); background: var(--elgo-surface); }
+.cp-stat b { font: var(--elgo-display-weight) clamp(1.75rem, 3vw, 2.25rem)/1 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.cp-stat span { font-size: .9375rem; font-weight: 600; line-height: 1.35; }
+.cp-stat small { font-size: .75rem; color: var(--elgo-muted); }
+
+/* Label → value facts */
+.cp-facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s3); margin: 0 0 var(--cp-s4); }
+@media (min-width: 768px) { .cp-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cp-facts > div { padding: var(--cp-s4) var(--cp-s5); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); background: var(--elgo-surface); }
+.cp-facts dt { margin: 0 0 4px; font: 700 .75rem/1.2 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; color: var(--elgo-tool-strong); }
+.cp-facts dd { margin: 0; line-height: 1.5; }
+
+/* Cards: pastel boxes with a title and bullets */
+.cp-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s4); margin: 0 0 var(--cp-s4); }
+@media (min-width: 768px) { .cp-cards--2, .cp-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .cp-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cp-card { padding: clamp(1.25rem, 2.6vw, 2rem); border-radius: var(--cp-tile); background: var(--elgo-tint); line-height: 1.55; }
+.cp-card--yellow { background: var(--elgo-accent-soft); }
+.cp-card--blue { background: var(--elgo-tool-soft); }
+.cp-card--green { background: var(--elgo-ok-soft); }
+.cp-card--peach { background: var(--elgo-story-soft); }
+.cp-card__title { margin: 0 0 var(--cp-s3); font: var(--elgo-display-weight) 1.375rem/1.15 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.cp-card p { margin: 0 0 var(--cp-s3); }
+.cp-card .cp-list li::marker { color: var(--elgo-brand); }
+
+/* Callout */
+.cp-callout { margin: var(--cp-s4) 0; padding: var(--cp-s5) var(--cp-s6); border-left: 6px solid var(--elgo-accent); border-radius: 0 var(--cp-tile) var(--cp-tile) 0; background: var(--elgo-tool-soft); max-width: none; }
+.cp-callout h3 { margin: 0 0 var(--cp-s2); font: var(--elgo-display-weight) 1.25rem/1.2 var(--elgo-display); color: var(--elgo-brand-deep); }
+.cp-callout p { margin: 0; line-height: 1.6; }
+
+/* Steps: gold numbered circles on a line (the design's stepper) */
+.cp-steps { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s4); margin: 0 0 var(--cp-s5); padding: 0; list-style: none; counter-reset: cp-step; position: relative; }
+.cp-steps li { position: relative; counter-increment: cp-step; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--cp-s3); align-items: center; font-weight: 600; line-height: 1.35; }
+.cp-steps li::before { content: counter(cp-step); width: 2.5rem; height: 2.5rem; border-radius: 50%; display: grid; place-items: center; background: var(--elgo-accent); color: var(--elgo-on-accent); font: 800 1.125rem/1 var(--elgo-display); position: relative; z-index: 1; box-shadow: 0 0 0 5px var(--elgo-ground); }
+.cp-steps li:last-child::before { background: var(--elgo-brand-deep); color: #fff; }
+.cp-steps li:not(:last-child)::after { content: ""; position: absolute; left: calc(1.25rem - 1.5px); top: 2.5rem; bottom: calc(var(--cp-s4) * -1); width: 3px; background: var(--elgo-accent); }
+@media (min-width: 1000px) {
+  .cp-steps { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: var(--cp-s5); }
+  .cp-steps li { grid-template-columns: minmax(0, 1fr); align-items: start; gap: var(--cp-s3); }
+  .cp-steps li:not(:last-child)::after { left: 2.5rem; right: calc(var(--cp-s5) * -1); top: calc(1.25rem - 1.5px); bottom: auto; width: auto; height: 3px; }
+}
+
+/* Tables (ECL): cards on phones, with each cell's column name */
+.cp-table-wrap { margin: 0 0 var(--cp-s4); border: 1px solid var(--elgo-line); border-radius: var(--cp-tile); overflow: hidden; }
+.cp-table { width: 100%; margin: 0; border-collapse: collapse; font-size: .9375rem; }
+.cp-table .ecl-table__header { padding: var(--cp-s3) var(--cp-s4); background: var(--elgo-brand-deep); color: #fff; font-weight: 700; text-align: left; vertical-align: bottom; }
+.cp-table .ecl-table__cell { padding: var(--cp-s3) var(--cp-s4); vertical-align: top; line-height: 1.5; }
+.cp-table .ecl-table__cell p { margin: 0 0 var(--cp-s1); }
+.cp-table .ecl-table__cell:first-child { font-weight: 700; color: var(--elgo-brand-deep); }
+@media (max-width: 767px) {
+  .cp-table-wrap { border: 0; border-radius: 0; overflow: visible; }
+  .cp-table, .cp-table tbody, .cp-table tr, .cp-table td { display: block; width: 100%; }
+  .cp-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .cp-table tr { margin: 0 0 var(--cp-s3); padding: var(--cp-s3) var(--cp-s4); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); background: var(--elgo-surface) !important; }
+  .cp-table .ecl-table__cell { padding: var(--cp-s2) 0; border: 0; }
+  /* ECL makes stacked cells a flex row (label beside the value), which
+     pushes long values off the screen: label above the value instead. */
+  .cp-table .ecl-table__cell.ecl-table__cell { display: block; min-width: 0; overflow-wrap: anywhere; }
+  .cp-table .ecl-table__cell[data-ecl-table-header]:not([data-ecl-table-header=""])::before { content: attr(data-ecl-table-header); display: block; margin-bottom: 2px; font: 700 .6875rem/1.2 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; color: var(--elgo-tool-strong); }
+}
+
+/* Official resources: link cards */
+.cp-resources { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s3); margin: 0 0 var(--cp-s4); padding: 0; list-style: none; }
+@media (min-width: 768px) { .cp-resources { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .cp-resources { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cp-res { display: grid; gap: 4px; height: 100%; padding: var(--cp-s4) var(--cp-s5); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); background: var(--elgo-surface); text-decoration: none; color: inherit; transition: box-shadow .2s, transform .2s; }
+.cp-res:hover { box-shadow: var(--elgo-shadow); transform: translateY(-2px); }
+.cp-res--nolink { background: var(--elgo-tint); }
+.cp-res--nolink .cp-res__host { font-style: italic; }
+.cp-res__need { font: 700 .6875rem/1.2 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; color: var(--elgo-tool-strong); }
+.cp-res b { font: var(--elgo-display-weight) 1.125rem/1.2 var(--elgo-display); color: var(--elgo-brand-deep); }
+.cp-res__host { font-size: .8125rem; color: var(--elgo-muted); word-break: break-word; }
+.cp-sources { max-width: none; margin: 0; padding-left: 1.4rem; font-size: .875rem; line-height: 1.55; color: var(--elgo-muted); }
+.cp-sources li { margin-bottom: var(--cp-s2); }
+
+/* FAQ (ECL accordion) */
+.cp-faq { display: grid; gap: var(--cp-s3); margin-bottom: var(--cp-s8); }
+.cp-faq__item { border: 1px solid var(--elgo-line); border-radius: var(--cp-tile); background: var(--elgo-surface); overflow: hidden; }
+.cp-faq .ecl-accordion__title { margin: 0; }
+.cp-faq__toggle { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: var(--cp-s4); padding: var(--cp-s5); border: 0; background: none; cursor: pointer; text-align: left; font: var(--elgo-display-weight) clamp(1.25rem, 2.2vw, 1.625rem)/1.15 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.cp-faq__icon { flex: none; width: 2rem; height: 2rem; border-radius: 50%; background: var(--elgo-accent); position: relative; }
+.cp-faq__icon::before, .cp-faq__icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: .9rem; height: 2.5px; margin: -1.25px 0 0 -.45rem; background: var(--elgo-on-accent); border-radius: 2px; transition: transform .2s; }
+.cp-faq__icon::after { transform: rotate(90deg); }
+.cp-faq__toggle[aria-expanded="true"] .cp-faq__icon::after { transform: rotate(0); }
+.cp-faq__toggle:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: -3px; }
+.cp-faq__content { max-width: none; padding: 0 var(--cp-s5) var(--cp-s5); }
+/* In the answers, boxes one under the other (rows, not columns). */
+.cp-faq .cp-cards { grid-template-columns: minmax(0, 1fr) !important; }
+
+/* Next tab: the design's "Next: …" pill */
+.cp-next { margin: 0 0 var(--cp-s7); }
+.cp-next a { display: inline-flex; align-items: center; gap: var(--cp-s2); padding: .4rem 1rem .4rem .4rem; border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-chip); background: var(--elgo-surface); box-shadow: var(--elgo-shadow); color: var(--elgo-brand-deep); font-weight: 700; font-size: .9375rem; text-decoration: none; }
+.cp-next b { width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center; background: var(--elgo-tint); font: 800 .8125rem/1 var(--elgo-display); }
+
+/* Index: one card per country */
+.cp-countries { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cp-s4); margin: 0; padding: 0; list-style: none; }
+@media (min-width: 700px) { .cp-countries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .cp-countries { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cp-country { display: grid; gap: var(--cp-s2); height: 100%; padding: var(--cp-s5); border: 1px solid var(--elgo-line); border-radius: var(--cp-tile); background: var(--elgo-surface); text-decoration: none; color: inherit; transition: box-shadow .2s, transform .2s; }
+.cp-country:hover { box-shadow: var(--elgo-shadow); transform: translateY(-2px); }
+.cp-country img { border-radius: 6px; box-shadow: 0 0 0 1px var(--elgo-line); }
+.cp-country > b { font: var(--elgo-display-weight) 1.75rem/1.05 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.cp-country__kpi { font-size: .875rem; color: var(--elgo-muted); }
+.cp-country__kpi strong { color: var(--elgo-brand-deep); font-size: 1rem; }
+.cp-country__text { line-height: 1.5; }
+.cp-country__go { margin-top: auto; font-weight: 700; color: var(--elgo-brand-deep); }
+
+/* --- Version 2: links (country-profiles-html.py --v2) ----------------------
+   Tools (EU Predict, Visa Wizard): yellow; ELGO guides and route pages: white
+   with a blue edge; official websites: plain with ↗. */
+.cp-cta { display: flex; flex-wrap: wrap; gap: var(--cp-s3); margin: 0 0 var(--cp-s5); }
+.cp-cta__btn { text-decoration: none; }
+.cp-cta .ecl-button--primary { background: var(--elgo-accent); border-color: var(--elgo-accent); color: var(--elgo-on-accent); }
+.cp-cta .ecl-button--primary:hover { filter: brightness(.95); }
+
+.cp-more { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cp-s3) var(--cp-s4); margin: var(--cp-s5) 0 0; padding: var(--cp-s4) 0 0; border-top: 2px solid var(--elgo-line); }
+.cp-more__label { margin: 0; font: 800 .8125rem/1 var(--elgo-display); letter-spacing: .06em; text-transform: uppercase; color: var(--elgo-brand-deep); }
+.cp-more__list { display: flex; flex-wrap: wrap; gap: var(--cp-s2) var(--cp-s3); margin: 0; padding: 0; list-style: none; }
+.cp-more__item { display: inline-flex; flex-direction: column; justify-content: center; min-height: 2.75rem; padding: .45rem .95rem; border-radius: var(--elgo-radius-card); font-weight: 700; font-size: .9375rem; line-height: 1.25; text-decoration: none; color: var(--elgo-brand-deep); }
+.cp-more__item small { font-weight: 600; font-size: .75rem; color: var(--elgo-muted, #5b6478); }
+.cp-more__item--tool { flex-direction: row; align-items: center; gap: .4rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-accent); color: var(--elgo-on-accent); }
+.cp-more__item--guide { background: var(--elgo-surface); border: 1px solid var(--elgo-line); border-left: 4px solid var(--elgo-brand, #1d3fbb); }
+.cp-more__item--ext { background: var(--elgo-surface); border: 1px dashed var(--elgo-line); }
+.cp-more__item:hover { box-shadow: var(--elgo-shadow); }
+.cp-more__item:focus-visible { outline: 3px solid var(--elgo-brand-deep); outline-offset: 2px; }
+.cp-ext { font-weight: 400; }
+@media (max-width: 599px) { .cp-more { display: block; } .cp-more__label { margin-bottom: var(--cp-s3); } .cp-more__list { flex-direction: column; } .cp-more__item { width: 100%; } }
+
+.cp-kicker--plain::before { display: none; }
+.cp-resources--elgo { margin-bottom: var(--cp-s7); }
+.cp-res--tool { background: var(--elgo-accent); border-color: var(--elgo-accent); }
+.cp-res--tool .cp-res__need, .cp-res--tool .cp-res__host { color: var(--elgo-on-accent); }
+.cp-res--guide { border-left: 4px solid var(--elgo-brand, #1d3fbb); }
+
+.cp-next { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cp-s3); }
+.cp-next .cp-next__tool { padding: .55rem 1.1rem; border-color: var(--elgo-accent); background: var(--elgo-accent); color: var(--elgo-on-accent); }
+
+/* Tools bar on phones (the tabs take the top of the screen). */
+.cp-dock { display: none; }
+@media (max-width: 767px) {
+  .cp-dock { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--cp-s2); padding: var(--cp-s2) var(--cp-s4) calc(var(--cp-s2) + env(safe-area-inset-bottom)); background: var(--elgo-surface); box-shadow: 0 -4px 16px rgba(10, 20, 60, .12); }
+  .cp-dock a { display: grid; place-items: center; min-height: 2.75rem; border-radius: var(--elgo-radius-chip); font-weight: 700; text-decoration: none; color: var(--elgo-brand-deep); border: 1px solid var(--elgo-line); }
+  .cp-dock a:first-child { background: var(--elgo-accent); border-color: var(--elgo-accent); color: var(--elgo-on-accent); }
+  body:has(.cp-dock) .cp-footer { padding-bottom: 5rem; }
+}
