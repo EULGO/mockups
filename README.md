@@ -22,8 +22,8 @@ Shared mockup assets live in the root `assets/` folder. The root About and FAQ p
 reference them using `assets/` so they work under the GitHub Pages repository
 path.
 
-`AGENTS.md` holds repository instructions and is changed only when explicitly
-requested by the user.
+`AGENTS.md` holds repository instructions and cross-computer handoff guidance.
+Keep it current when relevant project decisions or workflows change.
 
 ## Publish with GitHub Pages
 
