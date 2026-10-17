@@ -12,6 +12,16 @@ the link target. The index renders this catalog
 automatically on page load. Keep the `noscript` links in `index.html` in sync.
 Files are listed intentionally; uploading an HTML file alone does not register it.
 
+Home appears at the top without a category, displaying `/` and linking to
+`home.html`. Its catalog entry is in `window.mockupPages`; categorized pages
+are in `window.mockupSections`.
+
+Candidates and Employers and HEI are the first categories. Candidate imports live in
+`candidates/<slug>.html` and display `/candidates/<slug>`. Moving to the EU is the
+exception: it displays `/candidates` and stays first within Candidates.
+Employers and HEI is empty until pages are supplied.
+The repeatable export-import workflow and source location are in `AGENTS.md`.
+
 Categories are synthetic groupings chosen explicitly by the user; they do not
 need to match the folder structure. The **About** category contains:
 

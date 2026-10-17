@@ -9,6 +9,9 @@ installation, server, or build step required.
 - `index.html` is the sitemap-style entry point for visitors.
 - `assets/pages.js` is the page catalog. Update it when instructed to add,
   remove, rename, or regroup pages; the index renders it in the browser.
+- Home is the first directory entry, outside all categories. It lives in
+  `window.mockupPages`, links to `home.html`, and displays `/`. Categorized
+  entries live in `window.mockupSections`.
 - Categories are synthetic groupings explicitly chosen by the user, independent
   of folder structure. The About category contains root `about.html` and `faq.html`.
 - Before adding a new page to the directory, ask the user for its category and
@@ -35,6 +38,36 @@ installation, server, or build step required.
 - Check JavaScript syntax and verify catalog links point to existing HTML files
   after changing the index. No automated test framework is required.
 - Flag missing mockup assets; do not silently rewrite their design or content.
+
+## Importing exported mockups
+- Keep Candidates and Employers and HEI as the first two directory categories,
+  in that order. Moving to the EU is the first Candidates page. Show empty
+  categories with a brief placeholder until pages are supplied.
+- The user specifies the section and page slugs for each import. Copy only
+  requested pages from the source export, naming them `<section>/<slug>.html`.
+  For Candidates, display `/candidates/<slug>`; actual links retain `.html`.
+  Exception: Moving to the EU displays `/candidates` and links to
+  `candidates/moving-to-the-eu.html`.
+  Ask for the desired display prefix for a new section if it is not supplied.
+- Use readable titles matching the supplied slugs, including the HTML title
+  and main page heading. Keep the remaining mockup content and design intact.
+- Default export source on this computer:
+  `/mnt/d/Nextcloud/Projects/Drupal projects/ELGO (ICMPD)/05_Information_architecture_and_design/2026-10-14 home candidates eu_predict visa wizard`.
+  If unavailable on another computer, ask for its local location.
+- Adjust asset references for the destination depth (`../assets/` from
+  `candidates/`). Reuse shared assets; copy required support files and downloads
+  that are absent. Export support scripts are under `assets/offline/` and PDFs
+  under `assets/pdf/` with slug-based filenames.
+- Map old flat export filenames and matching original routes (including
+  `/candidates/resources/<slug>`) to the imported file's relative URL. Preserve
+  query strings and fragments. Update cross-links in existing mockups as well
+  as the new pages; Home links should target root `home.html`.
+- If a placeholder anchor uses `href="#"` with a mapped `data-href`, set its
+  actual `href` to the local target too so it works without a custom handler.
+- Keep links to pages not yet imported intact and report that limitation.
+  Do not import extra pages or invent their directory entries.
+- Add imports to `assets/pages.js` and the root index's `noscript` fallback.
+  Verify ordering, display paths, search, cross-links, assets, and downloads.
 
 ## Maintaining these instructions
 Update this `AGENTS.md` when relevant project decisions, preferences, or workflows

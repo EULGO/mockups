@@ -5,11 +5,13 @@ const search = document.querySelector("#search");
 const count = document.querySelector("#page-count");
 const emptyMessage = document.querySelector("#empty-message");
 const sections = window.mockupSections;
+const standalonePages = window.mockupPages;
 function countPages(pages) {
   return pages.reduce((sum, page) => sum + 1 + countPages(page.children || []), 0);
 }
 
-const total = sections.reduce((sum, section) => sum + countPages(section.pages), 0);
+const total = countPages(standalonePages) +
+  sections.reduce((sum, section) => sum + countPages(section.pages), 0);
 
 function filterPages(pages, query, ancestors = "") {
   return pages.flatMap((page) => {
@@ -50,9 +52,18 @@ function renderDirectory() {
   const fragment = document.createDocumentFragment();
   let visible = 0;
 
+  const pagesAtTop = filterPages(standalonePages, query);
+  if (pagesAtTop.length) {
+    visible += countPages(pagesAtTop);
+    const list = renderPages(pagesAtTop);
+    list.classList.add("pages--standalone");
+    fragment.append(list);
+  }
+
   for (const [index, section] of sections.entries()) {
     const pages = filterPages(section.pages, query, section.title);
-    if (!pages.length) continue;
+    if (!pages.length && (section.pages.length ||
+        !section.title.toLocaleLowerCase().includes(query))) continue;
     visible += countPages(pages);
 
     const group = document.createElement("section");
@@ -61,15 +72,24 @@ function renderDirectory() {
     heading.id = `section-${index}`;
     heading.textContent = section.title;
     group.setAttribute("aria-labelledby", heading.id);
-    group.append(heading, renderPages(pages));
+    group.append(heading);
+    if (pages.length) {
+      group.append(renderPages(pages));
+    } else {
+      const message = document.createElement("p");
+      message.className = "section-empty";
+      message.textContent = "No pages added yet.";
+      group.append(message);
+    }
     fragment.append(group);
   }
 
+  const hasSections = fragment.children.length > 0;
   directory.replaceChildren(fragment);
   count.textContent = query
     ? `${visible} of ${total} pages`
     : `${total} ${total === 1 ? "page" : "pages"} · ${sections.length} ${sections.length === 1 ? "section" : "sections"}`;
-  emptyMessage.hidden = visible > 0;
+  emptyMessage.hidden = hasSections;
 }
 
 renderDirectory();
