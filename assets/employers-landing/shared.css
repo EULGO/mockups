@@ -1,0 +1,296 @@
+/* ==========================================================================
+   ELGO homepage exploration — shared layer on top of ECL v5.3.1 (EC preset)
+   --------------------------------------------------------------------------
+   Load order in every page:
+     1. ECL reset + ec-default + ecl-ec.css + ecl-ec-color-modes.css (jsDelivr)
+     2. this file (defaults = the EC reference theme)
+     3. themes/<id>.css, a custom ECL theme (fonts, colours, radius, spacing),
+        chosen by themes/themes.js; see tools/build-themes.py
+     4. the variant's own <style> block
+
+   Migration rule: anything that is stock ECL uses ecl-* classes. Anything
+   prefixed elgo-* is custom glue that would become a Drupal/Twig pattern.
+   All colour, type, radius and spacing decisions go through tokens:
+   ECL's own (--ecl-color-*, --ecl-font-*) for stock components and --elgo-*
+   for the glue. Moving to stock ECL, or to a recompiled custom ECL theme,
+   is a token change, not a rewrite. No hex values below this block except
+   white/black overlays and the review bar.
+   ========================================================================== */
+
+/* --- 1. Defaults: the EC reference theme ----------------------------------- */
+:root {
+  /* design.md canonical blue #003399 replaces ECL EC's default #0046ff */
+  --ecl-color-primary: #003399;
+  --ecl-color-primary-950: #001033;
+  --ecl-color-primary-900: #00184d;
+  --ecl-color-primary-800: #002266;
+  --ecl-color-primary-700: #002a80;
+  --ecl-color-primary-600: #003399;
+  --ecl-color-primary-500: #3d62b3;
+  --ecl-color-primary-400: #6f8bc6;
+  --ecl-color-primary-300: #a3b4da;
+  --ecl-color-primary-200: #cfd9ee;
+  --ecl-color-primary-100: #e3e9f6;
+  --ecl-color-primary-75: #edf1fa;
+  --ecl-color-primary-50: #f3f6fc;
+  --ecl-color-primary-25: #f9fafd;
+  /* design.md gold #FFCC00 as ECL "secondary" (highlight button etc.) */
+  --ecl-color-secondary-400: #ffcc00;
+  --ecl-color-secondary-500: #f2bd00;
+  --ecl-color-secondary-600: #d9a900;
+  --ecl-color-secondary-100: #fff0b3;
+  --ecl-color-secondary-50: #fff8db;
+  --cm-on-surface-brand: #003399;
+
+  /* semantic tokens (every theme sets all of these) */
+  --elgo-brand: #003399;
+  --elgo-brand-deep: #00206a;
+  --elgo-accent: #ffcc00;
+  --elgo-accent-soft: #fff3c2;
+  --elgo-accent-strong: #735d00;
+  --elgo-on-accent: #003399;
+  --elgo-ink: #0f1633;
+  --elgo-muted: #505a78;
+  --elgo-line: #dde2ee;
+  --elgo-line-strong: #b9c1d8;
+  --elgo-ground: #ffffff;
+  --elgo-surface: #ffffff;
+  --elgo-tint: #f3f6fc;
+  --elgo-warm-tint: #fff8e6;
+  /* four colour slots, by role (EC: purple-violet, orange, green, blue-ocean modes) */
+  --elgo-tool-strong: #6352b5;  --elgo-tool: #b1a1ff;  --elgo-tool-soft: #ebe1f8;
+  --elgo-story-strong: #8c4c12; --elgo-story: #ffb16a; --elgo-story-soft: #ffe9d6;
+  --elgo-ok-strong: #03774a;    --elgo-ok: #05c67b;    --elgo-ok-soft: #daf6eb;
+  --elgo-calm-strong: #0e7065;  --elgo-calm: #69d2c6;  --elgo-calm-soft: #dcf5f2;
+  /* type */
+  --elgo-display: "Anek Latin", Inter, Arial, sans-serif;
+  --elgo-display-weight: 800;
+  --elgo-display-tracking: -0.01em;
+  --elgo-display-leading: 1;
+  --elgo-body: Inter, Arial, sans-serif;
+  --elgo-heading: Inter, Arial, sans-serif;
+  /* shape and space */
+  --elgo-radius-control: 4px;
+  --elgo-radius-card: 0px;
+  --elgo-radius-media: 0px;
+  --elgo-radius-chip: 999px;
+  --elgo-radius-tag: 2px;
+  --elgo-section: clamp(3rem, 6vw, 5rem);
+  --elgo-card-pad: 1.5rem;
+  --elgo-shadow: none;
+  /* route map */
+  --elgo-map-sea-1: #0c2a8a; --elgo-map-sea-2: #071a5c; --elgo-map-sea-3: #04113f;
+  --elgo-map-land: #15307e; --elgo-map-edge: #26449e; --elgo-map-eu: #2448a8;
+  --elgo-map-eu-edge: #6f8fe0; --elgo-map-in: #3a4c8f; --elgo-map-hub: #9fb3ec;
+}
+
+/* --- 2. Bridge: stand-in for a recompiled ECL theme ----------------------- */
+/* Compiled ECL 5.3.1 hard-codes font-family (Inter) and border-radius on each
+   component. A custom ECL build would take these from the theme; until then
+   this block points the components the Gateway uses at the theme tokens. */
+.ecl-button.ecl-button, .ecl-link.ecl-link, .ecl-label.ecl-label,
+.ecl-fact-figures .ecl-fact-figures__title, .ecl-fact-figures .ecl-fact-figures__description,
+.ecl-date-block .ecl-date-block__day, .ecl-date-block .ecl-date-block__month, .ecl-date-block .ecl-date-block__year {
+  font-family: var(--elgo-body);
+}
+.ecl-fact-figures .ecl-fact-figures__value { font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); }
+.ecl-button.ecl-button { border-radius: var(--elgo-radius-control); }
+.ecl-label.ecl-label { border-radius: var(--elgo-radius-tag); }
+.ecl-date-block.ecl-date-block { border-radius: var(--elgo-radius-control); overflow: hidden; }
+
+/* --- 3. Base ----------------------------------------------------------------- */
+html { color-scheme: light; background: var(--elgo-ground); }
+body { margin: 0; background: var(--elgo-ground); color: var(--elgo-ink); font-family: var(--elgo-body); }
+img { max-width: 100%; }
+a:not([class]) { color: var(--elgo-brand); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+.elgo-display { font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); text-wrap: balance; }
+.elgo-eyebrow { display: inline-block; font: 600 .8125rem/1.2 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; }
+.elgo-section { padding-block: var(--elgo-section); }
+.elgo-section--tint { background: var(--elgo-tint); }
+.elgo-section__head { display: grid; gap: .5rem; margin-bottom: 2rem; max-width: 46rem; }
+.elgo-section__title { margin: 0; font-family: var(--elgo-heading); font-weight: 700; font-size: clamp(1.625rem, 3vw, 2.125rem); line-height: 1.15; letter-spacing: -.01em; color: var(--elgo-ink); text-wrap: balance; }
+.elgo-section__lede { margin: 0; font-size: 1.125rem; line-height: 1.6; color: var(--elgo-muted); }
+.elgo-grid { display: grid; gap: 1.5rem; }
+.elgo-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.elgo-grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* --- 4. Review bar (exploration chrome, not part of the design) ----------- */
+.rv-bar { background: #1b1f2e; color: #cfd3e3; font: 500 .8125rem/1.3 Inter, Arial, sans-serif; }
+.rv-bar .ecl-container { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center; padding-block: .5rem; }
+.rv-bar strong { color: #fff; font-weight: 600; }
+.rv-bar nav { display: flex; gap: .25rem; margin-left: auto; flex-wrap: wrap; }
+.rv-bar a { color: #cfd3e3; text-decoration: none; padding: .25rem .6rem; border: 1px solid #3a4058; border-radius: 3px; }
+.rv-bar a[aria-current="page"] { background: #ffcc00; color: #1b1f2e; border-color: #ffcc00; font-weight: 700; }
+.rv-theme { display: inline-flex; align-items: center; gap: .4rem; }
+.rv-theme select { font: 600 .8125rem/1.2 Inter, Arial, sans-serif; background: #2a2f44; color: #fff; border: 1px solid #4a516e; border-radius: 3px; padding: .25rem .4rem; max-width: 15rem; }
+.rv-theme a { border: 0; padding: 0; text-decoration: underline; }
+
+/* --- 5. Header ------------------------------------------------------------ */
+.elgo-header { background: var(--elgo-surface); border-bottom: 1px solid var(--elgo-line); }
+.elgo-header__top { display: flex; align-items: center; gap: 1.5rem; padding-block: 1rem; }
+.elgo-header__logo img { display: block; height: 64px; width: auto; }
+.elgo-header__tools { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+.elgo-header__lang { display: inline-flex; align-items: center; gap: .35rem; font-size: .9375rem; color: var(--elgo-ink); text-decoration: none; }
+.elgo-header__search { display: flex; }
+.elgo-header__search input { width: 16rem; max-width: 40vw; border: 1px solid var(--elgo-line-strong); border-right: 0; padding: .55rem .75rem; font: inherit; font-size: .9375rem; border-radius: var(--elgo-radius-control) 0 0 var(--elgo-radius-control); background: var(--elgo-surface); }
+.elgo-header__search button { border: 0; background: var(--elgo-brand); color: #fff; padding: 0 .85rem; border-radius: 0 var(--elgo-radius-control) var(--elgo-radius-control) 0; cursor: pointer; }
+.elgo-nav { overflow-x: auto; }
+.elgo-nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; white-space: nowrap; }
+.elgo-nav a { display: block; padding: .8rem 0; font-size: .9375rem; font-weight: 600; color: var(--elgo-ink); text-decoration: none; border-bottom: 3px solid transparent; }
+.elgo-nav a:hover { border-bottom-color: var(--elgo-accent); }
+@media (max-width: 640px) {
+  .elgo-header__logo img { height: 48px; }
+  .elgo-header__search { display: none; }
+}
+
+/* --- 6. Trust strip: one positive promise instead of three disclaimers ---- */
+.elgo-trust { background: var(--elgo-surface); border-bottom: 1px solid var(--elgo-line); }
+.elgo-trust .ecl-container { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 2rem; padding-block: 1rem; }
+.elgo-trust__owner { display: flex; align-items: center; gap: .75rem; font-size: .9375rem; line-height: 1.35; }
+.elgo-trust__owner img { width: 48px; height: auto; flex: none; }
+.elgo-trust__owner strong { display: block; }
+.elgo-trust__promises { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+.elgo-trust__promises li { display: flex; align-items: center; gap: .45rem; font-weight: 600; font-size: .9375rem; }
+.elgo-trust__promises svg { flex: none; }
+.elgo-trust__more { margin-left: auto; }
+.elgo-check { flex: none; }
+.elgo-check circle { fill: var(--elgo-brand); }
+.elgo-check path { stroke: var(--elgo-accent); }
+
+/* --- 7. Arch motif (drawn from the Gateway logo) --------------------------- */
+.elgo-arch { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* --- 8. Photo slots: art-directed placeholders for photography to commission */
+.elgo-photo { position: relative; margin: 0; overflow: hidden; background: var(--ecl-color-primary-200); min-height: 12rem; border-radius: var(--elgo-radius-media); }
+.elgo-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.elgo-photo--slot {
+  background:
+    radial-gradient(120% 90% at 70% 20%, rgba(255,255,255,.55), transparent 60%),
+    linear-gradient(160deg, var(--slot-a, var(--ecl-color-primary-200)), var(--slot-b, var(--ecl-color-primary-400)));
+  display: flex; align-items: flex-end;
+}
+.elgo-photo--slot::before {
+  /* head-and-shoulders silhouette, so the slot reads as "a person goes here" */
+  content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: min(62%, 22rem); aspect-ratio: 1 / 1.05;
+  background:
+    radial-gradient(circle at 50% 30%, var(--slot-fig, rgba(255,255,255,.55)) 0 21%, transparent 21.5%),
+    radial-gradient(ellipse 50% 42% at 50% 100%, var(--slot-fig, rgba(255,255,255,.55)) 0 99%, transparent 100%);
+}
+.elgo-photo__brief {
+  position: relative; z-index: 1; margin: .75rem; padding: .5rem .65rem; max-width: 26rem;
+  background: rgba(255,255,255,.92); color: var(--elgo-ink); font: 500 .75rem/1.4 var(--elgo-body);
+  border-left: 3px solid var(--elgo-accent); border-radius: calc(var(--elgo-radius-card) / 2);
+}
+.elgo-photo__brief b { display: block; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .6875rem; color: var(--elgo-brand); }
+.elgo-credit { position: absolute; right: .5rem; bottom: .4rem; z-index: 2; font-size: .6875rem; color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.elgo-credit a { color: inherit; }
+
+/* --- 9. Audience cards ---------------------------------------------------- */
+.elgo-audience { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+.elgo-audience__card { background: var(--elgo-surface); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); padding: calc(var(--elgo-card-pad) + .25rem); display: grid; gap: .75rem; align-content: start; }
+.elgo-audience__card h3 { margin: 0; font: 700 1.5rem/1.2 var(--elgo-heading); color: var(--elgo-brand); }
+.elgo-audience__card p { margin: 0; color: var(--elgo-muted); }
+.elgo-audience__links { list-style: none; margin: .5rem 0 0; padding: 0; border-top: 1px solid var(--elgo-line); }
+.elgo-audience__links a { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--elgo-line); color: var(--elgo-brand); font-weight: 600; text-decoration: none; }
+.elgo-audience__links a:hover { text-decoration: underline; }
+.elgo-audience__links a::after { content: "→"; }
+.elgo-pill { justify-self: start; font: 700 .75rem/1 var(--elgo-body); padding: .35rem .6rem; border-radius: var(--elgo-radius-tag); letter-spacing: .02em; }
+.elgo-pill--gold { background: var(--elgo-accent); color: var(--elgo-on-accent); }
+.elgo-pill--blue { background: var(--elgo-brand); color: #fff; }
+
+/* --- 10. Tools ------------------------------------------------------------ */
+.elgo-steps { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 0 0 2rem; padding: 0; list-style: none; font-weight: 600; color: var(--elgo-muted); }
+.elgo-steps li { display: flex; align-items: center; gap: .5rem; }
+.elgo-steps li + li::before { content: "→"; color: var(--elgo-brand); }
+.elgo-tool { background: var(--elgo-surface); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); padding: var(--elgo-card-pad); display: grid; gap: .6rem; align-content: start; }
+.elgo-tool h3 { margin: 0; font: 700 1.25rem/1.25 var(--elgo-heading); }
+.elgo-tool p { margin: 0; color: var(--elgo-muted); }
+.elgo-tool .ecl-button { justify-self: start; margin-top: .5rem; }
+.elgo-tool .ecl-label { justify-self: start; }
+.elgo-tool--soon { background: var(--elgo-tint); }
+
+/* --- 11. Fact figures (ECL fact-figures, light glue only) ----------------- */
+.elgo-facts .ecl-fact-figures__items { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.elgo-facts .ecl-fact-figures__value { font-variant-numeric: tabular-nums; }
+.elgo-fact-source { display: block; margin-top: .35rem; font-size: .8125rem; color: var(--elgo-muted); }
+
+/* --- 12. Guides ----------------------------------------------------------- */
+.elgo-guides { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+@media (max-width: 800px) { .elgo-guides { grid-template-columns: 1fr; } }
+.elgo-guide-feature { background: var(--elgo-brand); color: #fff; border-radius: var(--elgo-radius-card); padding: calc(var(--elgo-card-pad) + .5rem); display: grid; gap: .75rem; align-content: start; }
+.elgo-guide-feature h3 { margin: 0; font: 700 1.5rem/1.2 var(--elgo-heading); color: #fff; }
+.elgo-guide-feature p { margin: 0; color: rgba(255,255,255,.88); }
+.elgo-guide-feature .elgo-eyebrow { color: var(--elgo-accent); }
+.elgo-guide-list { list-style: none; margin: 0; padding: 0; }
+.elgo-guide-list li { padding: 1rem 0; border-bottom: 1px solid var(--elgo-line); display: grid; gap: .3rem; }
+.elgo-guide-list li:first-child { padding-top: 0; }
+.elgo-guide-list .elgo-eyebrow { color: var(--elgo-muted); font-size: .75rem; }
+.elgo-guide-list a { font-size: 1.125rem; font-weight: 600; color: var(--elgo-brand); }
+.elgo-guide-list time { font-size: .8125rem; color: var(--elgo-muted); }
+
+/* --- 13. Events ----------------------------------------------------------- */
+.elgo-events { display: grid; gap: 0 2.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+.elgo-event { display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--elgo-line); }
+.elgo-event .ecl-date-block { flex: none; }
+.elgo-event__who { font: 600 .75rem/1.3 var(--elgo-body); color: var(--elgo-muted); text-transform: uppercase; letter-spacing: .05em; }
+.elgo-event__title { margin: .25rem 0; font-size: 1.0625rem; font-weight: 600; }
+.elgo-event__title a { color: var(--elgo-brand); }
+.elgo-event__meta { font-size: .875rem; color: var(--elgo-muted); }
+.elgo-events-more { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; }
+
+/* --- 14. Continue on official sites -------------------------------------- */
+.elgo-continue { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; }
+@media (max-width: 800px) { .elgo-continue { grid-template-columns: 1fr; } }
+.elgo-official { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.elgo-official a { display: grid; grid-template-columns: 1fr auto; gap: .15rem 1rem; padding: 1rem 1.25rem; background: var(--elgo-surface); border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-card); text-decoration: none; color: var(--elgo-ink); }
+.elgo-official a:hover { border-color: var(--elgo-brand); }
+.elgo-official b { color: var(--elgo-brand); font-size: 1.0625rem; }
+.elgo-official span { grid-column: 1; color: var(--elgo-muted); font-size: .875rem; }
+.elgo-official i { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-style: normal; color: var(--elgo-brand); }
+.elgo-share { display: inline-flex; align-items: center; gap: .5rem; margin-top: .5rem; font-weight: 600; color: var(--elgo-brand); }
+
+/* --- 15. Page meta + footer ---------------------------------------------- */
+.elgo-meta { border-top: 1px solid var(--elgo-line); font-size: .8125rem; color: var(--elgo-muted); }
+.elgo-meta .ecl-container { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding-block: .75rem; }
+.elgo-meta a { margin-left: auto; }
+.elgo-footer { background: var(--elgo-brand-deep); color: #fff; }
+.elgo-footer a { color: rgba(255,255,255,.85); }
+.elgo-footer__main { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); padding-block: 3rem 2rem; }
+@media (max-width: 860px) { .elgo-footer__main { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .elgo-footer__main { grid-template-columns: 1fr; } }
+.elgo-footer h3 { margin: 0 0 .75rem; font-size: .8125rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.elgo-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; font-size: .9375rem; }
+.elgo-footer__id { display: grid; gap: .75rem; align-content: start; font-size: .9375rem; }
+.elgo-footer__id img { width: 64px; }
+.elgo-footer__legal { border-top: 1px solid rgba(255,255,255,.18); padding-block: 1.25rem; font-size: .8125rem; color: rgba(255,255,255,.75); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.elgo-footer__legal p { margin: 0; }
+.elgo-footer__legal ul { display: flex; flex-wrap: wrap; gap: 1rem; margin-left: auto; font-size: .8125rem; }
+
+/* --- 16. Promise strip (variant E onwards) -------------------------------- */
+.elgo-promise { background: var(--elgo-brand-deep); color: #fff; }
+.elgo-promise .ecl-container { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 2rem; padding-block: 1rem; }
+.elgo-promise__owner { display: flex; align-items: center; gap: .75rem; font-size: .9375rem; line-height: 1.35; }
+.elgo-promise__owner img { width: 44px; flex: none; }
+.elgo-promise__owner strong { display: block; }
+.elgo-promise ul { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; list-style: none; margin: 0; padding: 0; font-weight: 700; }
+.elgo-promise li { display: flex; align-items: center; gap: .45rem; }
+.elgo-promise li::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: var(--elgo-accent); }
+.elgo-promise a { color: #fff; margin-left: auto; }
+
+/* --- 17. Shared bits for the route prototypes (F–L) ---------------------- */
+.elgo-band-title { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); font-size: clamp(2rem, 4vw, 3rem); line-height: var(--elgo-display-leading); letter-spacing: var(--elgo-display-tracking); text-wrap: balance; }
+.elgo-hero-title { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); font-size: clamp(2.4rem, 5.4vw, 4.25rem); line-height: calc(var(--elgo-display-leading) - .02); letter-spacing: var(--elgo-display-tracking); text-wrap: balance; }
+.elgo-lede { margin: 0; font-size: 1.1875rem; line-height: 1.55; max-width: 38rem; }
+.elgo-actions { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; }
+.elgo-actions .ecl-button { margin: 0; }
+.elgo-note { font-size: .8125rem; color: var(--elgo-muted); }
+.elgo-chipset { display: flex; flex-wrap: wrap; gap: .45rem; }
+.elgo-chip { all: unset; box-sizing: border-box; cursor: pointer; padding: .55rem .9rem; border: 1.5px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-chip); font: 600 .9375rem/1.2 var(--elgo-body); color: var(--elgo-brand); background: var(--elgo-surface); }
+.elgo-chip:hover { border-color: var(--elgo-brand); }
+.elgo-chip[aria-pressed="true"], .elgo-chip[aria-selected="true"] { background: var(--elgo-brand); border-color: var(--elgo-brand); color: #fff; }
+.elgo-chip:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+/* visually hidden, still read by screen readers */
+.a-sr, .elgo-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

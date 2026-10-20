@@ -31,6 +31,11 @@ h2 { margin: 0 0 12px; font-size: 1.2rem; }
 .page-link:hover { background: #edf3fc; }
 .page-link:focus-visible { outline-offset: -4px; }
 .page-title { font-weight: 650; color: #174da1; text-decoration: underline; text-underline-offset: 3px; }
+.page-badge { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 4px; background: #e4edff; color: #174da1; font-size: .7rem; font-weight: 600; line-height: 1.5; vertical-align: middle; text-decoration: none; }
+.page-link--unavailable:hover { background: transparent; }
+.page-link--unavailable .page-title { color: #536477; text-decoration: none; }
+.page-badge--unavailable { background: #fde8e7; color: #a12622; }
+.page-badge--landing { background: #edf0f4; color: #536477; }
 .page-path { font-family: ui-monospace, monospace; font-size: .78rem; color: #647387; overflow-wrap: anywhere; }
 .pages--nested { margin: 0 18px 14px 30px; border: 0; border-left: 2px solid #dce3eb; border-radius: 0; overflow: visible; }
 .pages--nested .page-link { position: relative; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 8px 18px; padding: 8px 14px 8px 20px; }

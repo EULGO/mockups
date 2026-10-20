@@ -29,16 +29,32 @@ function renderPages(pages, nested = false) {
 
   for (const page of pages) {
     const item = document.createElement("li");
-    const link = document.createElement("a");
-    link.className = "page-link";
-    link.href = page.path;
+    const available = page.available !== false;
+    const link = document.createElement(available ? "a" : "div");
+    link.className = available ? "page-link" : "page-link page-link--unavailable";
+    if (available) link.href = page.path;
     const title = document.createElement("span");
     title.className = "page-title";
     title.textContent = page.title;
-    const path = document.createElement("span");
-    path.className = "page-path";
-    path.textContent = page.displayPath || page.path;
-    link.append(title, path);
+    if (page.landingPage) {
+      const badge = document.createElement("span");
+      badge.className = "page-badge page-badge--landing";
+      badge.textContent = "Landing page";
+      title.append(" ", badge);
+    }
+    if (page.badge) {
+      const badge = document.createElement("span");
+      badge.className = available ? "page-badge" : "page-badge page-badge--unavailable";
+      badge.textContent = page.badge;
+      title.append(" ", badge);
+    }
+    link.append(title);
+    if (page.displayPath || page.path) {
+      const path = document.createElement("span");
+      path.className = "page-path";
+      path.textContent = page.displayPath || page.path;
+      link.append(path);
+    }
     item.append(link);
     if (page.children.length) item.append(renderPages(page.children, true));
     list.append(item);
@@ -69,7 +85,7 @@ function renderDirectory() {
     const group = document.createElement("section");
     group.className = "section";
     const heading = document.createElement("h2");
-    heading.id = `section-${index}`;
+    heading.id = section.id || `section-${index}`;
     heading.textContent = section.title;
     group.setAttribute("aria-labelledby", heading.id);
     group.append(heading);

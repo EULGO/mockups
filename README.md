@@ -19,7 +19,8 @@ are in `window.mockupSections`.
 Candidates and Employers and HEI are the first categories. Candidate imports live in
 `candidates/<slug>.html` and display `/candidates/<slug>`. Moving to the EU is the
 exception: it displays `/candidates` and stays first within Candidates.
-Employers and HEI is empty until pages are supplied.
+Employer guides live in `employers-and-higher-education/<slug>.html` and display
+`/employers-and-higher-education/<slug>`.
 The repeatable export-import workflow and source location are in `AGENTS.md`.
 
 Categories are synthetic groupings chosen explicitly by the user; they do not
