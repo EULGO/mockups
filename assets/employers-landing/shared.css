@@ -132,14 +132,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .elgo-header__top { display: flex; align-items: center; gap: 1.5rem; padding-block: 1rem; }
 .elgo-header__logo img { display: block; height: 64px; width: auto; }
 .elgo-header__tools { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
-.elgo-header__lang { display: inline-flex; align-items: center; gap: .35rem; font-size: .9375rem; color: var(--elgo-ink); text-decoration: none; }
 .elgo-header__search { display: flex; }
 .elgo-header__search input { width: 16rem; max-width: 40vw; border: 1px solid var(--elgo-line-strong); border-right: 0; padding: .55rem .75rem; font: inherit; font-size: .9375rem; border-radius: var(--elgo-radius-control) 0 0 var(--elgo-radius-control); background: var(--elgo-surface); }
 .elgo-header__search button { border: 0; background: var(--elgo-brand); color: #fff; padding: 0 .85rem; border-radius: 0 var(--elgo-radius-control) var(--elgo-radius-control) 0; cursor: pointer; }
-.elgo-nav { overflow-x: auto; }
-.elgo-nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; white-space: nowrap; }
-.elgo-nav a { display: block; padding: .8rem 0; font-size: .9375rem; font-weight: 600; color: var(--elgo-ink); text-decoration: none; border-bottom: 3px solid transparent; }
-.elgo-nav a:hover { border-bottom-color: var(--elgo-accent); }
+/* the main menu (ECL Menu) is styled in mockups.css */
 @media (max-width: 640px) {
   .elgo-header__logo img { height: 48px; }
   .elgo-header__search { display: none; }
@@ -294,3 +290,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .elgo-chip:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
 /* visually hidden, still read by screen readers */
 .a-sr, .elgo-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Dark text on a light button looks thinner than white on blue at the same weight; the yellow and outlined buttons get a touch more so all three read alike */
+.ecl-button.ecl-button--highlight, .ecl-button.ecl-button--secondary { font-weight: 500; }

@@ -1,4 +1,4 @@
-/* ELGO mockups: the L5 design language (from audience/homepage-variants/variant-l5-soft-eu.html,
+/* ELGO mockups: the L5 design language (from archive/audience/homepage-variants/variant-l5-soft-eu.html,
    27 Sept 2026), with the class prefix l5- renamed to mk-. Shared by the starter, personal and
    recruiter mockups; page-specific rules live in each page. Uses --elgo-* tokens only (Soft EU theme). */
 
@@ -149,7 +149,6 @@
 .mk-way--work { --way-soft: var(--elgo-accent-soft); --way-strong: var(--elgo-accent-strong); }
 .mk-way--study { --way-soft: var(--elgo-tool-soft); --way-strong: var(--elgo-tool-strong); }
 .mk-way--research { --way-soft: var(--elgo-ok-soft); --way-strong: var(--elgo-ok-strong); }
-.mk-way--family { --way-soft: var(--elgo-story-soft); --way-strong: var(--elgo-story-strong); }
 .mk-way__ico { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: var(--elgo-surface); color: var(--way-strong); margin-bottom: var(--mk-s-2); }
 .mk-way h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-xl)/1.1 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
 .mk-way p { margin: 0; color: var(--elgo-ink); line-height: 1.5; }
@@ -178,21 +177,21 @@
 }
 
 /* ---------- Step 2: Explore (the finder) ---------- */
-.mk-finder { background: var(--elgo-brand-deep); color: #fff; position: relative; overflow: clip; scroll-margin-top: var(--mk-bar-h); }
-/* a zoomed-in part of the ring of twelve stars, very faint; bottom left, where the white results panel doesn't hide it */
-.mk-stars { position: absolute; left: -45.75rem; bottom: -55.75rem; width: 84rem; height: 84rem; fill: var(--elgo-accent); opacity: .05; pointer-events: none; }
-/* results below the questions: the stars move to the empty top-right corner */
-@media (max-width: 1000px) { .mk-stars { left: auto; bottom: auto; right: -21.75rem; top: -24.25rem; width: 36rem; height: 36rem; opacity: .06; } }
+.mk-finder { --fd-bg: #eceef4; --fd-card: #fff; --fd-strong: var(--elgo-tool-strong); background: var(--fd-bg); color: var(--elgo-ink); position: relative; overflow: clip; scroll-margin-top: var(--mk-bar-h); transition: background-color .5s var(--mk-ease); }
+/* the section takes the colour of the way the visitor picks: the same soft tints as the cards in step 1 */
+.mk-finder[data-goal="work"] { --fd-bg: var(--elgo-accent-soft); --fd-strong: var(--elgo-accent-strong) }
+.mk-finder[data-goal="study"] { --fd-bg: var(--elgo-tool-soft); --fd-strong: var(--elgo-tool-strong) }
+.mk-finder[data-goal="research"] { --fd-bg: var(--elgo-ok-soft); --fd-strong: var(--elgo-ok-strong) }
+.mk-finder :focus-visible { outline-color: var(--elgo-brand-deep); }
 .mk-finder > .ecl-container { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--mk-s-7); align-items: start; padding-block: var(--mk-s-9); }
 @media (max-width: 1000px) { .mk-finder > .ecl-container { grid-template-columns: minmax(0, 1fr); gap: var(--mk-s-6); } }
 .mk-flow { display: flex; flex-direction: column; gap: var(--mk-s-5); } /* flex, not grid: a collapsed step's negative margin cancels the gap */
 .mk-flow > .mk-kicker, .mk-flow > .mk-assure { align-self: flex-start; }
-.mk-flow .mk-kicker { color: #fff; }
-.mk-flow__title { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); font-size: var(--mk-t-3xl); line-height: 1.02; color: #fff; text-wrap: balance; }
-.mk-flow__lede { margin: 0; font-size: var(--mk-t-l); line-height: 1.55; color: rgba(255,255,255,.8); max-width: 36rem; }
+.mk-flow__title { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); font-size: var(--mk-t-3xl); line-height: 1.02; color: var(--elgo-brand-deep); text-wrap: balance; }
+.mk-flow__lede { margin: 0; font-size: var(--mk-t-l); line-height: 1.55; color: var(--elgo-ink); max-width: 36rem; }
 .mk-assure { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--mk-s-2); }
-.mk-assure li { display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .7rem; border-radius: var(--elgo-radius-chip); background: rgba(255,255,255,.08); font-size: var(--mk-t-s); font-weight: 600; color: rgba(255,255,255,.92); }
-.mk-assure li::before { content: "✓"; font-weight: 800; color: var(--elgo-accent); }
+.mk-assure li { display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .7rem; border-radius: var(--elgo-radius-chip); background: #fff; font-size: var(--mk-t-s); font-weight: 600; color: var(--elgo-brand-deep); }
+.mk-assure li::before { content: "✓"; font-weight: 800; color: var(--fd-strong); }
 @media (max-width: 640px) { .mk-flow__lede { font-size: var(--mk-t-m); } .mk-assure li { font-size: var(--mk-t-xs); } }
 .mk-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; max-width: 26rem; }
 .mk-bar i { height: 5px; border-radius: 3px; background: rgba(255,255,255,.16); transition: background .3s; }
@@ -203,23 +202,30 @@
 .mk-reveal > div > * { margin-top: var(--mk-s-5); }
 .mk-reveal.is-open { grid-template-rows: 1fr; }
 .mk-reveal:not(.is-open) { height: 0; } /* Chrome otherwise keeps the hidden step's inner spacing */
-.mk-q { display: grid; gap: var(--mk-s-3); padding: var(--mk-s-5); border-radius: var(--elgo-radius-card); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); }
+.mk-q { display: grid; gap: var(--mk-s-3); padding: var(--mk-s-5); border-radius: var(--elgo-radius-card); background: var(--fd-card); transition: background-color .5s var(--mk-ease); }
 @media (max-width: 640px) { .mk-q { padding: var(--mk-s-4); } }
 .mk-q__head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--mk-s-3); align-items: center; }
-.mk-q__n { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: var(--mk-t-s); background: rgba(255,255,255,.12); color: #fff; transition: background .3s, color .3s; }
-.mk-q.is-done .mk-q__n { background: var(--elgo-accent); color: var(--elgo-on-accent); }
-.mk-q h3 { margin: 0; font: 700 var(--mk-t-xl)/1.25 var(--elgo-body); color: #fff; }
+.mk-q__n { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: var(--mk-t-s); background: color-mix(in srgb, var(--fd-strong) 14%, #fff); color: var(--fd-strong); transition: background .3s, color .3s; }
+.mk-q.is-done .mk-q__n { background: var(--fd-strong); color: #fff; }
+.mk-q h3 { margin: 0; font: 700 var(--mk-t-xl)/1.25 var(--elgo-body); color: var(--elgo-brand-deep); }
 @media (max-width: 640px) { .mk-q h3 { font-size: var(--mk-t-l); } }
-.mk-q .elgo-chip { color: #fff; background: transparent; border-color: rgba(255,255,255,.4); }
+.mk-q .elgo-chip { color: var(--elgo-brand-deep); background: #fff; border-color: color-mix(in srgb, var(--fd-strong) 25%, #fff); transition: background-color .3s, border-color .3s, color .3s; }
 .mk-q .elgo-chip small { font-weight: 500; opacity: .75; margin-left: .3rem; }
-.mk-q .elgo-chip:hover { border-color: #fff; }
-.mk-q .elgo-chip[aria-pressed="true"] { background: var(--elgo-accent); border-color: var(--elgo-accent); color: var(--elgo-on-accent); }
+.mk-q .elgo-chip:hover { border-color: var(--fd-strong); }
+.mk-q .elgo-chip[aria-pressed="true"] { background: var(--fd-strong); border-color: var(--fd-strong); color: #fff; }
 /* question 1: the same four ways as step 1, as big tiles */
 .mk-picks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--mk-s-2); }
 @media (max-width: 1200px) and (min-width: 1001px), (max-width: 560px) { .mk-picks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .mk-q .elgo-chip.mk-pick { display: grid; justify-items: start; gap: var(--mk-s-3); padding: var(--mk-s-4); border-radius: var(--elgo-radius-card); border-width: 1.5px; font-size: var(--mk-t-m); line-height: 1.2; }
-.mk-pick .mk-ico { width: 1.75rem; height: 1.75rem; color: var(--elgo-accent); }
-.mk-q .elgo-chip.mk-pick[aria-pressed="true"] .mk-ico { color: var(--elgo-on-accent); }
+.mk-pick .mk-ico { width: 1.75rem; height: 1.75rem; color: var(--elgo-muted); transition: color .3s; }
+.mk-q .elgo-chip.mk-pick[aria-pressed="true"] .mk-ico { color: var(--pick-strong); }
+/* answers are neutral until picked; the picked one takes the soft tint of its card in step 1, no outline */
+.mk-q .elgo-chip.mk-pick { background: var(--elgo-tint); border-color: var(--elgo-line); }
+.mk-q .elgo-chip.mk-pick:hover { border-color: var(--pick-strong); }
+.mk-q .elgo-chip.mk-pick[aria-pressed="true"] { background: var(--pick-soft); border-color: var(--pick-soft); color: var(--elgo-brand-deep); }
+.mk-pick[data-v="work"] { --pick-soft: var(--elgo-accent-soft); --pick-strong: var(--elgo-accent-strong); }
+.mk-pick[data-v="study"] { --pick-soft: var(--elgo-tool-soft); --pick-strong: var(--elgo-tool-strong); }
+.mk-pick[data-v="research"] { --pick-soft: var(--elgo-ok-soft); --pick-strong: var(--elgo-ok-strong); }
 .mk-combo { position: relative; }
 .mk-combo input { box-sizing: border-box; width: 100%; padding: .85rem 1rem .85rem 2.75rem; border-radius: var(--elgo-radius-control); border: 2px solid transparent; background: var(--elgo-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%234a5078' stroke-width='2'/%3E%3Cpath d='M15.5 15.5L21 21' stroke='%234a5078' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") .9rem center / 1.2rem no-repeat; font: 500 var(--mk-t-l)/1.3 var(--elgo-body); color: var(--elgo-ink); }
 .mk-combo input:focus { outline: none; border-color: var(--elgo-accent); }
@@ -244,22 +250,22 @@
 .mk-done p { margin: 0; color: rgba(255,255,255,.82); line-height: 1.5; }
 .mk-done .elgo-actions .ecl-button { margin: 0; }
 .mk-reset { all: unset; cursor: pointer; font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: .2em; }
-.mk-private { margin: 0; font-size: var(--mk-t-s); color: rgba(255,255,255,.65); }
+.mk-private { margin: 0; font-size: var(--mk-t-s); color: var(--elgo-muted); }
 /* phones: the results sit below the questions, so a bar follows you through the finder */
 .mk-peek { display: none; }
 @media (max-width: 1000px) {
-  .mk-peek { all: unset; box-sizing: border-box; cursor: pointer; position: sticky; bottom: .75rem; z-index: 6; display: flex; align-items: center; gap: var(--mk-s-3); padding: .7rem .8rem .7rem 1rem; border-radius: var(--elgo-radius-control); background: var(--elgo-accent); color: var(--elgo-on-accent); box-shadow: 0 12px 30px -10px rgba(0,0,0,.6); }
+  .mk-peek { all: unset; box-sizing: border-box; cursor: pointer; position: sticky; bottom: .75rem; z-index: 6; display: flex; align-items: center; gap: var(--mk-s-3); padding: .7rem .8rem .7rem 1rem; border-radius: var(--elgo-radius-control); background: var(--elgo-brand-deep); color: #fff; box-shadow: 0 12px 30px -10px rgba(0,0,0,.6); }
   .mk-peek b { font: var(--elgo-display-weight) var(--mk-t-xl)/1 var(--elgo-display); font-variant-numeric: tabular-nums; }
   .mk-peek span { font-weight: 600; font-size: var(--mk-t-s); line-height: 1.25; }
-  .mk-peek i { margin-left: auto; font-style: normal; font-weight: 800; font-size: var(--mk-t-s); padding: .45rem .75rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-on-accent); color: var(--elgo-accent); white-space: nowrap; }
+  .mk-peek i { margin-left: auto; font-style: normal; font-weight: 800; font-size: var(--mk-t-s); padding: .45rem .75rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-accent); color: var(--elgo-on-accent); white-space: nowrap; }
   .mk-peek[hidden] { display: none; }
   .mk-peek.is-away { opacity: 0; pointer-events: none; }
   .mk-peek.is-bump b { animation: mk-bump .4s var(--mk-ease); }
-  .mk-peek:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .mk-peek:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
 }
 @keyframes mk-bump { 40% { transform: scale(1.35); } }
 /* results panel */
-.mk-results { position: sticky; top: calc(var(--mk-bar-h) + var(--mk-s-4)); display: grid; gap: var(--mk-s-4); padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: var(--mk-tile); background: var(--elgo-surface); color: var(--elgo-ink); box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); scroll-margin-top: calc(var(--mk-bar-h) + var(--mk-s-4)); }
+.mk-results { position: sticky; top: calc(var(--mk-bar-h) + var(--mk-s-4)); display: grid; gap: var(--mk-s-4); padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: var(--mk-tile); background: var(--elgo-surface); color: var(--elgo-ink); box-shadow: 0 24px 50px -30px rgba(15,27,92,.35); scroll-margin-top: calc(var(--mk-bar-h) + var(--mk-s-4)); }
 @media (max-width: 1000px) { .mk-results { position: relative; top: 0; } }
 .mk-results__head { display: flex; justify-content: space-between; align-items: center; gap: var(--mk-s-3); }
 .mk-tag { font: 700 .6875rem/1 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; padding: .35rem .55rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-tint); color: var(--elgo-muted); }
@@ -268,13 +274,12 @@
 .mk-results h2 span { font-variant-numeric: tabular-nums; }
 .mk-for { margin: -.25rem 0 0; font-size: var(--mk-t-s); line-height: 1.45; color: var(--elgo-muted); }
 .mk-plist { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--mk-s-2); }
-.mk-plist li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px var(--mk-s-3); padding: var(--mk-s-3) var(--mk-s-4); border-radius: var(--elgo-radius-card); background: var(--elgo-tint); animation: mk-in .35s var(--mk-ease) both; }
+.mk-plist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--mk-s-3); padding: var(--mk-s-3) var(--mk-s-4); border-radius: var(--elgo-radius-card); background: var(--elgo-tint); animation: mk-in .35s var(--mk-ease) both; }
 .mk-plist li:nth-child(2) { animation-delay: .05s; } .mk-plist li:nth-child(3) { animation-delay: .1s; } .mk-plist li:nth-child(4) { animation-delay: .15s; }
 @keyframes mk-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.mk-plist img { grid-row: 1 / span 3; width: 28px; height: 28px; border-radius: 50%; object-fit: cover; margin-top: 2px; box-shadow: 0 0 0 2px var(--elgo-surface); }
 .mk-plist b { font-size: var(--mk-t-m); color: var(--elgo-brand-deep); line-height: 1.3; }
 .mk-plist .mk-link { font-size: var(--mk-t-xs); align-self: start; margin-top: 2px; }
-.mk-plist p { grid-column: 2 / -1; margin: 0; font-size: var(--mk-t-s); line-height: 1.45; color: var(--elgo-muted); }
+.mk-plist p { grid-column: 1 / -1; margin: 0; font-size: var(--mk-t-s); line-height: 1.45; color: var(--elgo-muted); }
 .mk-money { grid-column: 2 / -1; justify-self: start; display: flex; flex-wrap: wrap; gap: 0 .6rem; margin-top: 4px; padding: .2rem .6rem; border-radius: var(--elgo-radius-control); background: var(--elgo-surface); font-size: var(--mk-t-xs); font-weight: 700; color: var(--elgo-brand-deep); font-variant-numeric: tabular-nums; }
 .mk-money em { font-style: normal; color: var(--elgo-ok-strong); }
 .mk-money i { font-style: normal; white-space: nowrap; color: var(--elgo-muted); }
@@ -347,9 +352,16 @@
 .mk-soon { justify-self: start; font: 700 .6875rem/1 var(--elgo-body); letter-spacing: .08em; text-transform: uppercase; padding: .35rem .55rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-surface); color: var(--elgo-tool-strong); }
 .mk-chat { display: grid; gap: 6px; margin-top: var(--mk-s-2); align-content: start; }
 .mk-chat span { max-width: 88%; padding: .5rem .75rem; border-radius: 12px; font-size: var(--mk-t-s); line-height: 1.4; }
-.mk-chat .me { justify-self: end; background: var(--elgo-brand-deep); color: #fff; border-bottom-right-radius: 4px; }
-.mk-chat .bot { justify-self: start; background: var(--elgo-surface); color: var(--elgo-ink); border-bottom-left-radius: 4px; }
-.mk-chat .bot small { display: block; margin-top: 3px; font-size: .6875rem; font-weight: 700; color: var(--elgo-tool-strong); }
+.mk-chat .bot { justify-self: start; background: var(--elgo-brand-deep); color: #fff; border-bottom-left-radius: 4px; }
+/* session preferences, as in the wireframe's assistant ("Using your current preferences" + chips) */
+.mk-chat .prefs { max-width: none; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: .6875rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--elgo-brand); }
+.mk-chat .prefs b { padding: .15rem .5rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-surface); color: var(--elgo-brand-deep); font-weight: 600; letter-spacing: 0; text-transform: none; }
+/* topic options, as in the wireframe's assistant (GatewayAssistant.tsx): full-width rows with an arrow.
+   The assistant is option-led (rules-based paths), not free chat */
+.mk-chat .menu { max-width: none; padding: 0; display: grid; gap: 5px; }
+/* rows match the visa guide card's steps (.mk-mini li): white, no outline, 8px corners */
+.mk-chat .menu b { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: .45rem .6rem; border-radius: 8px; background: var(--elgo-surface); color: var(--elgo-ink); font-size: var(--mk-t-s); font-weight: 400; line-height: 1.4; }
+.mk-chat .menu b::after { content: "›"; font-size: 1rem; line-height: 1; opacity: .6; }
 .mk-tile--ask > p { font-size: var(--mk-t-s); color: var(--elgo-muted); }
 
 /* ---------- Step 4: Apply ---------- */
@@ -378,59 +390,369 @@
 .mk-arrive img { flex: none; width: 3.375rem; height: 2.25rem; border-radius: 3px; box-shadow: 0 2px 8px -2px rgba(0,0,0,.3); }
 .mk-arrive p { margin: 0; font: var(--elgo-display-weight) var(--mk-t-xl)/1.1 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
 
-/* ---------- Family band ---------- */
-.mk-family { position: relative; overflow: hidden; background: var(--elgo-story-soft); scroll-margin-top: var(--mk-bar-h); }
-.mk-family::before { content: ""; position: absolute; right: -8rem; top: -8rem; width: 24rem; height: 24rem; border-radius: 50%; background: var(--elgo-accent-soft); pointer-events: none; }
-.mk-family > .ecl-container { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--mk-s-7); align-items: center; padding-block: var(--mk-s-8); }
-@media (max-width: 900px) { .mk-family > .ecl-container { grid-template-columns: minmax(0, 1fr); gap: var(--mk-s-6); } }
-.mk-family__copy { display: grid; gap: var(--mk-s-4); justify-items: start; }
-.mk-family__copy .mk-label { color: var(--elgo-story-strong); }
-.mk-family__copy .mk-label span[lang="hi"] { font-family: var(--elgo-body), "Noto Sans Devanagari", sans-serif; letter-spacing: 0; text-transform: none; font-size: var(--mk-t-s); }
-.mk-family__copy p { margin: 0; color: var(--elgo-ink); line-height: 1.55; font-size: var(--mk-t-l); max-width: 34rem; }
-@media (max-width: 640px) { .mk-family__copy p { font-size: var(--mk-t-m); } }
-@media (max-width: 640px) { .mk-family .elgo-actions { width: 100%; } .mk-family .elgo-actions .ecl-button { flex: 1 1 100%; justify-content: center; } }
-.mk-family__copy small { font-size: var(--mk-t-s); color: var(--elgo-muted); }
-.mk-wa { display: inline-flex; align-items: center; gap: .5rem; }
-.mk-wa svg { flex: none; }
-.mk-letter { display: grid; gap: 0; padding: var(--mk-s-2) var(--mk-s-5); border-radius: var(--mk-tile); background: var(--elgo-surface); box-shadow: 0 24px 50px -30px rgba(15,27,92,.45); }
-.mk-letter div { display: grid; gap: 4px; padding: var(--mk-s-4) 0; }
-.mk-letter div + div { border-top: 1px solid var(--elgo-line); }
-.mk-letter span { font-weight: 700; line-height: 1.4; color: var(--elgo-brand-deep); }
-.mk-letter span[lang="hi"] { font-weight: 500; font-family: var(--elgo-body), "Noto Sans Devanagari", sans-serif; color: var(--elgo-story-strong); }
-.mk-letter p { margin: 0; font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-muted); }
+/* ---------- ECL site footer (core), light ----------
+   Light blue-grey instead of the dark theme colour (4 Oct 2026), so the full-colour partner logos of
+   the funder lockup (client feedback 25 Sept, #4.1) sit on it as they do on the landing page. Ink and
+   separators follow; links are the plain (non-inverted) ECL links, recoloured to the theme. */
+.ecl-site-footer { --foot-bg: var(--elgo-tint); --foot-ink: var(--elgo-ink); --foot-link: var(--elgo-brand-deep); --foot-line: var(--elgo-line-strong); }
+.ecl-site-footer .ecl-site-footer__main { background: var(--foot-bg); color: var(--foot-ink); border-top: 1px solid var(--elgo-line); }
+/* the feedback row is hidden (mockups.js), so the next row loses its separator line and top gap */
+.ecl-site-footer .ecl-site-footer__row--specific { border-top: 0; padding-top: 0; }
+.ecl-site-footer .ecl-site-footer__row--common { border-top-color: var(--foot-line); }
+.ecl-site-footer .ecl-site-footer__link { color: var(--foot-link); }
+.ecl-site-footer .ecl-site-footer__link:hover { color: var(--elgo-brand); text-decoration: underline; }
+.ecl-site-footer .ecl-site-footer__list--inline .ecl-site-footer__list-item { border-color: var(--foot-line); }
 
-/* ---------- ECL site footer (core): theme background instead of ECL's own ---------- */
-.ecl-site-footer .ecl-site-footer__main { background: var(--elgo-brand-deep); }
-.ecl-site-footer .ecl-site-footer__description-name { font-weight: 700; }
-/* EU flag instead of the Commission logo until the branding decision is made (decisions-log) */
-.ecl-site-footer .mk-footer-flag { width: auto; height: 3.5rem; border: 2px solid #fff; } /* white border: the emblem rule for dark backgrounds */
+/* desktop (ECL puts the two sections side by side from 1140px): the link block is pushed to the right
+   edge and top-aligned with the logo block (ECL's 40px top padding removed), leaving more room between them */
+@media (min-width: 1140px) {
+  .ecl-site-footer .ecl-site-footer__section--site-info { flex: 1 1 auto; }
+  .ecl-site-footer .ecl-site-footer__section--core { flex: 0 0 auto; margin-left: auto; padding-left: 4rem; padding-top: 0; }
+  .ecl-site-footer .ecl-site-footer__section--core .ecl-site-footer__list { column-gap: 5rem; }
+}
 
-/* ---------- Events: L3's layout (teal next-session tile with a date ticket + "Also coming up"),
-   used by the starter and personal pages ---------- */
-.mk-events { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--mk-s-6); align-items: start; }
-@media (max-width: 1000px) { .mk-events { grid-template-columns: minmax(0, 1fr); } }
-.mk-tile--live { background: var(--elgo-calm-soft); border-color: transparent; padding: clamp(1.5rem, 3vw, 2.25rem); gap: var(--mk-s-4); }
-.mk-tile--live > .mk-label { color: var(--elgo-calm-strong); }
-.mk-tile--live .elgo-actions .ecl-button { margin: 0; }
-.mk-ticket { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--mk-s-4); align-items: center; padding: var(--mk-s-4); border-radius: var(--elgo-radius-card); background: var(--elgo-surface); }
-.mk-ticket time { display: grid; justify-items: center; padding: .6rem .9rem; border-radius: var(--elgo-radius-control); background: var(--elgo-brand-deep); color: #fff; line-height: 1; }
-.mk-ticket time b { font: var(--elgo-display-weight) 2.25rem/1 var(--elgo-display); color: var(--elgo-accent); }
-.mk-ticket time span { font-size: .6875rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
-.mk-ticket b.t { font-size: var(--mk-t-xl); line-height: 1.25; color: var(--elgo-brand-deep); }
-.mk-ticket small { display: block; margin-top: 4px; font-size: var(--mk-t-s); color: var(--elgo-muted); }
-.mk-more h3 { margin: 0 0 var(--mk-s-3); font: 700 var(--mk-t-l)/1.3 var(--elgo-heading); color: var(--elgo-brand-deep); }
-.mk-more ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--elgo-line); }
-.mk-more li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 2px var(--mk-s-4); padding: var(--mk-s-4) 0; border-bottom: 1px solid var(--elgo-line); }
-.mk-more time { grid-row: 1 / span 2; font-weight: 800; color: var(--elgo-brand); font-variant-numeric: tabular-nums; }
+/* funder and implementer lockup: label above each logo, same logo height, thin rules between them */
+.mk-lockup { display: flex; flex-wrap: nowrap; align-items: stretch; gap: 0; margin: 0; padding: 0; list-style: none; }
+.mk-lockup li { display: flex; flex-direction: column; justify-content: space-between; gap: .625rem; min-width: 0; padding-inline: 1.5rem; border-left: 1px solid var(--foot-line); }
+.mk-lockup li:first-child { padding-left: 0; border-left: 0; }
+.mk-lockup li:last-child { padding-right: 0; }
+.mk-lockup__label { font: 500 .8125rem/1.3 var(--elgo-body); color: var(--elgo-muted); }
+.mk-lockup a { display: block; line-height: 0; border-radius: 2px; }
+.mk-lockup img { display: block; height: 3.5rem; width: auto; max-width: 100%; object-fit: contain; object-position: left center; }
+/* EU emblem on a light background: a thin outline so the flag edge reads */
+.mk-lockup .mk-lockup__flag { outline: 1px solid var(--foot-line); }
+
+/* social media follow above the legal links (ECL harmonised footer): description inline, icon + label links (few networks, so the names show, as in the Storybook demo).
+   ECL's own layout is kept; only the colours follow the light footer. */
+.ecl-site-footer .ecl-site-footer__extra-links-container { margin-bottom: 1rem; }
+@media (max-width: 640px) { .ecl-site-footer .ecl-site-footer__extra-links-container { margin-bottom: 1.75rem; } .mk-social .ecl-social-media-follow__description { margin-bottom: .5rem; } }
+.mk-social .ecl-social-media-follow__description { color: var(--foot-ink); }
+.mk-social .ecl-social-media-follow__link { color: var(--foot-link); }
+.mk-social .ecl-social-media-follow__link:hover { color: var(--elgo-brand); }
+/* icon size and spacing as in the EU preset harmonised story: 16px icon, 8px to the name, 16px between
+   networks (our EC preset makes ecl-icon--xs 18px, hence the explicit size) */
+.mk-social .ecl-social-media-follow__icon { width: 1rem; height: 1rem; }
+
+@media (max-width: 640px) {
+  .mk-lockup { flex-direction: column; }
+  .mk-lockup li { display: grid; grid-template-columns: 8.75rem 1fr; align-items: center; gap: 1rem; padding: .875rem 0; border-left: 0; border-top: 1px solid var(--foot-line); }
+  .mk-lockup li:first-child { padding-top: 0; border-top: 0; }
+  .mk-lockup li:last-child { padding-bottom: 0; }
+  .mk-lockup img { height: 3rem; }
+}
+
+/* ---------- Events: featured event banner + dated list (all three pages) ----------
+   Structure from the ECL demo the client approved: a banner with a big photo, a dark bar with the
+   event name, date and actions, then a two-column list of dated sessions and the links row.
+   Redrawn in the mockups' language (2 Oct 2026): tinted copy panel, photo (arch-cut corner removed 6 Oct),
+   gold date tile. Main action "Register" (client feedback 25 Sept, #3.1); calendar is secondary.
+   Per page, on .mk-events: --feat-tint (copy panel, date tiles), --feat-label (eyebrow). */
+.mk-events { --feat-tint: var(--elgo-calm-soft); --feat-label: var(--elgo-calm-strong); display: grid; gap: clamp(1.75rem, 3vw, 2.5rem); }
+.mk-feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-radius: var(--elgo-radius-card); overflow: hidden; background: var(--feat-tint); }
+.mk-feature__body { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: var(--mk-s-4); padding: clamp(1.5rem, 3.5vw, 3rem); }
+.mk-feature__body > .mk-label { color: var(--feat-label); }
+.mk-feature__h { margin: 0; font: var(--elgo-display-weight) clamp(1.75rem, 3.2vw, 2.625rem)/1.08 var(--elgo-display); letter-spacing: -.01em; color: var(--elgo-brand-deep); text-wrap: balance; }
+.mk-feature__body p { margin: 0; max-width: 34rem; line-height: 1.55; }
+.mk-feature__body .mk-hosts img { box-shadow: 0 0 0 3px var(--feat-tint); }
+.mk-feature__img { position: relative; margin: 0; min-height: 26rem; overflow: hidden; background: var(--elgo-line); } /* square corners (the arch cut was removed 6 Oct 2026) */
+.mk-feature__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.mk-feature__bar { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--mk-s-4) var(--mk-s-6);
+  padding: var(--mk-s-4) clamp(1.5rem, 3.5vw, 3rem); background: var(--elgo-brand-deep); color: #fff; }
+.mk-feature__when { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--mk-s-4); align-items: center; }
+.mk-feature__when time { display: grid; justify-items: center; align-content: center; box-sizing: border-box; width: 4rem; height: 4rem; padding: 0; border-radius: var(--elgo-radius-control); background: var(--elgo-accent); color: var(--elgo-brand-deep); line-height: 1; }
+.mk-feature__when time b { font: var(--elgo-display-weight) 2rem/1 var(--elgo-display); }
+.mk-feature__when time span { font-size: .6875rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+.mk-feature__when b.t { display: block; font-size: var(--mk-t-l); line-height: 1.3; }
+.mk-feature__when small { display: block; margin-top: 3px; font-size: var(--mk-t-s); color: rgba(255, 255, 255, .78); }
+.mk-feature__act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mk-s-3) var(--mk-s-5); }
+.mk-feature__act .ecl-button { display: inline-flex; margin: 0; min-width: 9rem; justify-content: center; text-align: center; }
+.mk-feature__act .mk-link { color: #fff; }
+@media (max-width: 900px) {
+  .mk-feature { grid-template-columns: minmax(0, 1fr); }
+  .mk-feature__img { order: -1; min-height: 14rem; aspect-ratio: 16 / 9; }
+  .mk-feature__body { padding-bottom: var(--mk-s-6); }
+}
+@media (max-width: 640px) { .mk-feature__act { width: 100%; } .mk-feature__act .ecl-button { flex: 1 1 100%; } }
+
+/* the dated list under the banner: two columns of sessions with a small date tile */
+.mk-more h3 { margin: 0 0 var(--mk-s-2); font: 700 var(--mk-t-l)/1.3 var(--elgo-heading); color: var(--elgo-brand-deep); }
+.mk-more ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(1.5rem, 4vw, 3.5rem); }
+.mk-more li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px var(--mk-s-4); align-content: start; padding: var(--mk-s-4) 0; border-bottom: 1px solid var(--elgo-line); }
+.mk-more time { grid-row: 1 / span 3; display: grid; justify-items: center; align-content: center; width: 3.75rem; height: 3.75rem; border-radius: var(--elgo-radius-control);
+  background: var(--feat-tint); color: var(--elgo-brand-deep); line-height: 1; font-variant-numeric: tabular-nums; }
+.mk-more time b { font: var(--elgo-display-weight) 1.375rem/1 var(--elgo-display); }
+.mk-more time span { font-size: .625rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-top: 3px; }
+.mk-more li > span { font-size: var(--mk-t-xs); font-weight: 700; letter-spacing: .04em; color: var(--elgo-muted); }
 .mk-more a { font-weight: 700; color: var(--elgo-brand-deep); text-decoration: none; line-height: 1.35; }
 .mk-more a:hover { text-decoration: underline; }
-.mk-more li span { font-size: var(--mk-t-s); color: var(--elgo-muted); }
-.mk-events-more { display: flex; flex-wrap: wrap; gap: var(--mk-s-3) var(--mk-s-6); margin-top: var(--mk-s-4); }
+.mk-more li > small { font-size: var(--mk-t-s); color: var(--elgo-muted); }
+.mk-events-more { display: flex; flex-wrap: wrap; gap: var(--mk-s-3) var(--mk-s-6); margin-top: var(--mk-s-5); }
+@media (max-width: 760px) { .mk-more ul { grid-template-columns: minmax(0, 1fr); } }
 
-.mk-tile--live .mk-hosts img { box-shadow: 0 0 0 3px var(--elgo-calm-soft); }
+/* ---------- Header: audience bar + main menu (6 Oct 2026; markup in mockups.js) ----------
+   Audience bar as make-it-in-germany.com's target-group switch: home icon + two audience tabs,
+   About / FAQ / Contact on the right. */
+@media (min-width: 641px) { .elgo-header__logo img { height: 70px; } } /* Figma Site header: logo 153 × 70 (shared.css has 64; phones keep 48) */
+/* audience bar, synced with the Figma Site header (14 Oct 2026): navy band, the audiences as tabs
+   sitting on its bottom edge; the selected one is white and joins the white header below */
+.elgo-aud { background: var(--elgo-brand-deep); font-size: var(--mk-t-s); line-height: 1.2; }
+.elgo-aud__in { display: flex; align-items: center; gap: var(--mk-s-4); min-height: 36px; padding-top: 8px; } /* tabs 36 tall on the bottom edge; util links centred on them */
+.elgo-aud ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.elgo-aud__tabs { align-self: flex-end; }
+.elgo-aud__tabs ul { gap: 6px; }
+.elgo-aud__tabs a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 8px 8px 0 0; background: transparent; color: #fff; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.elgo-aud__tabs a:hover { background: rgba(255, 255, 255, .12); }
+.elgo-aud__tabs a.is-on { background: var(--elgo-surface); color: var(--elgo-brand-deep); }
+.elgo-aud__tabs a:focus-visible, .elgo-aud__util a:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: -3px; }
+.elgo-aud__tabs .elgo-aud__home { padding: 0 10px; }
+.elgo-aud__util { margin-left: auto; }
+.elgo-aud__util ul { gap: var(--mk-s-5); }
+.elgo-aud__util a { color: #fff; font-weight: 500; text-decoration: none; }
+.elgo-aud__util a:hover { text-decoration: underline; }
+.elgo-menu-open { display: none; }
 
-/* ---------- Main menu: active section (set by mockups.js from <body data-nav>) ----------
-   Gold bar + bold (700), as the step bar's "you are here"; hover gets a quieter bar so it never
-   reads as the active state. The family page counts as "Moving to the EU". */
-.elgo-nav a:hover { border-bottom-color: var(--elgo-line-strong); }
-.elgo-nav a[aria-current="page"] { font-weight: 700; color: var(--elgo-brand-deep); border-bottom: 4px solid var(--elgo-accent); padding-bottom: calc(.8rem - 1px); }
+/* ECL Menu (EC preset 5.3.1) re-themed through its colour tokens: a white bar with ink links
+   instead of the EC blue bar. Current item: gold bar + bold, as the step bar's "you are here";
+   hover gets a quieter bar so it never reads as the current item. */
+.elgo-menu {
+  --cm-surface-brand: var(--elgo-surface); --cm-on-surface-inverted: var(--elgo-ink); --cm-on-surface-brand: var(--elgo-brand-deep);
+  --cm-surface-inverted: var(--elgo-surface); --cm-border-on-brand: transparent; --cm-border-brand: transparent;
+  --cm-surface-neutral-low: var(--elgo-tint); --cm-surface-neutral-lowest: var(--elgo-tint); --cm-surface-neutral-medium: var(--elgo-surface);
+  --cm-border-primary: var(--elgo-accent); --cm-border-neutral: var(--elgo-line); --cm-border-inverted: var(--elgo-line);
+  font-family: var(--elgo-body);
+}
+.elgo-menu .ecl-menu__link, .elgo-menu .ecl-menu__sublink { font-family: var(--elgo-body); text-decoration: none; }
+.elgo-menu__util, .elgo-menu__search { display: none; }
+@media (min-width: 1140px) {
+  .elgo-header .elgo-menu { border-bottom: 1px solid var(--elgo-line); }
+  .elgo-header .elgo-menu .ecl-menu__container { padding-inline: 2rem; } /* ECL's container padding from 1140px, so the links line up with the logo */
+  .elgo-header .elgo-menu .ecl-menu__list { margin-inline: calc(-1 * var(--s-l)) calc(-1 * var(--s-m)); }
+  .elgo-header .elgo-menu .ecl-menu__link { min-height: 52px; font-size: .9375rem; font-weight: 600; }
+  /* Figma Site header (14 Oct): the audience's direct links in brand blue; no chevrons on the
+     dropdowns (they open on hover; the caret button stays for keyboard users, shown on focus) */
+  .elgo-header .elgo-menu .elgo-menu__item--tool .ecl-menu__link { color: var(--elgo-brand); }
+  .elgo-header .elgo-menu .ecl-menu__item--has-children .ecl-menu__link { padding-inline-end: 5px; } /* Figma Menu item, Chevron=True with the chevron hidden: 20 / 5 */
+  .elgo-header .elgo-menu .ecl-menu__button-caret:not(:focus-visible) { position: absolute; inset-inline-end: 0; width: 1px; min-width: 0; padding: 0; overflow: hidden; clip-path: inset(50%); }
+  /* the bar under an item is drawn on the item itself, so it runs under the link and its caret alike.
+     Hover and open share the blue bar: a dropdown item opens on hover, so a separate hover colour
+     would only ever show on the items without a dropdown. */
+  .elgo-header .elgo-menu .ecl-menu__item { box-shadow: inset 0 -3px 0 transparent !important; }
+  .elgo-header .elgo-menu .ecl-menu__item:hover { box-shadow: inset 0 -3px 0 var(--elgo-brand) !important; }
+  .elgo-header .elgo-menu .ecl-menu__item[data-expanded="true"] { box-shadow: inset 0 -3px 0 var(--elgo-brand) !important; }
+  .elgo-header .elgo-menu .ecl-menu__item--current { box-shadow: inset 0 -4px 0 var(--elgo-accent) !important; }
+  .elgo-header .elgo-menu .ecl-menu__item .ecl-menu__link, .elgo-header .elgo-menu .ecl-menu__item .ecl-menu__button-caret { background: transparent !important; margin-bottom: 0 !important; }
+  .elgo-header .elgo-menu .ecl-menu__item--current .ecl-menu__link { font-weight: 700; color: var(--elgo-brand-deep); }
+  .elgo-header .elgo-menu .ecl-menu__item[data-expanded="true"] .ecl-menu__link, .elgo-header .elgo-menu .ecl-menu__item[data-expanded="true"] .ecl-menu__button-caret { color: var(--elgo-brand-deep); }
+  .elgo-header .elgo-menu .ecl-menu__button-caret .ecl-button__icon { transform: none !important; transition: transform .15s; }
+  .elgo-header .elgo-menu .ecl-menu__item[data-expanded="true"] .ecl-menu__button-caret .ecl-button__icon { transform: rotate(180deg) !important; }
+  /* the dropdown: a soft card instead of ECL's flat box */
+  .elgo-header .elgo-menu .ecl-menu__mega { top: calc(100% + 1px); min-width: 17rem; padding: var(--mk-s-3); border-radius: 0 0 12px 12px; border-top: 0; box-shadow: var(--elgo-shadow); }
+  .elgo-header .elgo-menu .ecl-menu__item--col2 .ecl-menu__mega { min-width: 34rem; }
+  .elgo-header .elgo-menu .ecl-menu__sublist { column-gap: var(--mk-s-5); }
+  .elgo-header .elgo-menu .ecl-menu__subitem { min-width: 0; }
+  .elgo-header .elgo-menu .ecl-menu__sublink { font-size: .9375rem; color: var(--elgo-ink); border-radius: 8px; padding: .55rem .75rem; }
+  .elgo-header .elgo-menu .ecl-menu__sublink:hover { background: var(--elgo-tint); color: var(--elgo-brand-deep); text-decoration: underline; }
+}
+/* (.elgo-header in front: ECL's own menu selectors carry :not() and so outrank two classes) */
+/* below 1140px: ECL's side panel, opened from the Menu button next to the search */
+@media (max-width: 1139.98px) {
+  .elgo-menu-open { display: inline-flex; color: var(--elgo-brand-deep); font-weight: 600; }
+  .elgo-menu-open .ecl-button__container { gap: .4rem; align-items: center; }
+  .elgo-header .elgo-menu { padding: 0; }
+  .elgo-header .elgo-menu .ecl-menu__container { min-height: 0; }
+  .elgo-header .elgo-menu .ecl-menu__inner { width: min(25rem, 100%); inset-inline-end: -100%; background: var(--elgo-surface); }
+  .elgo-header .elgo-menu[data-expanded] .ecl-menu__inner { display: flex; flex-direction: column; inset-inline-end: 0; }
+  .elgo-header .elgo-menu .ecl-menu__overlay { background: rgba(15, 27, 92, .45); }
+  .elgo-header .elgo-menu .ecl-menu__inner-header { display: flex; flex-flow: row; align-items: center; gap: var(--mk-s-2); height: auto; min-height: 56px; padding: 0 var(--mk-s-2) 0 var(--mk-s-4); border-bottom: 1px solid var(--elgo-line); background: var(--elgo-surface); }
+  .elgo-header .elgo-menu .ecl-menu__title { display: block; padding: 0; font-weight: 700; color: var(--elgo-brand-deep); }
+  .elgo-header .elgo-menu .ecl-menu__close { display: inline-flex; margin-inline-start: auto; }
+  .elgo-header .elgo-menu .ecl-menu__close .ecl-button__container { flex-direction: row; gap: .35rem; align-items: center; }
+  .elgo-header .elgo-menu .ecl-menu__close .ecl-button__label { margin: 0; }
+  .elgo-header .elgo-menu .ecl-menu__back { display: none; width: auto; padding-inline: var(--mk-s-2); }
+  .elgo-header .elgo-menu .ecl-menu__inner--expanded .ecl-menu__back { display: inline-flex; }
+  .elgo-header .elgo-menu .ecl-menu__inner--expanded .ecl-menu__title { display: none; }
+  .elgo-header .elgo-menu .ecl-menu__list { flex-grow: 0; }
+  .elgo-header .elgo-menu .ecl-menu__item { border-top: 1px solid var(--elgo-line); }
+  .elgo-header .elgo-menu .ecl-menu__link { padding: .9rem var(--mk-s-4); font-size: 1rem; font-weight: 600; color: var(--elgo-ink); }
+  .elgo-header .elgo-menu .ecl-menu__item--current .ecl-menu__link { box-shadow: inset 4px 0 0 var(--elgo-accent); background: var(--elgo-tint); }
+  .elgo-header .elgo-menu .ecl-menu__button-caret { min-width: 52px; justify-content: center; background: transparent; }
+  .elgo-header .elgo-menu .ecl-menu__button-caret .ecl-button__icon { transform: rotate(-90deg); }
+  .elgo-header .elgo-menu .ecl-menu__item--expanded .ecl-menu__link { font-size: 1.125rem; font-weight: 700; color: var(--elgo-brand-deep); }
+  .elgo-header .elgo-menu .ecl-menu__sublink { padding: .8rem var(--mk-s-4); font-size: 1rem; color: var(--elgo-ink); }
+  .elgo-header .elgo-menu .ecl-menu__subitem { border-top: 1px solid var(--elgo-line); }
+  .elgo-menu__util { display: flex; flex-wrap: wrap; gap: var(--mk-s-2) var(--mk-s-5); list-style: none; margin: auto 0 0; padding: var(--mk-s-4); border-top: 1px solid var(--elgo-line); background: var(--elgo-tint); }
+  .elgo-menu__util a { color: var(--elgo-ink); font-weight: 600; }
+  .elgo-header .elgo-menu .ecl-menu__inner--expanded .elgo-menu__util, .elgo-menu .ecl-menu__inner--expanded .elgo-menu__search { display: none; }
+  html.elgo-menu-locked { overflow: hidden; }
+}
+@media (max-width: 760px) {
+  .elgo-aud__util { display: none; }
+  .elgo-menu .elgo-menu__util { display: flex; }
+}
+@media (max-width: 640px) {
+  .elgo-aud__tabs a { padding: 0 .6rem; font-size: .8125rem; }
+  .elgo-menu-open { margin-inline-start: auto; }
+  .elgo-menu-open .ecl-button__label { font-size: .875rem; }
+  .elgo-menu .elgo-menu__search { display: flex; margin: var(--mk-s-4); }
+  .elgo-menu__search input { flex: 1; min-width: 0; border: 1px solid var(--elgo-line-strong); border-right: 0; padding: .6rem .75rem; font: inherit; border-radius: var(--elgo-radius-control) 0 0 var(--elgo-radius-control); }
+  .elgo-menu__search button { border: 0; background: var(--elgo-brand); color: #fff; padding: 0 .85rem; border-radius: 0 var(--elgo-radius-control) var(--elgo-radius-control) 0; }
+}
+
+/* ---------- Newsletter sign-up: last section of each homepage (6 Oct 2026; markup in mockups.js) ----------
+   A blue closing band (--elgo-brand) with a segment of the hero arches. Rows: the title
+   on one line; the description beside the email field (Subscribe inside it); the promises and
+   the privacy link on one row. Gold is kept for the action and the ticks. All custom (no ECL form component). */
+.mk-news { --news-ring: var(--elgo-tool); --news-soft: rgba(255, 255, 255, .78);
+  --news-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5' fill='none' stroke='%230f1b5c' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  position: relative; overflow: clip; padding-block: var(--mk-s-9); background: var(--elgo-brand); color: #fff; } /* EU blue, a step lighter than the navy (6 Oct): white 11.3:1, soft text 7.5:1, error 6.7:1 */
+.mk-news__arcs { position: absolute; right: -6rem; bottom: -12rem; width: 30rem; height: auto; overflow: visible; pointer-events: none; opacity: .3; }
+.mk-news__arcs path { fill: none; stroke: var(--news-ring); stroke-width: 10; stroke-linecap: round; }
+.mk-news__arcs circle { fill: var(--news-ring); }
+.mk-news__in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "h h" "p form" "points points";
+  gap: var(--mk-s-4) clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.mk-news__h { grid-area: h; margin: 0; font: var(--elgo-display-weight) var(--mk-t-3xl)/1.02 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: #fff; }
+.mk-news__in > p { grid-area: p; margin: var(--mk-s-2) 0 0; max-width: 34rem; font-size: var(--mk-t-l); line-height: 1.6; color: var(--news-soft); }
+.mk-news__panel { grid-area: form; margin-top: var(--mk-s-2); }
+/* promises + privacy link: one row, same size */
+.mk-news__points { grid-area: points; display: flex; flex-wrap: wrap; align-items: center; gap: var(--mk-s-2) var(--mk-s-5); margin: var(--mk-s-3) 0 0; padding: 0; list-style: none; font-size: var(--mk-t-s); font-weight: 600; }
+.mk-news__points li { display: flex; align-items: center; gap: .6rem; }
+.mk-news__points li:not(.mk-news__privacy)::before { content: ""; flex: none; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--elgo-accent) var(--news-tick) center / .75rem no-repeat; }
+.mk-news__privacy a { color: #fff; text-underline-offset: .2em; }
+.mk-news__privacy a:hover { color: var(--elgo-accent); }
+.mk-news__privacy a:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 3px; border-radius: 2px; }
+
+/* email + Subscribe as one control: softly rounded field, the button inset with a matching radius */
+.mk-news__form { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "email" "eerr"; gap: var(--mk-s-2); }
+.mk-news__form[hidden] { display: none; }
+.mk-news__email { grid-area: email; box-sizing: border-box; width: 100%; min-width: 0; height: calc(3.25rem + 12px); padding: 0 9.5rem 0 1.25rem; border: 2px solid transparent; border-radius: 14px;
+  font: inherit; font-size: 1.0625rem; color: var(--elgo-ink); background: #fff; }
+.mk-news__email::placeholder { color: #6b7096; }
+.mk-news__email:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 3px; }
+.mk-news__email[aria-invalid] { border-color: var(--elgo-story); }
+/* the ECL button keeps its own height (52px: 12px padding + 28px line); the field is sized around it, 6px all round */
+.mk-news__go { grid-area: email; justify-self: end; align-self: center; margin: 0 6px 0 0; padding-inline: 1.5rem; border-radius: 8px; } /* 14px field radius - 6px inset */
+.mk-news__go:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.mk-news__err { grid-area: eerr; margin: 0; font-size: var(--mk-t-s); font-weight: 600; color: var(--elgo-story); }
+/* the message hangs under the field, so the field doesn't move when it appears (stacked again on phones) */
+@media (min-width: 521px) { .mk-news__form { position: relative; } .mk-news__err { position: absolute; top: calc(100% + 6px); left: 0; right: 0; } }
+/* after Subscribe */
+.mk-news__done { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--mk-s-1) var(--mk-s-4); align-items: start; outline: none; }
+.mk-news__done[hidden] { display: none; }
+.mk-news__tick { grid-row: 1 / span 3; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; background: var(--elgo-accent); color: var(--elgo-brand-deep); }
+.mk-news__tick svg { width: 1.5rem; height: 1.5rem; }
+.mk-news__done h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-2xl)/1.1 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: #fff; }
+.mk-news__done p { margin: 0; line-height: 1.55; color: var(--news-soft); }
+.mk-news__done p b { color: #fff; }
+.mk-news__again { justify-self: start; margin-top: var(--mk-s-2); padding: 0; border: 0; background: none; font: inherit; font-weight: 700; color: #fff; cursor: pointer; }
+.mk-news__again:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 3px; }
+@media (max-width: 900px) {
+  .mk-news__in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "h" "p" "form" "points"; }
+  .mk-news__h { text-wrap: balance; }
+  .mk-news__arcs { right: -10rem; bottom: -10rem; width: 22rem; opacity: .22; }
+}
+@media (max-width: 520px) {
+  .mk-news__form { grid-template-areas: "email" "eerr" "go"; }
+  .mk-news__email { padding-right: 1.25rem; }
+  .mk-news__go { grid-area: go; justify-self: stretch; margin: var(--mk-s-1) 0 0; border-radius: 12px; }
+}
+
+/* ============ Form controls (18 Oct 2026) ============
+   One set of choice and input controls for the tools (EU Predict now, the Visa wizard later), aligned with
+   the Figma file ELGO - Custom theme: Select Field, Single Chip, Checkbox, Link and Button (the ECL kit,
+   restyled). Plan and measurements: process/eu-predict-3-4-design-pass.md. Every state is on one test page,
+   tools/controls.html. Choices are buttons with aria-pressed; the selected look is the same neutral blue
+   everywhere (Figma's chip colour), so a control means the same thing on every page. */
+:root {
+  --mk-r-small: 8px; /* Figma radius/small */
+  --elgo-shadow-raised: 0 1px 2px rgba(11,26,79,.06), 0 14px 36px -12px rgba(11,26,79,.18); /* ticket, sticky bars */
+  --elgo-shadow-overlay: 0 2px 4px rgba(15,27,92,.06), 0 28px 60px -20px rgba(15,27,92,.38); /* panels, sheets */
+  --elgo-select: var(--ecl-color-primary-100); /* selected fill = Figma color/blue/100 */
+  --elgo-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  --elgo-icon-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f1b5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Pill: one choice or several. Figma Label/Chip (15 semibold). Selected = pale blue, 2 px brand edge, a tick */
+.elgo-pills { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mk-s-2); }
+.elgo-pill { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .45rem 1rem; border: 1.5px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-chip); background: var(--elgo-surface); font: 600 .9375rem/1.2 var(--elgo-body); color: var(--elgo-brand-deep); transition: border-color .15s, background-color .15s; -webkit-tap-highlight-color: transparent; }
+.elgo-pill:hover { border-color: var(--elgo-brand); }
+.elgo-pill:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+.elgo-pill[aria-pressed="true"] { background: var(--elgo-select); border-color: var(--elgo-brand); box-shadow: inset 0 0 0 .5px var(--elgo-brand); }
+.elgo-pill[aria-pressed="true"]::before { content: ""; flex: none; width: .85rem; height: .85rem; background: var(--elgo-brand); -webkit-mask: var(--elgo-icon-check) center / contain no-repeat; mask: var(--elgo-icon-check) center / contain no-repeat; }
+.elgo-pill:disabled, .elgo-pill[aria-disabled="true"] { opacity: .55; cursor: default; }
+.elgo-pill > svg { flex: none; width: .9rem; height: .9rem; }
+.elgo-pill[aria-pressed="true"] > .elgo-pill__add { display: none; } /* "+ German" loses its plus once added */
+/* a pill that opens a panel: caret, and a count once it holds choices */
+.elgo-pill--menu { padding-right: .8rem; }
+.elgo-pill__caret { flex: none; width: .9rem; height: .9rem; color: var(--elgo-brand-deep); transition: transform .2s; }
+.elgo-pill--menu[aria-expanded="true"] { border-color: var(--elgo-brand); }
+.elgo-pill--menu[aria-expanded="true"] .elgo-pill__caret { transform: rotate(180deg); }
+.elgo-pill--menu.is-set { background: var(--elgo-select); border-color: var(--elgo-brand); box-shadow: inset 0 0 0 .5px var(--elgo-brand); }
+.elgo-pill__n { box-sizing: border-box; min-width: 1.25rem; height: 1.25rem; padding: 0 .3rem; display: inline-grid; place-items: center; border-radius: var(--elgo-radius-chip); background: var(--elgo-brand-deep); color: #fff; font: 700 .75rem/1 var(--elgo-body); }
+.elgo-pill__n:empty { display: none; }
+
+/* Option card: a choice with an icon, a flag or a second line. Radio = one choice, checkbox = several
+   (Figma Checkbox: 20 px, radius 4, 1.5 px muted edge) */
+.elgo-option { all: unset; box-sizing: border-box; cursor: pointer; position: relative; display: grid; align-content: start; gap: .5rem; min-height: 3.5rem; padding: 1rem 3rem 1rem 1rem; border: 1.5px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-card); background: var(--elgo-surface); color: var(--elgo-brand-deep); transition: border-color .15s, background-color .15s; -webkit-tap-highlight-color: transparent; }
+.elgo-option:hover { border-color: var(--elgo-brand); }
+.elgo-option:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+.elgo-option b { display: grid; gap: 2px; font: 700 1rem/1.25 var(--elgo-body); }
+.elgo-option small { font: 400 .75rem/1.4 var(--elgo-body); color: var(--elgo-muted); }
+.elgo-option[aria-pressed="true"] { background: var(--elgo-select); border-color: var(--elgo-brand); box-shadow: inset 0 0 0 .5px var(--elgo-brand); }
+.elgo-option--row { display: flex; align-items: center; gap: .75rem; min-height: 3.25rem; padding-block: .6rem; }
+.elgo-mark { position: absolute; top: 1rem; right: 1rem; box-sizing: border-box; width: 1.25rem; height: 1.25rem; border: 1.5px solid var(--elgo-muted); border-radius: 4px; background: var(--elgo-surface); }
+.elgo-option--row .elgo-mark { top: 50%; transform: translateY(-50%); }
+.elgo-mark--radio { border-radius: 50%; }
+[aria-pressed="true"] > .elgo-mark { border-color: var(--elgo-brand); background: var(--elgo-brand); }
+[aria-pressed="true"] > .elgo-mark::after { content: ""; position: absolute; inset: 2px; background: #fff; -webkit-mask: var(--elgo-icon-check) center / contain no-repeat; mask: var(--elgo-icon-check) center / contain no-repeat; }
+[aria-pressed="true"] > .elgo-mark--radio { background: var(--elgo-surface); }
+[aria-pressed="true"] > .elgo-mark--radio::after { inset: 3.5px; border-radius: 50%; background: var(--elgo-brand); -webkit-mask: none; mask: none; }
+/* The same checkbox on a native input, for a tick list with its own labels (Visa wizard checklist; added 18 Oct) */
+.elgo-check { appearance: none; -webkit-appearance: none; flex: none; box-sizing: border-box; width: 1.25rem; height: 1.25rem; margin: 0; border: 1.5px solid var(--elgo-muted); border-radius: 4px; background: var(--elgo-surface); cursor: pointer; transition: border-color .15s, background-color .15s; }
+.elgo-check:hover { border-color: var(--elgo-brand); }
+.elgo-check:checked { border-color: var(--elgo-brand); background: var(--elgo-brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / .85rem no-repeat; }
+.elgo-check:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+
+/* Field: input or select, as Figma's Select Field (48 px, radius 10, 1 px strong edge, Label/Subtitle) */
+.elgo-flabel { display: block; margin: 0 0 .4rem; font: 700 .875rem/1.3 var(--elgo-body); color: var(--elgo-ink); } /* Label/Form */
+.elgo-field { box-sizing: border-box; width: 100%; min-height: 3rem; margin: 0; padding: .7rem .9rem; border: 1px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-control); background: var(--elgo-surface); font: 500 .875rem/1.3 var(--elgo-body); color: var(--elgo-ink); transition: border-color .15s; }
+.elgo-field::placeholder { color: #5f6588; }
+.elgo-field:hover { border-color: var(--elgo-brand); }
+.elgo-field:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 1px; border-color: var(--elgo-brand); }
+select.elgo-field { appearance: none; cursor: pointer; padding-right: 2.6rem; background: var(--elgo-surface) var(--elgo-icon-caret) right .85rem center / 1.1rem no-repeat; }
+.elgo-fieldbox { position: relative; display: block; }
+.elgo-fieldbox > .elgo-field { padding-right: 2.75rem; }
+.elgo-fieldbox__end { position: absolute; right: .9rem; top: 50%; transform: translateY(-50%); pointer-events: none; font: 700 .9375rem/1 var(--elgo-body); font-style: normal; color: var(--elgo-muted); }
+.elgo-fieldbox__end svg { display: block; width: 1.15rem; height: 1.15rem; }
+@media (max-width: 640px) { .elgo-field { font-size: 1rem; } } /* 16 px, so phones don't zoom in on focus */
+
+/* Tag: static (Figma Label/Badge on blue/100) and removable (Figma Single Chip) */
+.elgo-tag { box-sizing: border-box; display: inline-flex; align-items: center; min-height: 1.5rem; padding: .2rem .6rem; border: 1px solid var(--elgo-line); border-radius: var(--elgo-radius-chip); background: var(--elgo-surface); font: 600 .75rem/1.15 var(--elgo-body); color: var(--elgo-brand-deep); }
+.elgo-tag--fill { border-color: transparent; background: var(--elgo-select); }
+.elgo-tag--remove { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; min-height: 2rem; padding: .3rem .55rem .3rem .8rem; border-radius: var(--elgo-radius-chip); background: var(--elgo-select); font: 600 .875rem/1.2 var(--elgo-body); color: var(--elgo-brand-deep); transition: background-color .15s; }
+.elgo-tag--remove:hover { background: var(--ecl-color-primary-200); }
+.elgo-tag--remove:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+.elgo-tag--remove svg { flex: none; width: .95rem; height: .95rem; fill: none; stroke: var(--elgo-brand); stroke-width: 2.4; stroke-linecap: round; }
+
+/* Segmented choice (one of a short scale, e.g. A1 to C2) */
+.elgo-seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border: 1px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-control); background: var(--elgo-surface); overflow: hidden; }
+.elgo-seg > button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; place-items: center; min-height: 2.5rem; font: 700 .875rem/1 var(--elgo-body); color: var(--elgo-brand-deep); transition: background-color .15s; }
+.elgo-seg > button + button { border-left: 1px solid var(--elgo-line); }
+.elgo-seg > button:hover { background: var(--ecl-color-primary-75); }
+.elgo-seg > button[aria-pressed="true"] { background: var(--elgo-brand-deep); color: #fff; }
+.elgo-seg > button:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: -3px; }
+
+/* Text link inside a tool (Figma Link: Body/S Semibold, brand, optional icon); .mk-link stays for "go to" links */
+.elgo-textlink { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; font: 600 .875rem/1.4 var(--elgo-body); color: var(--elgo-brand); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .2em; transition: text-decoration-color .15s; }
+.elgo-textlink:hover { text-decoration-color: currentColor; }
+.elgo-textlink:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; border-radius: 2px; }
+.elgo-textlink svg { flex: none; width: 1rem; height: 1rem; }
+
+/* Buttons are ECL's (Figma Button: Blue = primary, Gold = primary + highlight, Outline = secondary, tertiary = text).
+   Medium size for panels and bars: 44 px instead of 52 */
+.ecl-button.elgo-btn-m { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; margin: 0; padding: .625rem 1.125rem; font-size: 1rem; line-height: 1.5rem; }
+.ecl-button--secondary.elgo-btn-m, .ecl-button--tertiary.elgo-btn-m { padding: calc(.625rem - 1px) calc(1.125rem - 1px); }
+.ecl-button.elgo-btn-m svg { flex: none; width: 1rem; height: 1rem; }
+.ecl-button--tertiary:hover { text-decoration: underline; text-underline-offset: .2em; }
+/* the same focus ring as every other control (3 px gold, Figma Focus); on the gold button it is dark blue */
+.ecl-button.ecl-button:focus-visible { outline: 3px solid var(--elgo-accent); outline-offset: 2px; }
+.ecl-button.ecl-button--highlight:focus-visible { outline-color: var(--elgo-brand-deep); }

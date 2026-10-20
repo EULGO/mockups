@@ -68,7 +68,7 @@ installation, server, or build step required.
 - For Employers and Higher Education Institutions always stays first under
   Employers and HEI and displays `/employers-and-higher-education`. It links to
   `employers-and-higher-education/recruiter.html`, imported from
-  `/mnt/c/Downloads/mockups-2026-09-29/recruiter.html`. Map old `employers-heis.html`
+  `/mnt/c/Downloads/mockups-2026-10-20/recruiter.html`. Map old `employers-heis.html`
   and `/employers-heis` links to this page.
 - The recruiter export's assets and shared header/footer script are isolated in
   `assets/employers-landing/` to preserve its design without overwriting other

@@ -8,35 +8,37 @@
 <link rel="stylesheet" href="../assets/employers-landing/vendor/ecl/styles/optional/ecl-ec-default.css">
 <link rel="stylesheet" href="../assets/employers-landing/vendor/ecl/styles/ecl-ec.css">
 <link rel="stylesheet" href="../assets/employers-landing/vendor/ecl/styles/ecl-ec-color-modes.css">
-<link rel="stylesheet" href="../assets/employers-landing/shared.css?v=1">
-<link rel="stylesheet" href="../assets/employers-landing/soft-eu.css?v=1">
-<link rel="stylesheet" href="../assets/employers-landing/mockups.css?v=8">
+<link rel="stylesheet" href="../assets/employers-landing/shared.css?v=6">
+<link rel="stylesheet" href="../assets/employers-landing/soft-eu.css?v=2">
+<link rel="stylesheet" href="../assets/employers-landing/mockups.css?v=60">
 <style>
 /* Recruiter page ("Recruiting from India" in the menu). Content from employer-hei-hub-spec-1.md
    and EmployerHEIHubV2.tsx; section order from the user's hand-made ECL adaptation
    (hero + stats, latest, market intelligence, countries + another market, responsible
    recruitment, events, browse all with filters), plus the "Continue to the responsible
    authority" block the user chose to keep. Same components and rules as the starter and
-   personal pages (mk-*), but a calmer palette than the pastel mix: two tints derived from
-   Soft EU, blue and green, switching on every section (header blue, latest green, market blue,
-   and so on), white sections included: their accents follow the section's tint.
-   Set per section with .rc-blue / .rc-green. */
+   personal pages (mk-*), but a calmer palette than the pastel mix.
 
-/* ---------- The two tints (Soft EU tokens only), set per section ---------- */
-.rc-blue {
-  --rc-band: var(--ecl-color-primary-75);    /* #f4f7ff: section bands */
-  --rc-soft: var(--ecl-color-primary-100);   /* #e8eeff: featured tiles, hero */
-  --rc-mid: var(--ecl-color-primary-200);    /* #d1ddfe: rings, chips */
-  --rc-strong: var(--elgo-tool-strong);      /* #3f4db8: labels, icons */
-}
-.rc-green {
-  --rc-band: color-mix(in srgb, var(--elgo-ok-soft) 35%, var(--elgo-surface));
+   Green components (14 Oct 2026, was recruiter-accent.html; the recruiter page since 20 Oct, the
+   first version with a blue / green tint per section is in archive/mockups-recruiter-two-tints/):
+   the components no longer switch between the blue and the green tint per section. Every
+   component uses the green tint; the section backgrounds alternate as before
+   (white / pale blue band, the hero and the authority
+   band on the stronger blue). Two exceptions (user, 14 Oct): surfaces inside cards and filters
+   (the procedure facts, the country list) are blue tinted, with blue links on them; the
+   events section sits on white, out of the alternation. */
+
+/* ---------- Backgrounds (blue) and component tint (green, everywhere) ---------- */
+.rc-page {
+  --rc-bg-band: var(--ecl-color-primary-75);   /* #f4f7ff: section bands */
+  --rc-bg-soft: var(--ecl-color-primary-100);  /* #e8eeff: hero, authority band */
   --rc-soft: var(--elgo-ok-soft);            /* #d9f2e6 */
   --rc-mid: color-mix(in srgb, var(--elgo-ok) 45%, var(--elgo-ok-soft));
   --rc-strong: var(--elgo-ok-strong);        /* #1a7449 */
+  --rc-inset: var(--ecl-color-primary-75);    /* surfaces inside cards and filters (blue, links stay blue) */
 }
 
-.rc-band { background: var(--rc-band); }
+.rc-band { background: var(--rc-bg-band); }
 .rc-label { color: var(--rc-strong); }
 .rc-tag { display: inline-flex; align-items: center; font: 700 .6875rem/1 var(--elgo-body); letter-spacing: .04em; padding: .35rem .55rem; border-radius: var(--elgo-radius-chip); background: var(--rc-soft); color: var(--elgo-brand-deep); }
 .rc-tag--line { background: var(--elgo-surface); border: 1px solid var(--elgo-line); color: var(--elgo-muted); }
@@ -44,15 +46,12 @@
 .rc-ico { width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .rc-ico-dot { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: var(--rc-soft); color: var(--rc-strong); }
 
-/* ---------- Hero: page header, one hue, no photo; the three figures sit under it ---------- */
-.rc-hero { background: linear-gradient(180deg, var(--rc-soft) 0%, var(--elgo-ground) 100%); overflow: hidden; position: relative; }
-/* a segment of the homepage arches (three arcs, end dots and gaps; same paths as the
-   L5 / starter hero), cropped at the top-right corner, in the page's tint */
-.rc-arcs { position: absolute; right: -9rem; top: -1.5rem; width: 36rem; height: auto; overflow: visible; pointer-events: none; }
-.rc-arcs path { fill: none; stroke-width: 10; stroke-linecap: round; }
-@media (max-width: 1200px) { .rc-arcs { right: -14rem; opacity: .7; } }
-@media (max-width: 900px) { .rc-arcs { right: -13rem; top: -1rem; width: 24rem; opacity: .5; } }
-@media (max-width: 640px) { .rc-arcs { opacity: .35; } }
+/* ---------- Hero: page header, one hue; copy beside the photo slideshow, the three figures under them ---------- */
+.rc-hero { background: linear-gradient(180deg, var(--rc-bg-soft) 0%, var(--elgo-ground) 100%); overflow: hidden; position: relative; }
+.rc-hero__main { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--mk-s-6); align-items: center; }
+.rc-stage { width: min(30rem, 100%); padding-block: var(--mk-s-5) var(--mk-s-6); }
+@media (max-width: 900px) { .rc-hero__main { grid-template-columns: minmax(0, 1fr); gap: 0; } .rc-stage { width: min(25rem, 92%); padding-top: 0; } }
+@media (max-width: 640px) { .rc-stage { width: min(20.5rem, 92%); } }
 .rc-hero .ecl-container { position: relative; z-index: 1; }
 .rc-crumb { margin: 0; padding: var(--mk-s-5) 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; font-size: var(--mk-t-s); color: var(--elgo-muted); }
 .rc-crumb li + li::before { content: "/"; margin-right: .4rem; color: var(--elgo-line-strong); }
@@ -60,28 +59,37 @@
 .rc-hero__copy { display: grid; gap: var(--mk-s-4); justify-items: start; max-width: 50rem; padding-block: clamp(2rem, 4.5vw, 3.5rem) var(--mk-s-6); }
 .rc-hero h1 { margin: 0; font-family: var(--elgo-display); font-weight: var(--elgo-display-weight); letter-spacing: var(--elgo-display-tracking); font-size: clamp(2.25rem, 4.3vw, 3.75rem); line-height: 1; color: var(--elgo-brand-deep); text-wrap: balance; }
 .rc-hero__lede { margin: 0; max-width: 44rem; font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.55; color: var(--elgo-muted); }
-.rc-notice { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--mk-s-3); align-items: start; max-width: 44rem; margin: 0; padding: var(--mk-s-3) var(--mk-s-4); border-radius: var(--elgo-radius-card); background: color-mix(in srgb, var(--elgo-surface) 75%, transparent); border: 1px solid var(--elgo-line); font-size: var(--mk-t-s); line-height: 1.45; color: var(--elgo-ink); }
-.rc-notice .rc-ico { width: 1.25rem; height: 1.25rem; color: var(--rc-strong); margin-top: 1px; }
 .rc-hero .elgo-actions { margin-top: var(--mk-s-2); }
+/* the hero notice, synced from Figma (14 Oct): plain text under the buttons, info icon, lead sentence semibold */
+.rc-info { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 4px; max-width: 43.5rem; margin: var(--mk-s-5) 0 0; font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-muted); }
+.rc-info__ico { width: 18px; height: 18px; margin-top: 2px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.rc-info b { font-weight: 600; }
 .rc-hero .elgo-actions .ecl-button { margin: 0; }
 @media (max-width: 640px) { .rc-hero .elgo-actions .ecl-button { flex: 1 1 100%; justify-content: center; } }
-.rc-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 clamp(2.5rem, 5vw, 4rem); padding: 0; list-style: none; border-radius: var(--mk-tile); background: var(--elgo-surface); border: 1px solid var(--elgo-line); }
-.rc-stats li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--mk-s-4); align-items: start; padding: var(--mk-s-5); }
+.rc-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 clamp(2.5rem, 5vw, 4rem); padding: 20px 0; list-style: none; border-radius: var(--mk-tile); background: var(--elgo-surface); border: 1px solid var(--elgo-line); }
+/* synced from Figma (14 Oct): ECL List with Illustration (icon, horizontal): a 48px line icon above
+   the heading, in the green tint; 24px sides, a divider between items */
+.rc-stats li { display: grid; align-content: start; gap: 16px; padding: 0 24px; }
 .rc-stats li + li { border-left: 1px solid var(--elgo-line); }
-.rc-stats .rc-ico-dot { grid-row: 1 / span 2; width: 2.75rem; height: 2.75rem; }
-.rc-stats b { font: var(--elgo-display-weight) var(--mk-t-xl)/1.15 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
-.rc-stats span { font-size: var(--mk-t-s); line-height: 1.45; color: var(--elgo-muted); }
-@media (max-width: 900px) { .rc-stats { grid-template-columns: minmax(0, 1fr); } .rc-stats li + li { border-left: 0; border-top: 1px solid var(--elgo-line); } }
+.rc-stats .rc-stat-ico { width: 48px; height: 48px; fill: none; stroke: var(--rc-strong); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.rc-stats li > span { display: grid; gap: 8px; }
+.rc-stats b { font: var(--elgo-display-weight) var(--mk-t-xl)/1.1 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.rc-stats small { font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-muted); }
+@media (max-width: 900px) { .rc-stats { grid-template-columns: minmax(0, 1fr); padding: 0; } .rc-stats li { padding: 20px 24px; } .rc-stats li + li { border-left: 0; border-top: 1px solid var(--elgo-line); } }
 
 /* ---------- Latest: one featured publication + three items ---------- */
 .rc-latest { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--mk-s-6); align-items: start; }
 @media (max-width: 1000px) { .rc-latest { grid-template-columns: minmax(0, 1fr); } }
-.rc-feature { background: var(--rc-soft); border-color: transparent; gap: var(--mk-s-4); padding: clamp(1.5rem, 3vw, 2.25rem); }
+.rc-feature { background: var(--rc-soft); border-color: transparent; gap: 20px; } /* synced from Figma (14 Oct): Card_Base_Content, Tone=Ok: the mk-tile padding (28) and title (28), 12 between kicker and title, 20 between the rest */
+.rc-feature__head { display: grid; gap: var(--mk-s-3); }
 .rc-feature .mk-label { color: var(--rc-strong); }
-.rc-feature h3 { font-size: clamp(1.75rem, 2.6vw, 2.25rem); }
+.rc-feature .elgo-actions { justify-self: start; }
 .rc-feature .elgo-actions .ecl-button { margin: 0; }
-.rc-meta { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px var(--mk-s-4); font-size: var(--mk-t-s); }
-.rc-meta dt { font-weight: 700; color: var(--elgo-brand-deep); }
+/* the details: Card_Base_Content's Details list (Figma, 14 Oct): two columns, a 120px label column
+   (Body/S Semibold, heading colour) and the value (Body/S Regular); 16px between columns, 4px between rows */
+.rc-meta { margin: 0; display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 4px 16px; font-size: var(--mk-t-s); line-height: 1.5; }
+.rc-meta div { display: contents; }
+.rc-meta dt { font-weight: 600; color: var(--elgo-brand-deep); }
 .rc-meta dd { margin: 0; color: var(--elgo-ink); }
 .rc-items { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--elgo-line); }
 .rc-items li { border-bottom: 1px solid var(--elgo-line); }
@@ -98,77 +106,77 @@
 .rc-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--mk-s-4); margin: 0; padding: 0; list-style: none; }
 @media (max-width: 1100px) { .rc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .rc-cards { grid-template-columns: minmax(0, 1fr); } }
-.rc-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--mk-s-3); padding: var(--mk-s-5); border-radius: var(--mk-tile); background: var(--elgo-surface); border: 1px solid var(--elgo-line); transition: border-color .15s, box-shadow .15s; }
+.rc-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--mk-s-3); padding: var(--mk-s-5) var(--mk-s-5) 0; border-radius: var(--mk-tile); background: var(--elgo-surface); border: 1px solid var(--elgo-line); transition: border-color .15s, box-shadow .15s; }
 .rc-card:hover { border-color: var(--rc-mid); box-shadow: var(--elgo-shadow); }
-.rc-card h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-l)/1.2 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
+.rc-card .rc-tags { gap: 6px; }
+.rc-card .rc-tag { font: 600 var(--mk-t-xs)/14px var(--elgo-body); letter-spacing: 0; padding: 5px 10px; border-radius: 6px; }
+.rc-card .rc-tag--line { border: 0; box-shadow: inset 0 0 0 1px var(--elgo-line); color: var(--elgo-ink); }
+.rc-card h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-xl)/26px var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand); }
 .rc-card h3 a { color: inherit; text-decoration: none; }
 .rc-card h3 a:hover { text-decoration: underline; text-underline-offset: .15em; }
 .rc-card p { margin: 0; font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; align-self: start; }
 .rc-card__src { font-size: var(--mk-t-xs); line-height: 1.4; color: var(--elgo-muted); }
 .rc-card__src b { color: var(--elgo-ok-strong); }
-.rc-card__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--mk-s-2); padding-top: var(--mk-s-3); border-top: 1px solid var(--elgo-line); font-size: var(--mk-t-xs); color: var(--elgo-muted); }
-.rc-card__foot .mk-link { font-size: var(--mk-t-s); }
+.rc-card__foot { display: flex; align-items: end; justify-content: space-between; gap: var(--mk-s-3); padding: var(--mk-s-3) 0 calc(var(--mk-s-4) + 4px); border-top: 1px solid var(--elgo-line); }
+.rc-card__meta { min-width: 5.5rem; font-size: var(--mk-t-xs); line-height: 14px; color: var(--elgo-muted); }
+.rc-card__meta b { display: block; color: var(--elgo-ink); font-weight: 600; }
+.rc-card__more { display: inline-flex; align-items: center; gap: .35rem; padding: .4rem .7rem; border-radius: 8px; border: 1.5px solid var(--elgo-brand); font-size: var(--mk-t-s); font-weight: 700; color: var(--elgo-brand); text-decoration: none; white-space: nowrap; }
+.rc-card__more::after { content: "→"; transition: transform .2s var(--mk-ease); }
+.rc-card__more:hover { background: var(--ecl-color-primary-75); }
+.rc-card__more:hover::after { transform: translateX(3px); }
 .rc-more { margin-top: var(--mk-s-5); }
+/* synced from Figma (20 Oct) */
+.rc-page .mk-head, .rc-page .mk-lede { max-width: 56.25rem; } /* section ledes 900px wide */
+.rc-card__foot:has(> .rc-card__more:only-child) { justify-content: flex-start; }
+#responsible { padding-bottom: calc(var(--mk-s-9) + var(--mk-s-4)); }
+#events { padding-top: 0; }                                /* follows the white Recruit responsibly section */
 
-/* ---------- Countries: searchable list, alphabetical, coverage shown; another market ---------- */
-.rc-find { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mk-s-3) var(--mk-s-5); margin-bottom: var(--mk-s-5); }
-.rc-search { position: relative; width: min(24rem, 100%); }
-.rc-search input { box-sizing: border-box; width: 100%; padding: .75rem 1rem .75rem 2.6rem; border-radius: var(--elgo-radius-control); border: 1.5px solid var(--elgo-line-strong); background: var(--elgo-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%234a5078' stroke-width='2'/%3E%3Cpath d='M15.5 15.5L21 21' stroke='%234a5078' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") .85rem center / 1.1rem no-repeat; font: 500 var(--mk-t-m)/1.3 var(--elgo-body); color: var(--elgo-ink); }
-.rc-search input:focus { outline: none; border-color: var(--rc-strong); }
-.rc-key { display: inline-flex; align-items: center; gap: .45rem; font-size: var(--mk-t-s); color: var(--elgo-muted); }
-.rc-key i { width: .55rem; height: .55rem; border-radius: 50%; background: var(--rc-strong); }
+/* ---------- Countries: alphabetical list (no search or coverage notes since 20 Oct); another market ---------- */
 .rc-countries { margin: 0; padding: 0; list-style: none; columns: 4; column-gap: var(--mk-s-6); }
 @media (max-width: 1000px) { .rc-countries { columns: 3; } }
 @media (max-width: 640px) { .rc-countries { columns: 2; column-gap: var(--mk-s-4); } }
 .rc-countries li { break-inside: avoid; border-bottom: 1px solid var(--elgo-line); }
 .rc-countries a { display: flex; align-items: center; gap: .5rem; padding: .6rem 0; font-weight: 600; color: var(--elgo-brand-deep); text-decoration: none; }
 .rc-countries a:hover { text-decoration: underline; text-underline-offset: .2em; }
-.rc-countries a i { width: .55rem; height: .55rem; border-radius: 50%; background: var(--rc-strong); flex: none; }
-.rc-countries a small { margin-left: auto; font-weight: 500; font-size: var(--mk-t-xs); color: var(--elgo-muted); }
-.rc-countries-none { margin: var(--mk-s-3) 0 0; color: var(--elgo-muted); }
-.rc-another { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 0; margin-top: var(--mk-s-7); border-radius: var(--mk-tile); overflow: hidden; background: var(--elgo-brand-deep); color: #fff; }
-@media (max-width: 900px) { .rc-another { grid-template-columns: minmax(0, 1fr); } }
-.rc-another__copy { display: grid; gap: var(--mk-s-4); align-content: center; justify-items: start; padding: clamp(1.75rem, 4vw, 3rem); }
-.rc-another__copy .mk-label { color: var(--rc-mid); }
+.rc-another { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 13fr); gap: 0; margin-top: var(--mk-s-7); border-radius: var(--mk-tile); overflow: hidden; background: var(--elgo-brand-deep); color: #fff; }
+@media (max-width: 1100px) { .rc-another { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 900px) { .rc-another { grid-template-columns: minmax(0, 1fr); } .rc-another__art { min-height: 15rem; } }
+.rc-another__copy { display: grid; gap: var(--mk-s-4); align-content: center; justify-items: start; padding: 40px 32px; }
+.rc-another__copy .mk-link { margin-top: var(--mk-s-4); }
+.rc-another__copy .mk-label { color: var(--elgo-ok); }
 .rc-another h3 { margin: 0; font: var(--elgo-display-weight) clamp(1.75rem, 3vw, 2.5rem)/1.02 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: #fff; text-wrap: balance; }
-.rc-another p { margin: 0; max-width: 32rem; line-height: 1.55; color: rgba(255,255,255,.85); }
+.rc-another p { margin: 0; max-width: 32rem; line-height: 1.55; color: #fff; }
 .rc-another .mk-link { color: #fff; }
-.rc-another__art { position: relative; min-height: 15rem; margin: 0; background: var(--rc-mid); }
-.rc-another__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } /* Unsplash, Lāsma Artmane (free licence), hotlinked for the mockup */
+.rc-another__art { position: relative; min-height: 24.5rem; margin: 0; background: var(--rc-mid); }
+.rc-another__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } /* Unsplash, Lāsma Artmane (free licence), local copy, see ../assets/employers-landing/img/photos/CREDITS.md */
 
 
 /* ---------- Hiring and sponsorship procedures (spec §9 C, §13) ---------- */
 .rc-procs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--mk-s-4); margin: 0; padding: 0; list-style: none; }
 @media (max-width: 1100px) { .rc-procs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .rc-procs { grid-template-columns: minmax(0, 1fr); } }
-.rc-proc { display: grid; grid-template-rows: auto auto auto auto 1fr auto; gap: var(--mk-s-3); padding: var(--mk-s-5); border-radius: var(--mk-tile); background: var(--elgo-surface); border: 1px solid var(--elgo-line); }
-.rc-proc__top { display: flex; justify-content: space-between; align-items: center; gap: var(--mk-s-2); }
-.rc-proc .mk-label { color: var(--rc-strong); }
-.rc-status { display: inline-flex; align-items: center; gap: .35rem; font: 700 .6875rem/1 var(--elgo-body); letter-spacing: .06em; text-transform: uppercase; color: var(--elgo-ok-strong); }
-.rc-status::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; }
-.rc-status--prep { color: var(--elgo-muted); }
-.rc-proc h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-xl)/1.15 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
-.rc-proc p { margin: 0; font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-ink); }
-.rc-proc dl { margin: 0; display: grid; gap: 2px; padding: var(--mk-s-3); border-radius: var(--elgo-radius-control); background: var(--rc-band); font-size: var(--mk-t-xs); line-height: 1.45; align-self: start; }
-.rc-proc dl div { display: flex; flex-wrap: wrap; gap: 0 .35rem; }
-.rc-proc dt { font-weight: 700; color: var(--elgo-brand-deep); }
-.rc-proc dd { margin: 0; color: var(--elgo-ink); }
-.rc-proc dd a { color: var(--elgo-ok-strong); font-weight: 600; }
-.rc-proc .ecl-button { margin: 0; justify-self: start; }
-.rc-proc--prep { background: transparent; border: 1.5px dashed var(--elgo-line-strong); }
-.rc-proc--prep p { color: var(--elgo-muted); }
-.rc-notice--wide { max-width: none; margin-top: var(--mk-s-5); background: var(--elgo-surface); }
+.rc-proc { grid-template-rows: auto auto auto 1fr auto; } /* synced from Figma (14 Oct): Card_Detailed, Type=Resource, as the resource cards (.rc-card) */
+.rc-proc__body { display: grid; gap: var(--mk-s-3); align-content: start; }
+.rc-dl { margin: 0; padding-top: 4px; display: grid; gap: var(--mk-s-3); }
+.rc-dl div { display: grid; gap: 1px; }
+.rc-dl dt { font-size: var(--mk-t-xs); line-height: 14px; color: var(--elgo-muted); }
+.rc-dl dd { margin: 0; font-size: var(--mk-t-s); font-weight: 600; line-height: 16px; color: var(--elgo-ink); }
+.rc-dl dd a { color: inherit; text-decoration: none; }
+.rc-dl dd a:hover { text-decoration: underline; text-underline-offset: .15em; }
+.rc-topics { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.rc-topics li { padding: 5px 10px; border-radius: 999px; background: var(--rc-soft); font: 600 var(--mk-t-xs)/14px var(--elgo-body); color: var(--elgo-brand-deep); }
+.rc-info--wide { max-width: none; margin: var(--mk-s-5) 0 0; padding-left: var(--mk-s-3); }
 
 /* ---------- Responsible recruitment: three guides ---------- */
 .rc-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--mk-s-4); }
 @media (max-width: 1000px) { .rc-three { grid-template-columns: minmax(0, 1fr); } }
-.rc-three .mk-tile { grid-template-rows: auto auto auto 1fr auto; gap: var(--mk-s-3); }
-.rc-three .mk-tile h3 { font-size: var(--mk-t-xl); }
-.rc-three .mk-label { color: var(--rc-strong); }
+.rc-three .mk-tile { grid-template-rows: auto auto 1fr auto; } /* synced from Figma (14 Oct): Card_Base, Tone=Ok Outline: the Latest insights brief's layout (.rc-feature), white with a border */
+.rc-feature .rc-ico-dot { background: var(--elgo-surface); }
+.rc-feature--outline { background: var(--elgo-surface); border-color: var(--elgo-line); }
+.rc-feature--outline .rc-ico-dot { background: var(--rc-soft); }
 
-/* ---------- Events: the shared mk-events, tile in the page's tint ---------- */
-.rc-page .mk-tile--live { background: var(--rc-soft); }
-.rc-page .mk-tile--live > .mk-label { color: var(--rc-strong); }
+/* ---------- Events: the shared mk-events (featured banner + list), in the page's tint ---------- */
+.rc-page .mk-events { --feat-tint: var(--rc-soft); --feat-label: var(--rc-strong); }
 .rc-where { display: inline-flex; margin-left: .35rem; }
 
 /* ---------- Browse all: results + filters on the right (spec §5) ---------- */
@@ -195,7 +203,7 @@
 .rc-filters label { display: flex; align-items: center; gap: .55rem; font-size: var(--mk-t-s); color: var(--elgo-ink); cursor: pointer; min-height: 1.75rem; }
 .rc-filters input[type=checkbox], .rc-filters input[type=radio] { width: 1.05rem; height: 1.05rem; margin: 0; accent-color: var(--elgo-brand-deep); flex: none; }
 .rc-filters select, .rc-filters input[type=search] { box-sizing: border-box; width: 100%; padding: .6rem .75rem; border-radius: var(--elgo-radius-control); border: 1.5px solid var(--elgo-line-strong); background: var(--elgo-surface); font: 500 var(--mk-t-s)/1.3 var(--elgo-body); color: var(--elgo-ink); }
-.rc-clist { max-height: 10.5rem; overflow-y: auto; display: grid; gap: 2px; padding: 4px 6px; border-radius: var(--elgo-radius-control); background: var(--rc-band); }
+.rc-clist { max-height: 10.5rem; overflow-y: auto; display: grid; gap: 2px; padding: 4px 6px; border-radius: var(--elgo-radius-control); background: var(--rc-inset); }
 .rc-filters .elgo-actions { padding-top: var(--mk-s-2); }
 .rc-filters .elgo-actions .ecl-button { margin: 0; }
 .rc-filters__close, .rc-filterbtn, .rc-filters__show { display: none; }
@@ -215,20 +223,17 @@
 
 /* ---------- Continue to the responsible authority (kept by the user) ---------- */
 /* blue tint (not the navy of the footer below it), out of the alternation on purpose */
-.rc-auth-band { background: var(--rc-soft); }
-.rc-auth { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--mk-s-4); margin: 0; padding: 0; list-style: none; }
-@media (max-width: 1000px) { .rc-auth { grid-template-columns: minmax(0, 1fr); } }
-.rc-auth li { display: grid; grid-template-rows: auto auto 1fr auto auto; gap: var(--mk-s-2); padding: var(--mk-s-5); border-radius: var(--mk-tile); background: var(--elgo-surface); color: var(--elgo-ink); }
-.rc-auth .mk-label { color: var(--rc-strong); }
-.rc-auth h3 { margin: 0; font: var(--elgo-display-weight) var(--mk-t-l)/1.2 var(--elgo-display); letter-spacing: var(--elgo-display-tracking); color: var(--elgo-brand-deep); }
-.rc-auth p { margin: 0; font-size: var(--mk-t-s); line-height: 1.5; }
-.rc-auth small { font-size: var(--mk-t-xs); color: var(--elgo-muted); }
-.rc-auth small b { color: var(--elgo-ok-strong); }
-.rc-auth .ecl-button { margin: var(--mk-s-2) 0 0; justify-self: start; }
-.rc-legal { margin: var(--mk-s-5) 0 0; max-width: 48rem; font-size: var(--mk-t-s); line-height: 1.5; color: var(--elgo-muted); }
+.rc-auth-band { background: var(--rc-bg-soft); }
+.rc-portals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--mk-s-3); } /* synced from Figma (14 Oct): the personal page's portal rows (.mk-portals), two columns */
+@media (max-width: 900px) { .rc-portals { grid-template-columns: minmax(0, 1fr); } }
+.rc-portals a { gap: 4px var(--mk-s-4); padding: var(--mk-s-4) var(--mk-s-5); }
+.rc-portals b { line-height: 22px; }
+.rc-portals a > span { line-height: 21px; }
+.rc-portals code { padding-top: 4px; }
+.rc-portals code span { margin: 0 4px; font-size: inherit; color: var(--elgo-muted); }
 </style>
 </head>
-<body data-page="recruiter" data-nav="recruiter" class="rc-page rc-blue">
+<body data-page="recruiter" data-audience="employer" class="rc-page">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></symbol>
@@ -238,49 +243,70 @@
   <symbol id="i-hand" viewBox="0 0 24 24"><path d="M5 12.5l3.5 3.5 10-10"/><circle cx="12" cy="12" r="9.5"/></symbol>
   <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14"/><path d="M5 7l-2.5 6a2.5 2.5 0 005 0zM19 7l-2.5 6a2.5 2.5 0 005 0z"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.2v.1"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5.5 18.5V4.5a1 1 0 0 1 1-1h12v15h-11a2 2 0 0 0 0 4h11v-4"/><path d="M9 8h6.5M9 11.5h6.5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.6v.1"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
 </svg>
 
-<div data-part="bar"></div>
 <div data-part="header"></div>
 
 <main>
-  <!-- Page header (spec §3), with the three figures from the user's adaptation -->
-  <section class="rc-hero rc-blue" aria-labelledby="hero-title">
-    <svg class="rc-arcs" viewBox="0 0 500 540" aria-hidden="true" focusable="false"><defs><linearGradient id="rc-arc" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="500" y2="0"><stop offset="0" style="stop-color:var(--rc-mid)"/><stop offset="1" style="stop-color:var(--rc-strong)"/></linearGradient></defs><g opacity=".3"><path d="M32 470 V250 A218 218 0 0 1 384.2 78.2" stroke="url(#rc-arc)"/><path d="M430.7 128.1 A218 218 0 0 1 468.0 250.0 V540" stroke="url(#rc-arc)"/><circle cx="32" cy="470" r="9" fill="url(#rc-arc)"/><circle cx="430.7" cy="128.1" r="9" fill="url(#rc-arc)"/></g><g opacity=".5"><path d="M55 540 V250 A195 195 0 0 1 69.2 177.0" stroke="url(#rc-arc)"/><path d="M100.6 124.7 A195 195 0 0 1 445.0 250.0 V440" stroke="url(#rc-arc)"/><circle cx="445" cy="440" r="9" fill="url(#rc-arc)"/><circle cx="100.6" cy="124.7" r="9" fill="url(#rc-arc)"/></g><g opacity=".75"><path d="M78 500 V250 a172 172 0 0 1 344 0 V540" stroke="url(#rc-arc)"/><circle cx="78" cy="500" r="9" fill="url(#rc-arc)"/></g></svg>
+  <!-- Page header (spec §3), with the three figures from the user's adaptation; since 6 Oct a photo
+       slideshow beside the copy, as on the starter page (client: corporate representation) -->
+  <section class="rc-hero" aria-labelledby="hero-title">
     <div class="ecl-container">
       <nav aria-label="Breadcrumb"><ol class="rc-crumb"><li><a href="../home.html">Home</a></li><li aria-current="page">Recruiting from India</li></ol></nav>
-      <div class="rc-hero__copy">
-        <span class="mk-label rc-label">For employers and higher education institutions</span>
-        <h1 id="hero-title">ICT talent and mobility between India and the EU</h1>
-        <p class="rc-hero__lede">Explore labour-market insights, engagement opportunities, country procedures and responsible-recruitment guidance for organisations working between India and the EU.</p>
-        <p class="rc-notice"><svg class="rc-ico" aria-hidden="true"><use href="#i-shield"/></svg><span>The Gateway provides information and signposting. It does not provide legal advice or make recruitment, sponsorship or visa decisions.</span></p>
-        <div class="elgo-actions">
-          <a class="ecl-button ecl-button--primary" href="#market">Explore market insights</a>
-          <a class="ecl-button ecl-button--secondary" href="#events">View events</a>
-          <a class="ecl-button ecl-button--secondary" href="#procedures">Browse country procedures</a>
+      <div class="rc-hero__main">
+        <div class="rc-hero__copy">
+          <span class="mk-label rc-label">For employers and higher education institutions</span>
+          <h1 id="hero-title">ICT talent and mobility between India and the EU</h1>
+          <p class="rc-hero__lede">Explore labour-market insights, engagement opportunities, country procedures and responsible-recruitment guidance for organisations working between India and the EU.</p>
+          <div class="elgo-actions">
+            <a class="ecl-button ecl-button--primary" href="#market">Explore market insights</a>
+            <a class="ecl-button ecl-button--secondary" href="#events">View events</a>
+            <a class="ecl-button ecl-button--secondary" href="#procedures">Browse country procedures</a>
+          </div>
+          <!-- synced from Figma (14 Oct): the notice under the buttons, as plain text with an info icon -->
+          <p class="rc-info"><svg class="rc-info__ico" aria-hidden="true"><use href="#i-info"/></svg><span><b>The Gateway provides information and signposting.</b> It does not provide legal advice or make recruitment, sponsorship or visa decisions.</span></p>
+        </div>
+        <!-- the starter's slideshow (mk-stage), in the page's colours: arches from tool blue to green; no
+             stickers (removed 6 Oct); photos in ../assets/employers-landing/img/photos/CREDITS.md -->
+        <div class="mk-stage rc-stage" id="rc-stage">
+          <div class="mk-art">
+            <svg class="mk-art__rings" viewBox="0 0 500 540" aria-hidden="true"><defs><linearGradient id="rc-arc" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="500" y2="0"><stop offset="0" style="stop-color:var(--elgo-tool-strong)"/><stop offset=".55" style="stop-color:var(--elgo-tool)"/><stop offset="1" style="stop-color:var(--elgo-ok)"/></linearGradient></defs><g opacity=".16"><path d="M32 470 V250 A218 218 0 0 1 384.2 78.2" stroke="url(#rc-arc)"/><path d="M430.7 128.1 A218 218 0 0 1 468.0 250.0 V540" stroke="url(#rc-arc)"/><circle cx="32" cy="470" r="9" fill="url(#rc-arc)"/><circle cx="430.7" cy="128.1" r="9" fill="url(#rc-arc)"/></g><g opacity=".33"><path d="M55 540 V250 A195 195 0 0 1 69.2 177.0" stroke="url(#rc-arc)"/><path d="M100.6 124.7 A195 195 0 0 1 445.0 250.0 V440" stroke="url(#rc-arc)"/><circle cx="445" cy="440" r="9" fill="url(#rc-arc)"/><circle cx="100.6" cy="124.7" r="9" fill="url(#rc-arc)"/></g><g opacity=".6"><path d="M78 500 V250 a172 172 0 0 1 344 0 V540" stroke="url(#rc-arc)"/><circle cx="78" cy="500" r="9" fill="url(#rc-arc)"/></g></svg>
+            <figure class="mk-slides" aria-hidden="true">
+              <img class="is-on" data-cap="Talent from India" src="../assets/employers-landing/img/photos/rc-hero-talent-640x800.jpg" srcset="../assets/employers-landing/img/photos/rc-hero-talent-400x500.jpg 400w, ../assets/employers-landing/img/photos/rc-hero-talent-640x800.jpg 640w, ../assets/employers-landing/img/photos/rc-hero-talent-800x1000.jpg 800w" sizes="(max-width: 640px) 240px, 300px" alt="">
+              <img loading="lazy" data-cap="EU business hubs" src="../assets/employers-landing/img/photos/rc-hero-hub-640x800.jpg" srcset="../assets/employers-landing/img/photos/rc-hero-hub-400x500.jpg 400w, ../assets/employers-landing/img/photos/rc-hero-hub-640x800.jpg 640w, ../assets/employers-landing/img/photos/rc-hero-hub-800x1000.jpg 800w" sizes="(max-width: 640px) 240px, 300px" alt="">
+              <img loading="lazy" data-cap="Teams across borders" src="../assets/employers-landing/img/photos/rc-hero-teams-640x800.jpg" srcset="../assets/employers-landing/img/photos/rc-hero-teams-400x500.jpg 400w, ../assets/employers-landing/img/photos/rc-hero-teams-640x800.jpg 640w, ../assets/employers-landing/img/photos/rc-hero-teams-800x1000.jpg 800w" sizes="(max-width: 640px) 240px, 300px" alt="">
+              <img loading="lazy" data-cap="Digital infrastructure" src="../assets/employers-landing/img/photos/rc-hero-ict-640x800.jpg" srcset="../assets/employers-landing/img/photos/rc-hero-ict-400x500.jpg 400w, ../assets/employers-landing/img/photos/rc-hero-ict-640x800.jpg 640w, ../assets/employers-landing/img/photos/rc-hero-ict-800x1000.jpg 800w" sizes="(max-width: 640px) 240px, 300px" alt="">
+              <img loading="lazy" data-cap="Business partnerships" src="../assets/employers-landing/img/photos/rc-hero-meeting-640x800.jpg" srcset="../assets/employers-landing/img/photos/rc-hero-meeting-400x500.jpg 400w, ../assets/employers-landing/img/photos/rc-hero-meeting-640x800.jpg 640w, ../assets/employers-landing/img/photos/rc-hero-meeting-800x1000.jpg 800w" sizes="(max-width: 640px) 240px, 300px" alt="">
+            </figure>
+            <p class="mk-cap" aria-hidden="true">Talent from India</p>
+          </div>
+          <div class="mk-dots" role="group" aria-label="Photos"></div>
         </div>
       </div>
       <ul class="rc-stats" aria-label="The Gateway in figures">
-        <li><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-globe"/></svg></span><b>27 EU Member States covered</b><span>Follow national procedures and requirements across the EU.</span></li>
-        <li><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-doc"/></svg></span><b>12 procedural guides published</b><span>Follow step-by-step guidance for hiring and sponsorship.</span></li>
-        <li><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-cal"/></svg></span><b>4 upcoming advisory sessions</b><span>Join live sessions on recruitment and compliance topics.</span></li>
+        <li><svg class="rc-stat-ico" aria-hidden="true"><use href="#i-eye"/></svg><span><b>27 EU Member States covered</b><small>Follow national procedures and requirements across the EU.</small></span></li>
+        <li><svg class="rc-stat-ico" aria-hidden="true"><use href="#i-book"/></svg><span><b>12 procedural guides published</b><small>Follow step-by-step guidance for hiring and sponsorship.</small></span></li>
+        <li><svg class="rc-stat-ico" aria-hidden="true"><use href="#i-calendar"/></svg><span><b>4 upcoming advisory sessions</b><small>Join live sessions on recruitment and compliance topics.</small></span></li>
       </ul>
     </div>
   </section>
 
   <!-- Latest insights and opportunities (spec §4) -->
-  <section class="mk-section rc-green" id="latest" aria-labelledby="latest-title" style="padding-top:var(--mk-s-7)">
+  <section class="mk-section" id="latest" aria-labelledby="latest-title" style="padding-top:var(--mk-s-7)">
     <div class="ecl-container">
       <div class="mk-head"><h2 class="mk-h2" id="latest-title">Latest insights and opportunities</h2></div>
       <div class="rc-latest">
         <article class="mk-tile rc-feature" aria-labelledby="f-title">
-          <span class="mk-label">Quarterly brief</span>
-          <h3 id="f-title">Q2 2026: ICT talent mobility from India to the EU</h3>
+          <div class="rc-feature__head"><span class="mk-label">Quarterly brief</span>
+          <h3 id="f-title">Q2 2026: ICT talent mobility from India to the EU</h3></div>
           <p>Demand for Indian ICT professionals rose in Germany, the Netherlands and Poland. Software engineering and cloud roles account for 61% of open positions.</p>
-          <dl class="rc-meta"><dt>Reporting period</dt><dd>April–June 2026</dd><dt>Scope</dt><dd>EU-wide</dd><dt>Published</dt><dd>10 July 2026</dd></dl>
-          <div class="rc-tags"><span class="rc-tag rc-tag--line">For employers and institutions</span></div>
-          <div class="elgo-actions"><a class="ecl-button ecl-button--primary" href="#">Read the brief</a><a class="mk-link" href="#">Source and methodology</a></div>
+          <dl class="rc-meta"><div><dt>Reporting period</dt><dd>April–June 2026</dd></div><div><dt>Scope</dt><dd>EU-wide</dd></div><div><dt>Published</dt><dd>10 July 2026</dd></div></dl>
+          <div class="elgo-actions"><a class="ecl-button ecl-button--primary" href="#">Read the brief</a></div>
         </article>
         <div>
           <ul class="rc-items">
@@ -288,37 +314,32 @@
             <li><a href="#"><span class="mk-label">Procedural guide · Germany</span><b>EU Blue Card sponsorship — employer guide (Germany)</b><span class="rc-row"><time datetime="2026-06-12">12 June 2026</time><span class="rc-tag rc-tag--line">For employers</span></span><i aria-hidden="true">→</i></a></li>
             <li><a href="#events"><span class="mk-label">Event · Brussels</span><b>Institutional partnership forum: India–EU ICT engagement</b><span class="rc-row"><time datetime="2026-11-03">3 November 2026</time><span class="rc-tag rc-tag--line">For higher education institutions</span></span><i aria-hidden="true">→</i></a></li>
           </ul>
-          <a class="mk-link" href="#browse">View all recent content</a>
+          <a class="mk-link" href="#">Browse our resource library</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- A. Market intelligence (spec §9 A) -->
-  <section class="mk-section rc-band rc-blue" id="market" aria-labelledby="market-title">
+  <section class="mk-section rc-band" id="market" aria-labelledby="market-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="market-title">ICT market intelligence</h2>
         <p class="mk-lede">Follow evidence on talent supply in India, demand across EU markets and emerging areas of opportunity.</p>
       </div>
       <ul class="rc-cards" id="rc-market"></ul>
-      <p class="rc-more"><a class="mk-link" href="#browse">Browse all market intelligence</a></p>
+      <p class="rc-more"><a class="mk-link" href="#">Browse all market intelligence</a></p>
     </div>
   </section>
 
   <!-- B. Countries and markets (spec §9 B) + another market (§12) -->
-  <section class="mk-section rc-green" id="countries" aria-labelledby="countries-title">
+  <section class="mk-section" id="countries" aria-labelledby="countries-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="countries-title">Explore countries and markets</h2>
         <p class="mk-lede">Browse available market intelligence, procedures and engagement opportunities by country.</p>
       </div>
-      <div class="rc-find">
-        <div class="rc-search"><label class="elgo-sr" for="rc-csearch">Search for a country</label><input id="rc-csearch" type="search" placeholder="Search by name" autocomplete="off"></div>
-        <span class="rc-key"><i aria-hidden="true"></i>Procedural guide published</span>
-      </div>
       <ul class="rc-countries" id="rc-countries" aria-label="All 27 EU countries, alphabetical"></ul>
-      <p class="rc-countries-none" id="rc-cnone" hidden>No EU country matches that name.</p>
       <div class="rc-another">
         <div class="rc-another__copy">
           <span class="mk-label">Explore another market</span>
@@ -327,96 +348,95 @@
           <a class="mk-link" href="#">Read more</a>
         </div>
         <figure class="rc-another__art">
-          <img src="../assets/employers-landing/photos/photo-1577133192629-5140c5371590-900x600.jpg" srcset="../assets/employers-landing/photos/photo-1577133192629-5140c5371590-600x400.jpg 600w, ../assets/employers-landing/photos/photo-1577133192629-5140c5371590-900x600.jpg 900w, ../assets/employers-landing/photos/photo-1577133192629-5140c5371590-1300x860.jpg 1300w" sizes="(max-width: 900px) 100vw, 45vw" alt="Warsaw’s Old Town and Castle Square from above" loading="lazy">
+          <img src="../assets/employers-landing/img/photos/poland-city-900x600.jpg" srcset="../assets/employers-landing/img/photos/poland-city-600x400.jpg 600w, ../assets/employers-landing/img/photos/poland-city-900x600.jpg 900w, ../assets/employers-landing/img/photos/poland-city-1300x860.jpg 1300w" sizes="(max-width: 900px) 100vw, 60vw" alt="Warsaw’s Old Town and Castle Square from above" loading="lazy">
         </figure>
       </div>
     </div>
   </section>
 
   <!-- C. Hiring and sponsorship procedures (spec §9 C, source treatment §13) -->
-  <section class="mk-section rc-band rc-blue" id="procedures" aria-labelledby="proc-title">
+  <section class="mk-section rc-band" id="procedures" aria-labelledby="proc-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="proc-title">Hiring and sponsorship procedures</h2>
         <p class="mk-lede">Find country-specific procedural information and continue to the responsible national authority.</p>
       </div>
       <ul class="rc-procs">
-        <li class="rc-proc"><div class="rc-proc__top"><span class="mk-label">Germany</span><span class="rc-status">Approved</span></div>
-          <h3>EU Blue Card sponsorship</h3>
-          <p>Requirements for sponsoring an EU Blue Card holder, including salary thresholds, qualification recognition and application stages.</p>
-          <div class="rc-tags" aria-label="Topics covered"><span class="rc-tag rc-tag--line">Sponsorship</span><span class="rc-tag rc-tag--line">Salary thresholds</span><span class="rc-tag rc-tag--line">Recognition</span></div>
-          <dl><div><dt>Responsible authority</dt><dd>Federal Office for Migration and Refugees (BAMF)</dd></div><div><dt>Official source</dt><dd><a href="https://www.bamf.de/">bamf.de ↗</a></dd></div><div><dt>Last reviewed:</dt><dd>18 June 2026</dd></div></dl>
-          <a class="ecl-button ecl-button--primary" href="#">View procedure</a></li>
-        <li class="rc-proc"><div class="rc-proc__top"><span class="mk-label">Netherlands</span><span class="rc-status">Approved</span></div>
-          <h3>Highly skilled migrant permit</h3>
-          <p>Step-by-step guide for IND-recognised sponsors hiring from India, including salary thresholds and documentation.</p>
-          <div class="rc-tags" aria-label="Topics covered"><span class="rc-tag rc-tag--line">Recognised sponsor</span><span class="rc-tag rc-tag--line">Salary thresholds</span><span class="rc-tag rc-tag--line">Documents</span></div>
-          <dl><div><dt>Responsible authority</dt><dd>Immigration and Naturalisation Service (IND)</dd></div><div><dt>Official source</dt><dd><a href="https://ind.nl/">ind.nl ↗</a></dd></div><div><dt>Last reviewed:</dt><dd>5 May 2026</dd></div></dl>
-          <a class="ecl-button ecl-button--primary" href="#">View procedure</a></li>
-        <li class="rc-proc"><div class="rc-proc__top"><span class="mk-label">France</span><span class="rc-status">Approved</span></div>
-          <h3>Passeport talent: qualified employee</h3>
-          <p>Overview of the Passeport Talent permit for employers hiring qualified ICT professionals from outside the EU.</p>
-          <div class="rc-tags" aria-label="Topics covered"><span class="rc-tag rc-tag--line">Work permit</span><span class="rc-tag rc-tag--line">Qualified employees</span><span class="rc-tag rc-tag--line">Family</span></div>
-          <dl><div><dt>Responsible authority</dt><dd>Ministry of the Interior, via France Visas</dd></div><div><dt>Official source</dt><dd><a href="https://france-visas.gouv.fr/">france-visas.gouv.fr ↗</a></dd></div><div><dt>Last reviewed:</dt><dd>22 April 2026</dd></div></dl>
-          <a class="ecl-button ecl-button--primary" href="#">View procedure</a></li>
-        <li class="rc-proc rc-proc--prep"><div class="rc-proc__top"><span class="mk-label">Poland</span><span class="rc-status rc-status--prep">In preparation</span></div>
-          <h3>Work permit for ICT specialists</h3>
-          <p>This procedural guide is being prepared and checked with the responsible authority. It will appear here once it has been reviewed.</p>
-          <div class="rc-tags" aria-label="Topics covered"><span class="rc-tag rc-tag--line">Work permit</span></div>
-          <dl><div><dt>Responsible authority</dt><dd>To be confirmed</dd></div><div><dt>Last reviewed:</dt><dd>Not yet reviewed</dd></div></dl>
-          <span></span></li>
+        <li class="rc-card rc-proc"><div class="rc-tags"><span class="rc-tag">Guidance</span><span class="rc-tag rc-tag--line">Germany</span></div>
+          <h3><a href="#">EU Blue Card sponsorship</a></h3><p>Requirements for sponsoring an EU Blue Card holder, including salary thresholds, qualification recognition and application stages.</p>
+          <div class="rc-proc__body"><dl class="rc-dl"><div><dt>Responsible authority</dt><dd>Federal Office for Migration and Refugees (BAMF)</dd></div><div><dt>Official source</dt><dd><a href="https://www.bamf.de/">bamf.de ↗</a></dd></div></dl><ul class="rc-topics" aria-label="Topics covered"><li>Sponsorship</li><li>Salary thresholds</li><li>Recognition</li></ul></div>
+          <div class="rc-card__foot"><a class="rc-card__more" href="#">View procedure</a></div></li>
+        <li class="rc-card rc-proc"><div class="rc-tags"><span class="rc-tag">Guidance</span><span class="rc-tag rc-tag--line">Netherlands</span></div>
+          <h3><a href="#">Highly skilled migrant permit</a></h3><p>Step-by-step guide for IND-recognised sponsors hiring from India, including salary thresholds and documentation.</p>
+          <div class="rc-proc__body"><dl class="rc-dl"><div><dt>Responsible authority</dt><dd>Immigration and Naturalisation Service (IND)</dd></div><div><dt>Official source</dt><dd><a href="https://ind.nl/">ind.nl ↗</a></dd></div></dl><ul class="rc-topics" aria-label="Topics covered"><li>Recognised sponsor</li><li>Salary thresholds</li><li>Documents</li></ul></div>
+          <div class="rc-card__foot"><a class="rc-card__more" href="#">View procedure</a></div></li>
+        <li class="rc-card rc-proc"><div class="rc-tags"><span class="rc-tag">Guidance</span><span class="rc-tag rc-tag--line">France</span></div>
+          <h3><a href="#">Passeport talent: qualified employee</a></h3><p>Overview of the Passeport Talent permit for employers hiring qualified ICT professionals from outside the EU.</p>
+          <div class="rc-proc__body"><dl class="rc-dl"><div><dt>Responsible authority</dt><dd>Ministry of the Interior, via France Visas</dd></div><div><dt>Official source</dt><dd><a href="https://france-visas.gouv.fr/">france-visas.gouv.fr ↗</a></dd></div></dl><ul class="rc-topics" aria-label="Topics covered"><li>Work permit</li><li>Qualified employees</li></ul></div>
+          <div class="rc-card__foot"><a class="rc-card__more" href="#">View procedure</a></div></li>
+        <li class="rc-card rc-proc"><div class="rc-tags"><span class="rc-tag">Checklist</span><span class="rc-tag rc-tag--line">Poland</span></div>
+          <h3><a href="#">Work permit for ICT specialists</a></h3><p>What employers in Poland need to hire ICT specialists from India: the type A work permit, the application to the voivode and the documents to prepare.</p>
+          <div class="rc-proc__body"><dl class="rc-dl"><div><dt>Responsible authority</dt><dd>Voivodeship office of the employer’s region</dd></div><div><dt>Official source</dt><dd><a href="https://www.biznes.gov.pl/">biznes.gov.pl ↗</a></dd></div></dl><ul class="rc-topics" aria-label="Topics covered"><li>Work permit</li><li>Documents</li></ul></div>
+          <div class="rc-card__foot"><a class="rc-card__more" href="#">View procedure</a></div></li>
       </ul>
-      <p class="rc-notice rc-notice--wide"><svg class="rc-ico" aria-hidden="true"><use href="#i-shield"/></svg><span>This content summarises published information and does not constitute legal advice. Confirm the current requirements with the responsible authority.</span></p>
-      <p class="rc-more"><a class="mk-link" href="#browse">All procedures</a></p>
+      <p class="rc-info rc-info--wide"><svg class="rc-info__ico" aria-hidden="true"><use href="#i-info"/></svg><span><b>This content summarises published information and does not constitute legal advice.</b> Confirm the current requirements with the responsible authority.</span></p>
+      <p class="rc-more"><a class="mk-link" href="#">Browse our resource library</a></p>
     </div>
   </section>
 
   <!-- D. Responsible recruitment (spec §9 D) -->
-  <section class="mk-section rc-green" id="responsible" aria-labelledby="resp-title">
+  <section class="mk-section" id="responsible" aria-labelledby="resp-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="resp-title">Recruit responsibly from India</h2>
         <p class="mk-lede">Explore fair-recruitment practice, employer responsibilities and India-specific risks and warning signs.</p>
       </div>
       <div class="rc-three">
-        <article class="mk-tile" aria-labelledby="r1"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-hand"/></svg></span><span class="mk-label">Recommended practice</span><h3 id="r1">Fair recruitment practice</h3><p>Principles for transparent, fair and candidate-centred recruitment when sourcing ICT talent from India.</p><a class="mk-link" href="#">Read the guide</a></article>
-        <article class="mk-tile" aria-labelledby="r2"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-scale"/></svg></span><span class="mk-label">Employer responsibilities</span><h3 id="r2">Employer responsibilities</h3><p>The responsibilities that apply during recruitment, selection and mobility preparation.</p><a class="mk-link" href="#">Read the guide</a></article>
-        <article class="mk-tile" aria-labelledby="r3"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-alert"/></svg></span><span class="mk-label">Potential risk</span><h3 id="r3">Risks and red flags</h3><p>Warning signs involving intermediaries, fees, misleading offers or other potentially harmful practices.</p><a class="mk-link" href="#">Read the guide</a></article>
+        <article class="mk-tile rc-feature rc-feature--outline" aria-labelledby="r1"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-hand"/></svg></span><div class="rc-feature__head"><span class="mk-label">Recommended practice</span><h3 id="r1">Fair recruitment practice</h3></div><p>Principles for transparent, fair and candidate-centred recruitment when sourcing ICT talent from India.</p><a class="mk-link" href="#">Read the guide</a></article>
+        <article class="mk-tile rc-feature rc-feature--outline" aria-labelledby="r2"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-scale"/></svg></span><div class="rc-feature__head"><span class="mk-label">Employer responsibilities</span><h3 id="r2">Employer responsibilities</h3></div><p>The responsibilities that apply during recruitment, selection and mobility preparation.</p><a class="mk-link" href="#">Read the guide</a></article>
+        <article class="mk-tile rc-feature rc-feature--outline" aria-labelledby="r3"><span class="rc-ico-dot"><svg class="rc-ico" aria-hidden="true"><use href="#i-alert"/></svg></span><div class="rc-feature__head"><span class="mk-label">Potential risk</span><h3 id="r3">Risks and red flags</h3></div><p>Warning signs involving intermediaries, fees, misleading offers or other potentially harmful practices.</p><a class="mk-link" href="#">Read the guide</a></article>
       </div>
-      <p class="rc-more"><a class="mk-link" href="#">View responsible-recruitment guidance</a></p>
     </div>
   </section>
 
   <!-- E. Events and engagement (spec §9 E), in the shared events layout -->
-  <section class="mk-section rc-band rc-blue" id="events" aria-labelledby="events-title">
+  <section class="mk-section" id="events" aria-labelledby="events-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="events-title">Events and engagement opportunities</h2>
         <p class="mk-lede">Find upcoming activities and opportunities to connect across India and the EU.</p>
       </div>
       <div class="mk-events">
-        <article class="mk-tile mk-tile--live" aria-labelledby="live-title">
-          <span class="mk-label">Next session · online · free</span>
-          <div class="mk-ticket"><time datetime="2026-10-22T10:00+02:00"><b>22</b><span>Oct</span></time><span><b class="t" id="live-title">Webinar: EU Blue Card, what employers need to know</b><small>Thursday 22 October 2026 · 10:00–11:00 CEST · online, registration required</small></span></div>
-          <p>Sponsorship obligations, salary thresholds and application stages after the 2024 Directive, with time for questions. Summaries are posted afterwards.</p>
-          <div class="rc-tags"><span class="rc-tag rc-tag--line">For employers</span></div>
-          <div class="elgo-actions"><a class="ecl-button ecl-button--primary" href="#">Register for this session</a><a class="mk-link" href="#">Add to calendar</a></div>
+        <article class="mk-feature" aria-labelledby="live-title">
+          <div class="mk-feature__body">
+            <span class="mk-label">Featured event · online · free</span>
+            <h3 class="mk-feature__h">What employers need to know about the EU Blue Card</h3>
+            <p>Sponsorship obligations, salary thresholds and application stages after the 2024 Directive, with time for questions. Summaries are posted afterwards.</p>
+            <div class="rc-tags"><span class="rc-tag rc-tag--line">For employers</span></div>
+            <a class="mk-link" href="#">Read more</a>
+          </div>
+          <figure class="mk-feature__img"><!-- Unsplash man-presenting-charts-to-colleagues-in-a-meeting-rOvpex8XDeU by Vitaly Gariev (free licence), local copy, see ../assets/employers-landing/img/photos/CREDITS.md --><img src="../assets/employers-landing/img/photos/event-employer-briefing-900x640.jpg" srcset="../assets/employers-landing/img/photos/event-employer-briefing-900x640.jpg 900w, ../assets/employers-landing/img/photos/event-employer-briefing-1400x1000.jpg 1400w" sizes="(max-width: 900px) 100vw, 60vw" alt="A man presents charts on a screen to colleagues in a meeting room" loading="lazy"></figure>
+          <div class="mk-feature__bar">
+            <p class="mk-feature__when"><time datetime="2026-10-22T10:00+02:00"><b>22</b><span>Oct</span></time><span><b class="t" id="live-title">Webinar: EU Blue Card, what employers need to know</b><small>Thursday 22 October 2026 · 10:00–11:00 CEST · Online · Free</small></span></p>
+            <!-- "Register" opens the Office's Microsoft Forms registration (client feedback 25 Sept, #3.1) -->
+            <div class="mk-feature__act"><a class="ecl-button ecl-button--primary ecl-button--highlight" href="#">Register</a></div>
+          </div>
         </article>
         <div class="mk-more">
           <h3>Also coming up</h3>
           <ul>
-            <li><time datetime="2026-11-03">3 Nov</time><a href="#">Institutional partnership forum: India–EU ICT engagement</a><span>Higher education institutions · Brussels</span></li>
-            <li><time datetime="2026-11-17">17 Nov</time><a href="#">Online advisory session: Hiring ICT professionals from India</a><span>Employers · online</span></li>
-            <li><time datetime="2026-12-01">1 Dec</time><a href="#">EU Blue Card for employers: 2026 regulatory update</a><span>Employers · online</span></li>
+            <li><time datetime="2026-11-03"><b>3</b><span>Nov</span></time><span>Higher education institutions</span><a href="#">Institutional partnership forum: India–EU ICT engagement</a><small>In person · Brussels</small></li>
+            <li><time datetime="2026-11-17"><b>17</b><span>Nov</span></time><span>Employers</span><a href="#">Online advisory session: Hiring ICT professionals from India</a><small>Online</small></li>
+            <li><time datetime="2026-12-01"><b>1</b><span>Dec</span></time><span>Employers</span><a href="#">EU Blue Card for employers: 2026 regulatory update</a><small>Online</small></li>
           </ul>
-          <div class="mk-events-more"><a class="mk-link" href="#">Browse all events</a><a class="mk-link" href="#">Past session summaries</a></div>
+          <div class="mk-events-more"><a class="mk-link" href="#">Browse all events</a><a class="mk-link" href="#">View news</a></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Browse all resources (spec §10), filters on the right (§5–§8) -->
-  <section class="mk-section rc-green" id="browse" aria-labelledby="browse-title">
+  <section class="mk-section rc-band" id="browse" aria-labelledby="browse-title" hidden>
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="browse-title">Browse all resources</h2>
@@ -458,8 +478,7 @@
             <label class="elgo-sr" for="rc-ffield">ICT field</label>
             <select id="rc-ffield">
               <option value="">All ICT fields</option>
-              <option>ICT manufacturing and hardware</option>
-              <option>ICT equipment sales and distribution</option>
+              <option>ICT manufacturing, equipment sales and distribution</option>
               <option>Software publishing</option>
               <option>Telecommunications</option>
               <option>Software development and IT consultancy</option>
@@ -493,24 +512,27 @@
   </section>
 
   <!-- Continue to the responsible authority (wireframe block the user chose to keep; spec §13 treatment) -->
-  <section class="mk-section rc-auth-band rc-blue" id="authority" aria-labelledby="auth-title">
+  <section class="mk-section rc-auth-band" id="authority" aria-labelledby="auth-title">
     <div class="ecl-container">
       <div class="mk-head">
         <h2 class="mk-h2" id="auth-title">Continue to the responsible authority</h2>
         <p class="mk-lede">Check the current procedure, legal requirements and forms directly with the responsible EU or Member State authority.</p>
       </div>
-      <ul class="rc-auth">
-        <li><span class="mk-label">Germany</span><h3>Federal Office for Migration and Refugees (BAMF)</h3><p>EU Blue Card, skilled worker permits, employer obligations</p><small><b>Official source</b> · Last reviewed: 18 June 2026</small><a class="ecl-button ecl-button--primary" href="#">Continue to the official source ↗</a></li>
-        <li><span class="mk-label">Netherlands</span><h3>IND — Immigration and Naturalisation Service</h3><p>Highly skilled migrant permit, IND-recognised sponsorship</p><small><b>Official source</b> · Last reviewed: 5 May 2026</small><a class="ecl-button ecl-button--primary" href="#">Continue to the official source ↗</a></li>
-        <li><span class="mk-label">EU-wide</span><h3>EURES — European Job Mobility Portal</h3><p>EU job mobility, cross-border employment information</p><small><b>Official source</b> · Last reviewed: 1 July 2026</small><a class="ecl-button ecl-button--primary" href="#">Continue to the official source ↗</a></li>
+      <ul class="mk-portals rc-portals">
+        <li><a href="https://eures.europa.eu/"><b>EURES — European Job Mobility Portal</b><span>EU job mobility, cross-border employment information</span><code>eures.europa.eu</code><i aria-hidden="true">↗</i></a></li>
+        <li><a href="https://ind.nl/"><b>IND — Immigration and Naturalisation Service</b><span>Highly skilled migrant permit, IND-recognised sponsorship</span><code>ind.nl</code><i aria-hidden="true">↗</i></a></li>
+        <li><a href="https://www.bamf.de/"><b>Federal Office for Migration and Refugees (BAMF)</b><span>EU Blue Card, skilled worker permits, employer obligations</span><code>bamf.de</code><i aria-hidden="true">↗</i></a></li>
       </ul>
-      <p class="rc-legal">This content summarises published information and does not constitute legal advice. Confirm the current requirements with the responsible authority.</p>
+
     </div>
   </section>
+  <!-- Newsletter sign-up (client request): shared section from ../assets/employers-landing/mockups.js -->
+  <div data-part="newsletter"></div>
 </main>
 
 <div data-part="footer"></div>
-<script src="../assets/employers-landing/mockups.js?v=8"></script>
+<script src="../assets/employers-landing/mockups.js?v=30"></script>
+<script>mkSlideshow("#rc-stage");</script>
 <script>
 (function () {
   "use strict";
@@ -536,26 +558,23 @@
   ].map(function (r) { return { type: r[0], title: r[1], country: r[2], aud: r[3], date: r[4], summary: r[5], topic: r[6], action: r[7], src: r[8], reviewed: r[9] }; });
   var AUD = { e: "For employers", h: "For higher education institutions", eh: "For employers and institutions" };
   function fmt(iso) { return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }); }
-  function card(r) {
+  /* o.short (market intelligence, synced from Figma 20 Oct): the footer holds only "Read more" */
+  function card(r, o) {
+    o = o || {};
     return '<li class="rc-card"><div class="rc-tags"><span class="rc-tag">' + r.type + '</span><span class="rc-tag rc-tag--line">' + r.country + "</span></div>" +
       '<h3><a href="#">' + r.title + "</a></h3><p>" + r.summary + "</p>" +
       "<div>" + (r.src ? '<div class="rc-card__src"><b>Official source:</b> ' + r.src + " · Last reviewed: " + r.reviewed + "</div>" : "") +
-      '<div class="rc-card__foot"><span><time datetime="' + r.date + '">' + fmt(r.date) + "</time> · " + AUD[r.aud] + '</span><a class="mk-link" href="#">' + r.action + "</a></div></div></li>";
+      '<div class="rc-card__foot">' + (o.short ? "" : '<span class="rc-card__meta">' + AUD[r.aud] + '<b><time datetime="' + r.date + '">' + fmt(r.date) + "</time></b></span>") + '<a class="rc-card__more" href="#">' + (o.short ? "Read more<span class=\"elgo-sr\">: " + r.title + "</span>" : r.action) + "</a></div></div></li>";
   }
 
   /* market intelligence: four market-insight resources, newest first */
   var byDate = R.slice().sort(function (a, b) { return b.date < a.date ? -1 : 1; });
-  $("rc-market").innerHTML = byDate.filter(function (r) { return r.topic === "Market insights"; }).slice(0, 4).map(card).join("");
+  $("rc-market").innerHTML = byDate.filter(function (r) { return r.topic === "Market insights"; }).slice(0, 4).map(function (r) { return card(r, { short: true }); }).join("");
 
-  /* ---- countries: all 27, alphabetical, with coverage; searchable ---- */
+  /* ---- countries: all 27, alphabetical ---- */
   var C = ["Austria","Belgium","Bulgaria","Croatia","Cyprus","Czechia","Denmark","Estonia","Finland","France","Germany","Greece","Hungary","Ireland","Italy","Latvia","Lithuania","Luxembourg","Malta","Netherlands","Poland","Portugal","Romania","Slovakia","Slovenia","Spain","Sweden"];
-  var GUIDE = { France: 1, Germany: 1, Netherlands: 1 };
-  function drawCountries() {
-    var q = $("rc-csearch").value.trim().toLowerCase(), list = C.filter(function (c) { return c.toLowerCase().indexOf(q) === 0; });
-    $("rc-countries").innerHTML = list.map(function (c) { return '<li><a href="#">' + (GUIDE[c] ? '<i aria-hidden="true"></i>' : "") + c + (GUIDE[c] ? '<small>Procedural guide</small>' : "") + "</a></li>"; }).join("");
-    $("rc-cnone").hidden = list.length > 0;
-  }
-  $("rc-csearch").addEventListener("input", drawCountries); drawCountries();
+  /* synced from Figma (20 Oct): no search box and no "Procedural guide" notes */
+  $("rc-countries").innerHTML = C.map(function (c) { return '<li><a href="#">' + c + "</a></li>"; }).join("");
 
   /* ---- browse all: filters (spec §6–§8) ---- */
   var F = $("rc-filters"), countries = ["EU-wide", "India–EU"].concat(C);
@@ -591,8 +610,8 @@
     var chips = [];
     applied.aud.forEach(function (a) { chips.push(["aud", a, a === "employers" ? "Employers" : "Higher education institutions"]); });
     ["country", "topic", "type"].forEach(function (k) { applied[k].forEach(function (v) { chips.push([k, v, v]); }); });
-    if (applied.date) chips.push(["date", applied.date, { upcoming: "Upcoming", "3m": "Past three months", "1y": "Past year" }[applied.date]]);
     if (applied.field) chips.push(["field", applied.field, applied.field]);
+    if (applied.date) chips.push(["date", applied.date, { upcoming: "Upcoming", "3m": "Past three months", "1y": "Past year" }[applied.date]]);
     $("rc-chips").innerHTML = chips.map(function (c) { return '<button type="button" class="rc-chip" data-k="' + c[0] + '" data-v="' + c[1] + '" aria-label="Remove filter: ' + c[2] + '">' + c[2] + "</button>"; }).join("") +
       (chips.length ? '<button type="button" class="rc-clear" data-clear>Clear all filters</button>' : "");
   }
