@@ -25,8 +25,9 @@ window.mockupSections = [
     pages: [
       { title: "For Employers and Higher Education Institutions", path: "employers-and-higher-education/recruiter.html", displayPath: "/employers-and-higher-education", landingPage: true },
       { title: "India's ICT  Pool: A Guide for EU Employers", path: "employers-and-higher-education/indias-ict-pool-a-guide-for-eu-employers.html", displayPath: "/employers-and-higher-education/indias-ict-pool-a-guide-for-eu-employers" },
-      { title: "Employer & Agent Obligations", available: false, badge: "Not available" },
-      { title: "Onboarding process for Employers", available: false, badge: "Not available" },
+      { title: "Employer and Agent Obligations", path: "employers-and-higher-education/employer-and-agent-obligations.html", displayPath: "/employers-and-higher-education/employer-and-agent-obligations" },
+      { title: "Hiring a Candidate from India: What to Expect from Offer to Arrival", path: "employers-and-higher-education/hiring-a-candidate-from-india-what-to-expect-from-offer-to-arrival.html", displayPath: "/employers-and-higher-education/hiring-a-candidate-from-india-what-to-expect-from-offer-to-arrival" },
+      { title: "Selecting an Overseas Education Consultant or Agent in India: a Reference Tool for European universities", path: "employers-and-higher-education/selecting-an-overseas-education-consultant-or-agent-in-india-a-reference-tool-for-european-universities.html", displayPath: "/employers-and-higher-education/selecting-an-overseas-education-consultant-or-agent-in-india-a-reference-tool-for-european-universities" },
     ],
   },
   {

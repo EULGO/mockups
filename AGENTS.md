@@ -112,13 +112,25 @@ installation, server, or build step required.
 - Preserve source paragraphs, tables, lists, inline formatting, and hyperlink
   targets, including Word field-code hyperlinks. Use accessible table headers
   and scrollable table wrappers. Verify converted content against the DOCX.
+- Prefer a supplied `_text_only.docx` over a Word conversion of a print brochure.
+  Omit brochure pictures, repeated headers, footer logos, page numbers and empty
+  pages; format the useful text as headings, lists, callouts and accessible tables.
+- Use `candidates/students-checklist.html` as the layout reference for checklists
+  and question sets, reusing its shared guide-section and guide-checklist styles.
+- Render consecutive paragraphs with Word's `Intense Quote` style as one callout,
+  using the shared dark callout treatment from `students-checklist.html`.
 - Replace inherited titles, descriptions, breadcrumbs, audience, downloads,
   and sharing metadata. Do not inherit the checklist's publication date,
   current-status label, or editorial ownership for an undated client document.
-- Guide downloads must always be PDF, linking to `assets/pdf/<slug>.pdf`
-  with a "Download PDF" label. Editors convert DOCX sources to PDF and add the
-  file before publishing. If it is not yet present, keep the expected PDF link
-  and report the missing file; do not offer the DOCX as the website download.
+- Show a "Download PDF" button only when a supplied PDF version is available,
+  linking to `assets/pdf/<slug>.pdf`. Otherwise omit the button; do not create
+  placeholder download links or offer the DOCX as a website download.
+- Only these guides currently have supplied PDFs: Selecting an Overseas Education
+  Consultant or Agent in India, Prepare for your study in Europe
+  (`students-checklist`), and EU Blue Card. The education-agent PDF is in the
+  employer resources source folder; the other two are in the client content
+  folder's `Guides and Checklists` directory. Ask the user if a matching source
+  PDF cannot be found. Preserve PDF links used as source references.
 
 ## Maintaining these instructions
 Update this `AGENTS.md` when relevant project decisions, preferences, or workflows
