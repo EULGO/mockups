@@ -19,6 +19,8 @@ a { color: var(--elgo-brand); }
 .cp-logo img { display: block; width: 150px; height: auto; }
 .cp-switch { display: flex; align-items: center; gap: var(--cp-s2); font-size: .875rem; font-weight: 600; color: var(--elgo-muted); }
 .cp-switch select { min-height: 2.5rem; padding: 0 2rem 0 .75rem; border: 1px solid var(--elgo-line-strong); border-radius: var(--elgo-radius-control); background: var(--elgo-surface); font: inherit; color: var(--elgo-brand-deep); }
+/* The shared site footer (assets/elgo/elgo-chrome.css) replaced .cp-footer; keep its distance from the content. */
+.elgo-ft { margin-top: var(--cp-s8); }
 .cp-footer { margin-top: var(--cp-s8); padding-block: var(--cp-s6); background: var(--elgo-brand-deep); color: rgba(255,255,255,.85); font-size: .875rem; }
 .cp-footer p { margin: 0 0 var(--cp-s3); max-width: 60rem; }
 .cp-footer b { color: #fff; }
@@ -237,5 +239,5 @@ a { color: var(--elgo-brand); }
   .cp-dock { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--cp-s2); padding: var(--cp-s2) var(--cp-s4) calc(var(--cp-s2) + env(safe-area-inset-bottom)); background: var(--elgo-surface); box-shadow: 0 -4px 16px rgba(10, 20, 60, .12); }
   .cp-dock a { display: grid; place-items: center; min-height: 2.75rem; border-radius: var(--elgo-radius-chip); font-weight: 700; text-decoration: none; color: var(--elgo-brand-deep); border: 1px solid var(--elgo-line); }
   .cp-dock a:first-child { background: var(--elgo-accent); border-color: var(--elgo-accent); color: var(--elgo-on-accent); }
-  body:has(.cp-dock) .cp-footer { padding-bottom: 5rem; }
+  body:has(.cp-dock) .elgo-ft { padding-bottom: 8rem; }
 }

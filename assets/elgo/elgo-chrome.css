@@ -1,0 +1,525 @@
+/*
+ * ELGO site header and footer, shared by every mockup page.
+ * Built from the Figma file "EULGO - Custom theme" (Site header, Site footer).
+ *
+ * The other pages load older theme styles that use the same --elgo-* names
+ * with different values, so the colours and sizes here are set on the header
+ * and footer themselves, not on :root. That way they never leak into a page.
+ * Sizes are in rem (1rem = 16px).
+ */
+
+.elgo-hd,
+.elgo-ft,
+.elgo-skip {
+  --elgo-brand-primary: #1f2f8f;
+  --elgo-brand-deep: #0f1b5c;
+  --elgo-brand-accent: #ffd617;
+  --elgo-text-default: #141a3a;
+  --elgo-text-muted: #4a5078;
+  --elgo-text-on-brand: #fff;
+  --elgo-border-default: #e2e5f0;
+  --elgo-border-strong: #c3c9e0;
+  --elgo-surface-default: #fff;
+  --elgo-surface-tint: #f5f6fb;
+  --elgo-font-body: Inter, arial, sans-serif;
+  --elgo-container: 85.5rem;
+  --elgo-container-padding-x: 2rem;
+  --elgo-radius-control: 0.625rem;
+}
+
+@media (max-width: 47.99rem) {
+  .elgo-hd,
+  .elgo-ft {
+    --elgo-container-padding-x: 1rem;
+  }
+}
+
+/* Keep the page's own styles out of the header and footer. */
+
+.elgo-hd,
+.elgo-hd *,
+.elgo-ft,
+.elgo-ft * {
+  box-sizing: border-box;
+}
+
+.elgo-hd,
+.elgo-ft {
+  display: block;
+  position: relative;
+  margin: 0;
+  color: var(--elgo-text-default);
+  font-family: var(--elgo-font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5625rem;
+  text-align: left;
+}
+
+.elgo-hd ul,
+.elgo-ft ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-hd li,
+.elgo-ft li {
+  margin: 0;
+  padding: 0;
+}
+
+.elgo-hd li::before,
+.elgo-ft li::before {
+  content: none;
+}
+
+.elgo-hd p,
+.elgo-ft p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.elgo-hd img,
+.elgo-ft img {
+  display: block;
+  max-width: 100%;
+}
+
+.elgo-hd a,
+.elgo-ft a {
+  border: 0;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+.elgo-hd a:focus-visible,
+.elgo-hd button:focus-visible,
+.elgo-hd input:focus-visible,
+.elgo-ft a:focus-visible {
+  outline: 0.1875rem solid var(--elgo-brand-accent);
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
+}
+
+.elgo-hd__inner,
+.elgo-ft__inner {
+  margin: 0 auto;
+  padding: 0 var(--elgo-container-padding-x);
+  max-width: var(--elgo-container);
+}
+
+.elgo-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+.elgo-skip {
+  position: absolute;
+  top: -10rem;
+  left: 1rem;
+  z-index: 100;
+  border-radius: var(--elgo-radius-control);
+  background: var(--elgo-brand-accent);
+  padding: 0.5rem 1rem;
+  color: var(--elgo-brand-deep);
+  font-family: var(--elgo-font-body);
+  font-weight: 600;
+}
+
+.elgo-skip:focus {
+  top: 1rem;
+}
+
+/* Site header: audience tabs */
+
+.elgo-hd__aud {
+  background: var(--elgo-brand-deep);
+}
+
+.elgo-hd__aud .elgo-hd__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.elgo-hd__tabs,
+.elgo-hd__utility {
+  display: flex;
+}
+
+.elgo-hd__tabs {
+  gap: 0.375rem;
+}
+
+.elgo-hd .elgo-hd__tabs a {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0 0.875rem;
+  height: 2.25rem;
+  color: var(--elgo-text-on-brand);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3125rem;
+  text-decoration: none;
+}
+
+.elgo-hd .elgo-hd__tabs a:hover {
+  box-shadow: inset 0 -0.1875rem 0 var(--elgo-brand-accent);
+}
+
+.elgo-hd .elgo-hd__tabs a[aria-current] {
+  background: var(--elgo-surface-default);
+  color: var(--elgo-brand-deep);
+  box-shadow: none;
+}
+
+.elgo-hd .elgo-hd__tabs .elgo-hd__home {
+  padding: 0 0.625rem;
+}
+
+.elgo-hd__home svg {
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.elgo-hd__utility {
+  gap: 1.5rem;
+}
+
+.elgo-hd .elgo-hd__utility a {
+  color: var(--elgo-text-on-brand);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+  text-decoration: none;
+}
+
+.elgo-hd .elgo-hd__utility a:hover,
+.elgo-hd .elgo-hd__utility a[aria-current] {
+  text-decoration: underline;
+}
+
+/* Site header: logo and search */
+
+.elgo-hd__brand {
+  background: var(--elgo-surface-default);
+}
+
+.elgo-hd__brand .elgo-hd__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.elgo-hd__logo img {
+  width: 9.5625rem;
+  height: 4.375rem;
+  object-fit: contain;
+}
+
+.elgo-hd__search {
+  display: flex;
+  margin: 0;
+}
+
+.elgo-hd .elgo-hd__search input {
+  margin: 0;
+  border: 1px solid var(--elgo-border-strong);
+  border-right: 0;
+  border-radius: var(--elgo-radius-control) 0 0 var(--elgo-radius-control);
+  background: var(--elgo-surface-default);
+  padding: 0 0.75rem;
+  width: 16rem;
+  height: 2.3125rem;
+  color: var(--elgo-text-default);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: none;
+}
+
+.elgo-hd .elgo-hd__search input::placeholder {
+  color: var(--elgo-text-muted);
+  opacity: 1;
+}
+
+.elgo-hd .elgo-hd__search button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border: 0;
+  border-radius: 0 var(--elgo-radius-control) var(--elgo-radius-control) 0;
+  background: var(--elgo-brand-primary);
+  padding: 0;
+  width: 2.8125rem;
+  height: 2.3125rem;
+  cursor: pointer;
+}
+
+.elgo-hd__search button img {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Site header: main menu */
+
+.elgo-hd__menu {
+  border-bottom: 1px solid var(--elgo-border-default);
+  background: var(--elgo-surface-default);
+}
+
+.elgo-hd__menu .elgo-hd__inner {
+  padding-left: 0.75rem;
+}
+
+.elgo-hd__menu ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.elgo-hd .elgo-hd__menu a {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1.25rem;
+  height: 3.25rem;
+  color: var(--elgo-text-default);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  text-decoration: none;
+}
+
+.elgo-hd .elgo-hd__menu .elgo-hd__tool {
+  color: var(--elgo-brand-primary);
+}
+
+.elgo-hd__menu a::after {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  left: 1.25rem;
+  height: 0;
+  content: '';
+}
+
+.elgo-hd__menu a:hover::after {
+  height: 0.1875rem;
+  background: var(--elgo-brand-primary);
+}
+
+.elgo-hd .elgo-hd__menu a[aria-current='page'] {
+  font-weight: 700;
+}
+
+.elgo-hd__menu a[aria-current='page']::after {
+  height: 0.25rem;
+  background: var(--elgo-brand-accent);
+}
+
+/* Site footer */
+
+.elgo-ft {
+  border-top: 1px solid var(--elgo-border-default);
+  background: var(--elgo-surface-tint);
+  padding: 5.5rem 0 4.5rem;
+}
+
+.elgo-ft .elgo-ft__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.elgo-ft__info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.elgo-ft__lockup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  row-gap: 1rem;
+}
+
+.elgo-ft__lockup > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  padding: 0 1.5rem;
+}
+
+.elgo-ft__lockup > div:first-child {
+  padding-left: 0;
+}
+
+.elgo-ft__lockup > div + div {
+  border-left: 1px solid var(--elgo-border-strong);
+}
+
+.elgo-ft .elgo-ft__lockup p {
+  color: var(--elgo-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.0625rem;
+}
+
+.elgo-ft__eu {
+  width: 18.3125rem;
+  height: auto;
+}
+
+.elgo-ft .elgo-ft__partner {
+  width: auto;
+  height: 3rem;
+}
+
+.elgo-ft__links {
+  display: flex;
+  gap: 5rem;
+}
+
+.elgo-ft__links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.elgo-ft a {
+  color: var(--elgo-brand-deep);
+  text-decoration: none;
+}
+
+.elgo-ft a:hover {
+  color: var(--elgo-brand-deep);
+  text-decoration: underline;
+}
+
+.elgo-ft__common {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-top: 1px solid var(--elgo-border-strong);
+  padding-top: 2.5rem;
+}
+
+.elgo-ft__follow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.elgo-ft__follow a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.elgo-ft__follow img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.elgo-ft__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.elgo-ft .elgo-ft__legal li + li {
+  border-left: 1px solid var(--elgo-border-strong);
+  padding-left: 1rem;
+}
+
+/* Small screens */
+
+@media (max-width: 47.99rem) {
+  .elgo-hd__utility {
+    display: none;
+  }
+
+  .elgo-hd .elgo-hd__tabs a {
+    padding: 0 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .elgo-hd__logo img {
+    width: 7.5rem;
+    height: 3.4375rem;
+  }
+
+  .elgo-hd .elgo-hd__search input {
+    width: 9rem;
+  }
+
+  .elgo-hd__menu ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .elgo-hd .elgo-hd__menu a {
+    white-space: nowrap;
+  }
+
+  .elgo-ft__lockup > div {
+    padding: 0 1rem;
+  }
+
+  /* The EU logo takes the whole first row, so the partner logos start a new
+     row and the first of them needs no divider. */
+  .elgo-ft__lockup > div:first-child {
+    flex-basis: 100%;
+  }
+
+  .elgo-ft__lockup > div:nth-child(2) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  /* Legal links wrap on small screens; dividers would start the new line. */
+  .elgo-ft__legal {
+    gap: 0.5rem 1.5rem;
+  }
+
+  .elgo-ft .elgo-ft__legal li + li {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .elgo-ft__eu {
+    width: 13rem;
+  }
+
+  .elgo-ft .elgo-ft__partner {
+    height: 2.625rem;
+  }
+}
+
+/* Print: keep the logo, drop the navigation. */
+
+@media print {
+  .elgo-hd__aud,
+  .elgo-hd__search,
+  .elgo-hd__menu,
+  .elgo-ft {
+    display: none;
+  }
+}

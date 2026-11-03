@@ -104,6 +104,21 @@ installation, server, or build step required.
 - Add imports to `assets/pages.js` and the root index's `noscript` fallback.
   Verify ordering, display paths, search, cross-links, assets, and downloads.
 
+## Shared site header and footer
+- Every page except the root `index.html` directory uses the same site header
+  (`<header class="elgo-hd">`) and footer (`<footer class="elgo-ft">`), taken
+  from the Figma-based `candidates/eu-blue-card.html`. Their styles are in
+  `assets/elgo/elgo-chrome.css`; logos and icons are in `assets/elgo/img/` and
+  `assets/elgo/icons/`. Older theme styles reuse `--elgo-*` names with other
+  values, so the chrome tokens are scoped to the header and footer, not `:root`.
+- When importing a page, replace its own header/footer with this markup, adjust
+  relative paths for the folder depth, and link `elgo-chrome.css` last in `<head>`.
+  Mark the current audience tab (`aria-current="true"`), main menu item
+  (`aria-current="page"`: Resources for guides, Countries for country pages) and
+  About/FAQ utility link.
+- `candidates/eu-blue-card.html` is built directly from the Figma components;
+  its article styles are in `assets/elgo/elgo-mockup.css`.
+
 ## Converting client documents
 - For DOCX guides, follow `candidates/visa-readiness-checklist.html` as the
   resource-page template: shared header/footer, introduction, metadata, contents
