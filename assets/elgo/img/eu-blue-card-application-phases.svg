@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 800" width="530" height="800" font-family="Inter, Arial, sans-serif" text-anchor="middle">
+  <title>EU Blue Card application: preparatory, application and decision phases</title>
+  <defs>
+    <!-- Double chevron with a small tip, pointing down to the next phase. -->
+    <path id="chevron" d="M-15 0 L0 11 L15 0 L15 9 L0 20 L-15 9 Z M-11 17 L0 25 L11 17 L11 23 L0 31 L-11 23 Z M-5 31 L0 34 L5 31 L0 42 Z"/>
+    <marker id="arrowhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 1 L7 4 L0 7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Preparatory phase -->
+  <rect x="5" y="5" width="520" height="253" fill="#d7e2e6"/>
+  <text x="265" y="34" font-size="16" font-weight="700" fill="#00485e">Preparatory Phase</text>
+
+  <g fill="none" stroke="#1a1a1a" stroke-width="0.75">
+    <path d="M265 112 V123 M105 134 V123 H425 V134"/>
+  </g>
+
+  <rect x="196" y="52" width="139" height="60" fill="#00485e"/>
+  <text x="265" y="79" font-size="10.5" font-weight="700" fill="#fff">
+    <tspan x="265">Gather Necessary</tspan><tspan x="265" dy="14">Documents</tspan>
+  </text>
+
+  <g fill="#74899a">
+    <rect x="36" y="134" width="138" height="60"/>
+    <rect x="196" y="134" width="139" height="60"/>
+    <rect x="356" y="134" width="139" height="60"/>
+    <rect x="36" y="209" width="459" height="37"/>
+  </g>
+  <g font-size="10.5" fill="#fff">
+    <text y="154"><tspan x="105">Valid Indian passport</tspan><tspan x="105" dy="14">(with minimum validity</tspan><tspan x="105" dy="14">over 6 months)</tspan></text>
+    <text y="154"><tspan x="265">Application for a valid</tspan><tspan x="265" dy="14">visa or valid visa/valid</tspan><tspan x="265" dy="14">residence permit</tspan></text>
+    <text y="161"><tspan x="425">Legally binding job</tspan><tspan x="425" dy="14">offer</tspan></text>
+    <text y="224"><tspan x="265">For additional list of documents, please refer to EU Immigration portal and/or</tspan><tspan x="265" dy="14">national immigration portals of the respective EU MS (links provided below)</tspan></text>
+  </g>
+
+  <!-- Application phase -->
+  <rect x="5" y="272" width="520" height="375" fill="#f1e4d6"/>
+  <g fill="#00485e">
+    <use href="#chevron" x="105" y="250"/>
+    <use href="#chevron" x="425" y="250"/>
+  </g>
+  <text x="265" y="300" font-size="16" font-weight="700" fill="#e58d2f">Application Phase</text>
+
+  <g fill="none" stroke="#1a1a1a" stroke-width="0.75">
+    <path d="M265 380 V391 M150 402 V391 H380 V402"/>
+    <path d="M220 432 H252 M278 432 H310"/>
+    <path d="M150 462 V484 M380 462 V484"/>
+    <path d="M174 514 H196 M335 514 H356"/>
+  </g>
+
+  <rect x="196" y="319" width="139" height="61" fill="#e58d2f"/>
+  <text x="265" y="347" font-size="10.5" font-weight="700" fill="#fff">
+    <tspan x="265">Review Eligibility</tspan><tspan x="265" dy="14">Criteria</tspan>
+  </text>
+
+  <g fill="#f1c08d">
+    <rect x="82" y="402" width="138" height="60"/>
+    <rect x="310" y="402" width="139" height="60"/>
+  </g>
+  <g font-size="10.5" font-weight="700" fill="#1a1a1a">
+    <text y="422"><tspan x="151">Higher Educational</tspan><tspan x="151" dy="14">Qualification</tspan><tspan x="151" dy="14">(Diploma/Degree)</tspan></text>
+    <text y="415"><tspan x="380">At least 5 years of</tspan><tspan x="380" dy="12.5">Professional Work</tspan><tspan x="380" dy="12.5">Experience (same</tspan><tspan x="380" dy="12.5">sector)</tspan></text>
+    <text x="265" y="436">or</text>
+  </g>
+
+  <g fill="#f8dcc0">
+    <rect x="36" y="484" width="138" height="60"/>
+    <rect x="196" y="484" width="139" height="60"/>
+    <rect x="356" y="484" width="139" height="60"/>
+  </g>
+  <g fill="#1a1a1a">
+    <text y="496" font-size="9"><tspan x="105">Check and ensure that</tspan><tspan x="105" dy="10.5">annual gross salary meets</tspan><tspan x="105" dy="10.5">salary threshold of the EU</tspan><tspan x="105" dy="10.5">Member State where you</tspan><tspan x="105" dy="10.5">are applying</tspan></text>
+    <text y="498" font-size="10.5"><tspan x="265">Consult/Refer to</tspan><tspan x="265" dy="14">national immigration</tspan><tspan x="265" dy="14">portal for any additional</tspan><tspan x="265" dy="14">requirements</tspan></text>
+    <text y="512" font-size="10.5"><tspan x="425">Secure medical</tspan><tspan x="425" dy="14">insurance</tspan></text>
+  </g>
+
+  <rect x="81" y="559" width="368" height="75" fill="#e58d2f"/>
+  <text y="580" font-size="10.5" fill="#fff">
+    <tspan x="265">Prepare and submit the application to the competent national</tspan>
+    <tspan x="265" dy="14">authorities in the country where you wish to work under the EU</tspan>
+    <tspan x="265" dy="14">Blue Card scheme or at the consular authorities of the Member</tspan>
+    <tspan x="265" dy="14">State where you wish to apply, in India (if applicable)</tspan>
+  </text>
+
+  <!-- Decision phase -->
+  <rect x="5" y="660" width="520" height="133" fill="#d5ebef"/>
+  <g fill="#e58d2f">
+    <use href="#chevron" x="105" y="640"/>
+    <use href="#chevron" x="425" y="640"/>
+  </g>
+  <text x="265" y="688" font-size="16" font-weight="700" fill="#0096ab">Decision Phase</text>
+
+  <g fill="none" stroke="#1a1a1a" stroke-width="0.75">
+    <path d="M174 740 H219"/>
+    <path d="M312 740 H354" marker-end="url(#arrowhead)"/>
+  </g>
+  <text x="265" y="744" font-size="10.5" font-weight="700" fill="#1a1a1a">if approved</text>
+
+  <g fill="#0096ab">
+    <rect x="36" y="710" width="138" height="60"/>
+    <rect x="356" y="710" width="139" height="60"/>
+  </g>
+  <g font-size="10.5" font-weight="700" fill="#fff">
+    <text y="737"><tspan x="105">Wait for decision</tspan><tspan x="105" dy="14">within 90 days</tspan></text>
+    <text y="737"><tspan x="425">Receive EU</tspan><tspan x="425" dy="14">Blue Card</tspan></text>
+  </g>
+</svg>

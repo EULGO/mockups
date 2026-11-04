@@ -118,6 +118,10 @@ installation, server, or build step required.
   About/FAQ utility link.
 - `candidates/eu-blue-card.html` is built directly from the Figma components;
   its article styles are in `assets/elgo/elgo-mockup.css`.
+- Pages built on `elgo-mockup.css` also load `assets/elgo/elgo-annotations.css`
+  and `.js`: a toggleable right-hand rail of developer notes (component, classes,
+  Figma link) found from the `elgo-*` classes. Describe new components in the
+  script's list; use `data-annotation` for a one-off note on an element.
 
 ## Converting client documents
 - For DOCX guides, follow `candidates/visa-readiness-checklist.html` as the

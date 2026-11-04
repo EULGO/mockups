@@ -23,11 +23,13 @@
   --elgo-surface-tint: #f5f6fb;
   --elgo-surface-ground: #fff;
   --elgo-surface-selected: #e8eeff;
+  --elgo-surface-brand: #1f2f8f;
   --elgo-audience-soft: #e8eeff;
   --elgo-audience-mid: #afc3fb;
   --elgo-audience-strong: #1f2f8f;
   --elgo-role-story-soft: #ffe5d2;
   --elgo-role-story-default: #ffb98a;
+  --elgo-role-story-strong: #9a4712;
   --elgo-role-ok-strong: #1a7449;
 
   /* Fonts */
@@ -45,7 +47,7 @@
   --elgo-space-6: 2rem;
   --elgo-space-7: 3rem;
   --elgo-space-8: 4.5rem;
-  --elgo-flow-section: 4.5rem;
+  --elgo-flow-section: 3rem;
   --elgo-flow-heading: 1rem;
   --elgo-flow-sub: 2rem;
   --elgo-flow-text: 1rem;
@@ -71,11 +73,22 @@
   --elgo-body-lede-line-height: 1.8125rem;
 }
 
+/* Employers colour mode (Figma "Employers" variable mode): the audience
+   colours turn green. Set class="elgo-mode--employers" on <body>. */
+.elgo-mode--employers {
+  --elgo-audience-soft: #d9f2e6;
+  --elgo-audience-mid: #b1e5cc;
+  --elgo-audience-strong: #1a7449;
+  /* Tinted panels (comparison diagram, publication box) follow the mode too.
+     Table heads keep their own grey-blue. */
+  --elgo-surface-tint: #f1f8f4;
+}
+
 @media (max-width: 47.99rem) {
   :root {
     --elgo-container-padding-x: 1rem;
     --elgo-space-7: 2rem;
-    --elgo-flow-section: 3rem;
+    --elgo-flow-section: 2rem;
     --elgo-display-h2-size: 1.875rem;
     --elgo-display-h2-line-height: 1.9375rem;
     --elgo-body-lede-size: 1rem;
@@ -388,6 +401,13 @@ summary:focus-visible {
   text-decoration: underline;
 }
 
+/* Second level (On this page/Sub-link): smaller and indented. */
+.elgo-toc ol ol a {
+  padding: 0.1875rem 0 0.1875rem 1.75rem;
+  font-size: 0.75rem;
+  line-height: 1.0625rem;
+}
+
 .elgo-toc a[aria-current='true'] {
   border-left-color: var(--elgo-brand-primary);
   color: var(--elgo-text-heading);
@@ -433,7 +453,7 @@ summary:focus-visible {
 }
 
 .elgo-prose .elgo-lead {
-  color: var(--elgo-text-heading);
+  color: var(--elgo-text-default);
   font-size: var(--elgo-body-lede-size);
   line-height: var(--elgo-body-lede-line-height);
 }
@@ -491,6 +511,28 @@ summary:focus-visible {
   content: '';
 }
 
+.elgo-prose li > p {
+  margin: var(--elgo-space-2) 0 0;
+}
+
+.elgo-prose ol:not([class]) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-2);
+  padding-left: 1.5rem;
+}
+
+.elgo-prose ol:not([class]) li::marker {
+  color: var(--elgo-text-heading);
+  font-weight: 600;
+}
+
+/* Long bare URLs (source lists) wrap instead of running past the column. */
+.elgo-prose p,
+.elgo-prose li {
+  overflow-wrap: anywhere;
+}
+
 .elgo-prose strong {
   color: var(--elgo-text-heading);
   font-weight: 700;
@@ -501,14 +543,20 @@ summary:focus-visible {
 }
 
 /* Wide blocks may use the whole column. */
-.elgo-prose > .elgo-phases,
+.elgo-prose > .elgo-figure,
+.elgo-prose > .elgo-pillars,
+.elgo-prose > .elgo-split,
+.elgo-prose > .elgo-columns,
 .elgo-prose > .elgo-iconlist,
+.elgo-prose > .elgo-illustration-list,
 .elgo-prose > .elgo-portals,
+.elgo-prose > .elgo-sourcelist,
 .elgo-prose > .elgo-table-wrap {
   max-width: none;
 }
 
 .elgo-prose > .elgo-checklist,
+.elgo-prose > .elgo-diagram,
 .elgo-prose > .elgo-notice,
 .elgo-prose > .elgo-publication {
   max-width: var(--elgo-measure-box);
@@ -519,15 +567,20 @@ summary:focus-visible {
   margin-top: var(--elgo-space-3);
 }
 
-/* Notice (elgo-notice, size M) */
+/* Notice (elgo-notice, size M). Only four styles exist:
+   - elgo-notice: light blue (default), icon notice-audience-m.svg
+   - elgo-notice--brand: dark blue, icon notice-brand-m.svg
+   - elgo-notice--accent: soft yellow, icon notice-accent-m.svg
+   - elgo-notice--attention: orange, icon notice-attention-m.svg
+   The colours stay the same on employer pages. */
 
 .elgo-notice {
   display: flex;
   align-items: flex-start;
   gap: var(--elgo-space-3);
-  border: 1px solid var(--elgo-border-default);
+  border: 1px solid transparent;
   border-radius: var(--elgo-radius-block);
-  background: var(--elgo-surface-default);
+  background: #e8eeff;
   padding: var(--elgo-space-4) var(--elgo-space-5);
 }
 
@@ -541,6 +594,10 @@ summary:focus-visible {
   margin: 0;
 }
 
+.elgo-notice {
+  overflow-wrap: anywhere;
+}
+
 .elgo-notice strong {
   color: var(--elgo-text-heading);
   font-weight: 600;
@@ -551,9 +608,33 @@ summary:focus-visible {
   background: var(--elgo-brand-accent-soft);
 }
 
-.elgo-notice--audience {
+.elgo-notice--attention {
+  border-color: var(--elgo-role-story-default);
+  background: var(--elgo-role-story-soft);
+}
+
+.elgo-notice--brand {
   border-color: transparent;
-  background: var(--elgo-audience-soft);
+  background: var(--elgo-surface-brand);
+  color: var(--elgo-text-on-brand);
+}
+
+.elgo-notice--brand strong,
+.elgo-notice--brand a {
+  color: var(--elgo-text-on-brand);
+}
+
+.elgo-notice--brand ul:not([class]) li::before {
+  filter: brightness(0) invert(1);
+}
+
+/* A notice with a title line and a list keeps them a little apart. */
+.elgo-notice > div > * {
+  margin: 0;
+}
+
+.elgo-notice > div > * + * {
+  margin-top: var(--elgo-space-2);
 }
 
 @media (max-width: 47.99rem) {
@@ -574,11 +655,11 @@ summary:focus-visible {
   list-style: none;
 }
 
-.elgo-checklist li + li {
+.elgo-checklist > li + li {
   border-top: 1px solid var(--elgo-border-default);
 }
 
-.elgo-checklist label {
+.elgo-checklist > [role="checkbox"] {
   display: flex;
   align-items: flex-start;
   gap: var(--elgo-space-3);
@@ -586,75 +667,501 @@ summary:focus-visible {
   cursor: pointer;
 }
 
-.elgo-checklist__check {
+.elgo-checklist > [role="checkbox"]::before {
+  content: "";
   flex: none;
-  appearance: none;
+  box-sizing: border-box;
   margin: 0.0625rem 0 0;
   border: 0.125rem solid var(--elgo-audience-strong);
   border-radius: 0.375rem;
   background: var(--elgo-audience-soft);
   width: 1.375rem;
   height: 1.375rem;
-  cursor: pointer;
 }
 
-.elgo-checklist__check:checked {
+.elgo-checklist > [aria-checked="true"]::before {
   background: var(--elgo-audience-strong) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center / 0.875rem no-repeat;
 }
 
-.elgo-checklist__check:checked + span {
+.elgo-checklist > [aria-checked="true"] {
   color: var(--elgo-text-muted);
 }
 
-.elgo-checklist label:hover {
+/* A nested checklist: indented under its parent item, no box of its own. */
+.elgo-checklist__sub {
+  padding: 0 0 var(--elgo-space-2) 3rem;
+}
+
+.elgo-checklist__sub .elgo-checklist {
+  border: 0;
+  border-radius: 0;
+}
+
+.elgo-checklist__sub .elgo-checklist > li + li {
+  border-top: 0;
+}
+
+.elgo-checklist__sub [role="checkbox"] {
+  padding-block: var(--elgo-space-2);
+}
+
+.elgo-checklist > [role="checkbox"] > div > * {
+  margin: 0;
+}
+
+.elgo-checklist > [role="checkbox"] > div > * + * {
+  margin-top: var(--elgo-space-2);
+}
+
+.elgo-checklist > [role="checkbox"]:hover {
   background: var(--elgo-surface-tint);
 }
 
+.elgo-checklist > [role="checkbox"]:focus-visible {
+  outline: 0.125rem solid var(--elgo-audience-strong);
+  outline-offset: -0.125rem;
+}
+
 @media (max-width: 39.99rem) {
-  .elgo-checklist label {
+  .elgo-checklist > [role="checkbox"] {
     padding: var(--elgo-space-3) var(--elgo-space-4);
   }
 }
 
-/* Phase (elgo-phase) */
+/* Guide heading (elgo-guide-head): a heading led by a 40px icon disk */
 
-.elgo-phases {
+.elgo-prose .elgo-guide-head {
   display: flex;
-  flex-direction: column;
-  gap: var(--elgo-space-4);
+  align-items: center;
+  gap: var(--elgo-space-3);
+}
+
+.elgo-guide-head .elgo-icon-disk {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.elgo-guide-head .elgo-icon-disk img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Columns (elgo-columns): two guide sections side by side, stacked below 900px */
+
+.elgo-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--elgo-space-6);
+}
+
+.elgo-prose .elgo-columns section > * {
+  margin: 0;
+}
+
+.elgo-prose .elgo-columns section > * + * {
+  margin-top: var(--elgo-space-4);
+}
+
+.elgo-prose .elgo-columns h2 {
+  font-size: 1.375rem;
+  line-height: 1.625rem;
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Split (elgo-split): text beside a notice, stacked below 900px */
+
+.elgo-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--elgo-space-6);
+}
+
+.elgo-split > * {
+  margin: 0;
+}
+
+.elgo-split > div:first-child > * + * {
+  margin-top: var(--elgo-flow-text);
+}
+
+.elgo-split > div:first-child > * {
+  margin-bottom: 0;
+}
+
+.elgo-split__aside {
+  display: grid;
+  gap: var(--elgo-space-3);
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--elgo-space-4);
+  }
+}
+
+/* Answer options inside a checklist question (elgo-options): a radio group
+   (--radio, one answer) or a checkbox group (--checkbox, several answers). */
+
+.elgo-prose .elgo-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--elgo-space-2) var(--elgo-space-5);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.elgo-phase {
+.elgo-options [role] {
   display: flex;
-  position: relative;
-  flex-direction: column;
-  gap: var(--elgo-space-3);
-  border-radius: var(--elgo-radius-card);
-  background: var(--elgo-audience-soft);
-  padding: var(--elgo-space-5);
+  align-items: center;
+  gap: var(--elgo-space-2);
+  cursor: pointer;
 }
 
-.elgo-phase + .elgo-phase::before {
-  position: absolute;
-  top: calc(var(--elgo-space-4) * -1);
-  left: 2.4375rem;
-  width: 0.125rem;
-  height: var(--elgo-space-4);
-  background: var(--elgo-audience-mid);
+.elgo-options [role]::before {
+  flex: none;
+  box-sizing: border-box;
+  border: 0.125rem solid var(--elgo-audience-strong);
+  background: var(--elgo-surface-default);
+  width: 1.125rem;
+  height: 1.125rem;
   content: '';
 }
 
-/* The phase spaces its children with gap; drop the prose rhythm inside it. */
-.elgo-prose .elgo-phase > * {
+.elgo-options--radio [role]::before {
+  border-radius: 50%;
+}
+
+.elgo-options--checkbox [role]::before {
+  border-radius: 0.25rem;
+}
+
+.elgo-options--radio [aria-checked="true"]::before {
+  box-shadow: inset 0 0 0 0.1875rem var(--elgo-surface-default);
+  background: var(--elgo-audience-strong);
+}
+
+.elgo-options--checkbox [aria-checked="true"]::before {
+  background: var(--elgo-audience-strong) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center / 0.75rem no-repeat;
+}
+
+.elgo-options [role]:focus-visible {
+  outline: 0.125rem solid var(--elgo-audience-strong);
+  outline-offset: 0.125rem;
+}
+
+/* Space to write an answer under a question (elgo-answer): two dotted lines,
+   for a form that is printed or filled in by hand. */
+.elgo-answer,
+.elgo-checklist > [role="checkbox"] > div > .elgo-answer {
+  --dots: repeating-linear-gradient(to right, var(--elgo-border-strong) 0 0.125rem, transparent 0.125rem 0.375rem);
+  /* Pull back under the tick box, so the lines span the whole list item. */
+  margin: var(--elgo-space-2) 0 0 calc(-1.375rem - var(--elgo-space-3));
+  background: var(--dots) 0 2.375rem / 100% 0.0625rem no-repeat, var(--dots) 0 4.875rem / 100% 0.0625rem no-repeat;
+  height: 5rem;
+  cursor: text;
+}
+
+/* The question text and its answer space take the full width of the item. */
+.elgo-checklist > [role="checkbox"] > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Pillars (elgo-pillars): cards side by side, styled like the "four legal ways"
+   cards on Moving to the EU (tinted card, icon in a white disk, display title).
+   The tone cycles yellow, blue, green, peach; a modifier can pick one. */
+
+.elgo-pillars {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--elgo-space-5);
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-pillar {
+  --pillar-soft: var(--elgo-brand-accent-soft);
+  --pillar-strong: var(--elgo-accent-strong);
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-2);
+  border-radius: 1.35rem;
+  background: var(--pillar-soft);
+  padding: var(--elgo-space-5);
+  min-width: 0;
+}
+
+.elgo-pillar:nth-child(4n+2),
+.elgo-pillar--blue {
+  --pillar-soft: #e4e9ff;
+  --pillar-strong: #3f4db8;
+}
+
+.elgo-pillar:nth-child(4n+3),
+.elgo-pillar--green {
+  --pillar-soft: #d9f2e6;
+  --pillar-strong: var(--elgo-role-ok-strong);
+}
+
+.elgo-pillar:nth-child(4n+4),
+.elgo-pillar--peach {
+  --pillar-soft: var(--elgo-role-story-soft);
+  --pillar-strong: var(--elgo-role-story-strong);
+}
+
+.elgo-prose .elgo-pillar > * {
   margin: 0;
 }
 
-.elgo-phase__title {
+/* The glyph is inline SVG drawn in currentColor, so it takes the card's strong tone. */
+.elgo-pillar__icon {
   display: flex;
+  justify-content: center;
   align-items: center;
+  margin-bottom: var(--elgo-space-2);
+  border-radius: 50%;
+  background: var(--elgo-surface-default);
+  width: 3rem;
+  height: 3rem;
+  color: var(--pillar-strong);
+}
+
+.elgo-pillar__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.elgo-pillar__number {
+  color: var(--pillar-strong);
+  font-family: var(--elgo-font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.8125rem;
+}
+
+.elgo-prose .elgo-pillar h3 {
+  color: var(--elgo-brand-deep);
+  font-family: var(--elgo-font-display);
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.elgo-prose .elgo-pillar h3 + p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-pillars {
+    grid-auto-flow: row;
+    gap: var(--elgo-space-3);
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .elgo-pillar {
+    padding: var(--elgo-space-4);
+  }
+
+  .elgo-pillar__icon {
+    margin-bottom: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .elgo-pillar__icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .elgo-prose .elgo-pillar h3 {
+    font-size: 1.125rem;
+  }
+
+  .elgo-prose .elgo-pillar h3 + p {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+}
+
+/* Flow (elgo-flow): numbered steps on a rail */
+
+.elgo-flow {
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-flow__step {
+  display: flex;
+  position: relative;
+  gap: var(--elgo-space-4);
+}
+
+.elgo-flow__number {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 0 0.375rem var(--elgo-surface-ground);
+  border-radius: 50%;
+  background: var(--elgo-brand-accent);
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--elgo-brand-deep);
+  font-family: var(--elgo-font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Same steps as "How the Gateway helps" on the homepage: yellow disks,
+   a yellow rail between them, and a navy disk for the last step. */
+.elgo-flow__step:last-child .elgo-flow__number {
+  background: var(--elgo-brand-deep);
+  color: var(--elgo-text-on-brand);
+}
+
+.elgo-flow__step:not(:last-child)::before {
+  position: absolute;
+  top: 2.5rem;
+  bottom: 0;
+  left: calc(1.25rem - 0.09375rem);
+  width: 0.1875rem;
+  background: var(--elgo-brand-accent);
+  content: '';
+}
+
+.elgo-flow__content {
+  flex: 1 1 0;
+  padding-top: var(--elgo-space-2);
+  min-width: 0;
+}
+
+.elgo-flow__step:not(:last-child) .elgo-flow__content {
+  padding-bottom: var(--elgo-space-6);
+}
+
+.elgo-prose .elgo-flow__content > * {
+  margin: 0;
+}
+
+.elgo-prose .elgo-flow__content > * + * {
+  margin-top: var(--elgo-space-3);
+}
+
+.elgo-flow__branches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--elgo-space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-flow__branch {
+  border: 1px solid var(--elgo-border-default);
+  border-radius: var(--elgo-radius-control);
+  background: var(--elgo-surface-default);
+  padding: var(--elgo-space-4);
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+}
+
+.elgo-prose .elgo-flow__branch > * {
+  margin: 0;
+}
+
+.elgo-prose .elgo-flow__branch > * + * {
+  margin-top: var(--elgo-space-2);
+}
+
+.elgo-flow__eyebrow {
+  color: var(--elgo-audience-strong);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.075rem;
+  line-height: 0.875rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-flow__branches {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .elgo-flow__step {
+    gap: var(--elgo-space-3);
+  }
+
+  .elgo-flow__content {
+    padding-top: var(--elgo-space-1);
+  }
+}
+
+/* Figure (elgo-figure): an image such as an SVG chart */
+
+.elgo-figure {
+  margin: 0;
+}
+
+.elgo-figure img {
+  display: block;
+  width: 100%;
+  max-width: 33.125rem;
+  height: auto;
+}
+
+/* Blocks after text get the wider "flow/block" gap from the Figma prose. */
+.elgo-prose > * + .elgo-diagram {
+  margin-top: var(--elgo-space-5);
+}
+
+/* Comparison diagram (elgo-diagram): a titled panel with two or four boxes.
+   Each box is a card filled with its tone: --no (story, may not),
+   --yes (ok, must), --neutral (audience). */
+
+.elgo-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-4);
+  border-radius: var(--elgo-radius-card);
+  background: var(--elgo-surface-tint);
+  padding: var(--elgo-space-5);
+}
+
+.elgo-prose .elgo-diagram p,
+.elgo-prose .elgo-diagram ul {
+  margin: 0;
+}
+
+.elgo-diagram__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-1);
+}
+
+.elgo-diagram__title {
   color: var(--elgo-text-heading);
   font-family: var(--elgo-font-heading);
   font-size: 1.125rem;
@@ -662,105 +1169,97 @@ summary:focus-visible {
   line-height: 1.4375rem;
 }
 
-.elgo-phase__number {
-  display: flex;
-  flex: none;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: var(--elgo-audience-strong);
-  width: 2rem;
-  height: 2rem;
-  color: var(--elgo-text-on-brand);
-  font-family: var(--elgo-font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1rem;
-}
-
-.elgo-phase__lead {
-  margin: 0;
-  color: var(--elgo-text-heading);
-  font-weight: 700;
-}
-
-.elgo-phase__lead--then {
-  margin-top: var(--elgo-space-2);
-}
-
-.elgo-phase__row {
-  display: flex;
-  align-items: stretch;
-  gap: var(--elgo-space-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.elgo-phase__row > li:not(.elgo-phase__join) {
-  display: flex;
-  flex: 1 1 0;
-  align-items: center;
-  border-radius: var(--elgo-radius-control);
-  background: var(--elgo-surface-default);
-  padding: var(--elgo-space-3) var(--elgo-space-4);
-  font-size: 0.875rem;
-  line-height: 1.3125rem;
-}
-
-.elgo-phase__row--boxes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-}
-
-.elgo-phase__join {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.125rem;
-  padding: 0 var(--elgo-space-1);
-  color: var(--elgo-text-muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.075rem;
-  line-height: 0.875rem;
-  text-align: center;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.elgo-phase__join img {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.elgo-phase__note {
-  margin: 0;
+.elgo-diagram__source,
+.elgo-diagram__foot {
   color: var(--elgo-text-muted);
   font-size: 0.75rem;
   line-height: 1.0625rem;
 }
 
-@media (max-width: 47.99rem) {
-  .elgo-phase {
+.elgo-diagram__foot a {
+  color: inherit;
+}
+
+.elgo-diagram__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--elgo-space-3);
+}
+
+.elgo-diagram__box {
+  --box-soft: var(--elgo-audience-soft);
+  --box-strong: var(--elgo-text-heading);
+  align-self: stretch;
+  border-radius: var(--elgo-radius-control);
+  background: var(--box-soft);
+}
+
+.elgo-diagram__box--no {
+  --box-soft: var(--elgo-role-story-soft);
+  --box-strong: var(--elgo-role-story-strong);
+}
+
+.elgo-diagram__box--yes {
+  --box-soft: #d9f2e6;
+  --box-strong: var(--elgo-role-ok-strong);
+}
+
+.elgo-diagram__label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--elgo-space-3);
+  padding: var(--elgo-space-4) var(--elgo-space-4) 0;
+  color: var(--box-strong);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3125rem;
+}
+
+/* The icon sits on top in a white disk, like the cards on Moving to the EU. */
+.elgo-diagram__label img {
+  flex: none;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: var(--elgo-surface-default);
+  padding: 0.625rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.elgo-prose .elgo-diagram__box ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-2);
+  padding: var(--elgo-space-3) var(--elgo-space-4) var(--elgo-space-4) 2.125rem;
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+}
+
+.elgo-prose .elgo-diagram__box ul li {
+  position: relative;
+  padding-left: 0;
+}
+
+.elgo-prose .elgo-diagram__box ul li::before {
+  position: absolute;
+  top: 0;
+  left: -1.125rem;
+  width: 1.125rem;
+  height: 1.3125rem;
+  background: url('icons/bullet-s.svg') left center / 1.125rem 1.3125rem no-repeat;
+  content: '';
+}
+
+@media (max-width: 39.99rem) {
+  .elgo-diagram {
     padding: var(--elgo-space-4);
   }
 
-  .elgo-phase + .elgo-phase::before {
-    left: 1.9375rem;
-  }
-
-  .elgo-phase__row {
-    flex-direction: column;
-  }
-
-  .elgo-phase__row--boxes {
-    display: flex;
-  }
-
-  .elgo-phase__join img {
-    transform: rotate(90deg);
+  .elgo-diagram__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -791,6 +1290,30 @@ summary:focus-visible {
   height: 3rem;
 }
 
+.elgo-icon-disk--story {
+  background: var(--elgo-role-story-soft);
+}
+
+/* An inline SVG glyph takes the audience colour (green in the Employers mode). */
+.elgo-icon-disk {
+  color: var(--elgo-audience-strong);
+}
+
+.elgo-icon-disk svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.elgo-guide-head .elgo-icon-disk svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 .elgo-icon-disk img {
   width: 1.5rem;
   height: 1.5rem;
@@ -811,6 +1334,71 @@ summary:focus-visible {
 @media (max-width: 56.24rem) {
   .elgo-iconlist {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Illustration list (elgo-illustration-list): icon, title and text in two
+   columns, like "About the Gateway" on the homepage but without dividers. */
+
+.elgo-illustration-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--elgo-space-6) var(--elgo-space-7);
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-illustration-list li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elgo-space-3);
+}
+
+.elgo-prose .elgo-illustration-list li > * {
+  margin: 0;
+}
+
+.elgo-illustration-list__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--elgo-space-2);
+  border-radius: 50%;
+  background: var(--elgo-surface-tint);
+  width: 3rem;
+  height: 3rem;
+  color: var(--elgo-brand-deep);
+}
+
+.elgo-illustration-list__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.elgo-prose .elgo-illustration-list h3,
+.elgo-prose .elgo-illustration-list h4 {
+  color: var(--elgo-brand-deep);
+  font-family: var(--elgo-font-display);
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.elgo-prose .elgo-illustration-list p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-illustration-list {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--elgo-space-6);
   }
 }
 
@@ -911,6 +1499,59 @@ summary:focus-visible {
   }
 }
 
+/* Source list (elgo-sourcelist): external references, title over domain,
+   with a line on top. Two columns in the wide column, one below 900px. */
+
+.elgo-prose .elgo-sourcelist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--elgo-space-6);
+  border-top: 1px solid var(--elgo-border-default);
+  padding: 0;
+  list-style: none;
+}
+
+.elgo-sourcelist a {
+  display: flex;
+  align-items: center;
+  gap: var(--elgo-space-3);
+  border-bottom: 1px solid var(--elgo-border-default);
+  padding: var(--elgo-space-3) 0;
+  text-decoration: none;
+}
+
+.elgo-sourcelist__title {
+  flex: 1 1 auto;
+  color: var(--elgo-text-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3125rem;
+}
+
+.elgo-sourcelist__domain {
+  display: block;
+  color: var(--elgo-text-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.0625rem;
+}
+
+.elgo-sourcelist a > img {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.elgo-sourcelist a:hover .elgo-sourcelist__title {
+  text-decoration: underline;
+}
+
+@media (max-width: 56.24rem) {
+  .elgo-prose .elgo-sourcelist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Table (elgo-table, Link kind) */
 
 .elgo-table-wrap {
@@ -935,7 +1576,8 @@ summary:focus-visible {
 }
 
 .elgo-table thead th {
-  background: var(--elgo-surface-tint);
+  /* Fixed grey-blue, so table heads don't turn green on employer pages. */
+  background: #f5f6fb;
   color: var(--elgo-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -966,6 +1608,109 @@ summary:focus-visible {
 
 .elgo-table__group + .elgo-table__group {
   margin-top: var(--elgo-space-1);
+}
+
+/* Empty cells are blanks to fill in (form tables), so give them room to write. */
+.elgo-table td:empty {
+  height: 2rem;
+}
+
+/* Optional caption (Figma Table, Data kind): Body/S Semibold, left aligned. */
+.elgo-table caption {
+  padding: var(--elgo-space-3) var(--elgo-space-4);
+  color: var(--elgo-text-heading);
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Data kind: several text columns; each row becomes a card on phones. */
+.elgo-table--data tbody th {
+  width: auto;
+}
+
+@media (max-width: 39.99rem) {
+  .elgo-table--data thead {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .elgo-table--data,
+  .elgo-table--data caption,
+  .elgo-table--data tbody,
+  .elgo-table--data tr,
+  .elgo-table--data th,
+  .elgo-table--data td {
+    display: block;
+  }
+
+  .elgo-table--data tbody tr + tr {
+    border-top: 1px solid var(--elgo-border-default);
+  }
+
+  .elgo-table--data tbody th,
+  .elgo-table--data tbody td {
+    border-top: 0;
+    padding-block: var(--elgo-space-1);
+  }
+
+  .elgo-table--data tbody th {
+    padding-top: var(--elgo-space-3);
+  }
+
+  .elgo-table--data tbody td:last-child {
+    padding-bottom: var(--elgo-space-3);
+  }
+
+  .elgo-table--data td:empty {
+    height: auto;
+    min-height: 2rem;
+  }
+
+  .elgo-table--data td::before {
+    display: block;
+    color: var(--elgo-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.075rem;
+    line-height: 0.875rem;
+    text-transform: uppercase;
+    content: attr(data-label);
+  }
+}
+
+/* Sources table: a narrow number column; the row a footnote points to is
+   highlighted when you jump to it. */
+.elgo-table--sources tbody th {
+  width: 3rem;
+}
+
+.elgo-table--sources tbody tr {
+  scroll-margin-top: var(--elgo-space-6);
+}
+
+.elgo-table--sources tbody tr:target th,
+.elgo-table--sources tbody tr:target td {
+  background: var(--elgo-brand-accent-soft);
+}
+
+/* Footnote numbers in the text link to their row in the sources table. */
+.elgo-fn {
+  line-height: 0;
+}
+
+.elgo-fn a {
+  padding: 0 0.0625rem;
+  color: var(--elgo-audience-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.elgo-fn a:hover,
+.elgo-fn a:focus-visible {
+  text-decoration: underline;
 }
 
 /* Original publication (elgo-publication) */
